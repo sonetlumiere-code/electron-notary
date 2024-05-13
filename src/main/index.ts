@@ -1,4 +1,5 @@
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
+import { User } from '@prisma/client'
 import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
@@ -53,11 +54,12 @@ app.whenReady().then(() => {
   })
 
   // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
+  ipcMain.on('create-user', async (event, data: User) => {
+    const user = await createUser(data)
+    event.reply('user-created', user)
+  })
 
   createWindow()
-
-  createUser()
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
