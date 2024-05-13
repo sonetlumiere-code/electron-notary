@@ -54,9 +54,14 @@ app.whenReady().then(() => {
   })
 
   // IPC test
-  ipcMain.on('create-user', async (event, data: User) => {
+  // ipcMain.on('create-user', async (event, data: User) => {
+  //   const user = await createUser(data)
+  //   event.reply('user-created', user.name)
+  // })
+
+  ipcMain.handle('create-user-with-reply', async (_event, data: User) => {
     const user = await createUser(data)
-    event.reply('user-created', user)
+    return user.id
   })
 
   createWindow()

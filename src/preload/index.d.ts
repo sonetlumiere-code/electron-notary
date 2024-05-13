@@ -1,8 +1,8 @@
-import { ElectronAPI } from '@electron-toolkit/preload'
-
 declare global {
   interface Window {
-    electron: ElectronAPI
-    api: unknown
+    electronApi: {
+      createUser: ({ name: string }) => void
+      createUserWithReply: ({ name: string }) => string
+    }
   }
 }
