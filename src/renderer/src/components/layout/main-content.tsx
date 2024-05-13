@@ -7,7 +7,7 @@ const MainContent = () => {
 
     // window.electronApi.createUser({ name: 'wow' })
 
-    const userName = await window.ipcApi.createUserWithReply({ name: 'wow' })
+    const userName = await window.electronAPI.createUserWithReply({ name: 'wowWW' })
     console.log(userName)
   }
 

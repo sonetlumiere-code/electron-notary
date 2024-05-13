@@ -13,7 +13,7 @@ const api = {
 }
 
 try {
-  contextBridge.exposeInMainWorld('ipcApi', api)
+  contextBridge.exposeInMainWorld('electronAPI', api)
 } catch (error) {
   console.error(error)
 }
