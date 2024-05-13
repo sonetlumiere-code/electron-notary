@@ -3,7 +3,7 @@ import { User } from '@prisma/client'
 import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
-import { createUser } from './prisma-client'
+import { createUser } from './lib/prisma-client'
 
 function createWindow(): void {
   // Create the browser window.
