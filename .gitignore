@@ -4,5 +4,5 @@ out
 .DS_Store
 *.log*
 .env
-dev.db*
+sqlite.db*
 migrations
