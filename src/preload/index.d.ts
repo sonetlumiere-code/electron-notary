@@ -1,6 +1,6 @@
 declare global {
   interface Window {
-    electronApi: {
+    ipcApi: {
       createUser: ({ name: string }) => void
       createUserWithReply: ({ name: string }) => string
     }
