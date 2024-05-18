@@ -8,12 +8,13 @@ if (!process.contextIsolated) {
 // Custom APIs for renderer
 const api = {
   createUser: ({ name }: { name: string }) => ipcRenderer.send('create-user', { name }),
+
   createUserWithReply: ({ name }: { name: string }) =>
     ipcRenderer.invoke('create-user-with-reply', { name })
 }
 
 try {
-  contextBridge.exposeInMainWorld('electronAPI', api)
+  contextBridge.exposeInMainWorld('api', api)
 } catch (error) {
   console.error(error)
 }

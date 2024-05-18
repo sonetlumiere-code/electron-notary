@@ -16,7 +16,7 @@ function createWindow(): void {
     center: true,
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
-      sandbox: false,
+      sandbox: true,
       contextIsolation: true
     }
   })
@@ -54,11 +54,13 @@ app.whenReady().then(() => {
   })
 
   // IPC test
-  // ipcMain.on('create-user', async (event, data: User) => {
-  //   const user = await createUser(data)
-  //   event.reply('user-created', user.name)
-  // })
 
+  // Pattern 1
+  ipcMain.on('create-user', async (_event, data: User) => {
+    createUser(data)
+  })
+
+  // Pattern 2
   ipcMain.handle('create-user-with-reply', async (_event, data: User) => {
     const user = await createUser(data)
     return user.id
