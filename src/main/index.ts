@@ -3,7 +3,7 @@ import { User } from '@prisma/client'
 import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
-import { createUser } from './lib/prisma-client'
+import { createUser, getUsers } from './lib/actions'
 
 function createWindow(): void {
   // Create the browser window.
@@ -64,6 +64,11 @@ app.whenReady().then(() => {
   ipcMain.handle('create-user-with-reply', async (_event, data: User) => {
     const user = await createUser(data)
     return user.id
+  })
+
+  ipcMain.handle('get-users', async () => {
+    const users = await getUsers()
+    return users
   })
 
   createWindow()

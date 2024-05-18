@@ -10,7 +10,9 @@ const api = {
   createUser: ({ name }: { name: string }) => ipcRenderer.send('create-user', { name }),
 
   createUserWithReply: ({ name }: { name: string }) =>
-    ipcRenderer.invoke('create-user-with-reply', { name })
+    ipcRenderer.invoke('create-user-with-reply', { name }),
+
+  getUsers: () => ipcRenderer.invoke('get-users')
 }
 
 try {
