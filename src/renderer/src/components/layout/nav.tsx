@@ -1,12 +1,31 @@
-import { mockData } from '@renderer/mock/data'
-import NavItem from './nav-item'
+import { cn } from '@renderer/lib/utils'
+import { Cloud } from 'lucide-react'
+import { NavLink, useLocation } from 'react-router-dom'
+import { buttonVariants } from '../ui/button'
+import navItems from './nav-items'
 
 const Nav = () => {
+  const location = useLocation()
+
   return (
     <nav className="flex flex-col gap-4 p-4">
+      <div className="p-5 border-b">
+        <Cloud />
+      </div>
       <div className="space-y-2">
-        {mockData.map((item) => (
-          <NavItem key={item.id} dataSheet={item} />
+        {navItems.map((item) => (
+          <NavLink
+            key={item.id}
+            to={item.href}
+            className={cn(
+              buttonVariants({
+                variant: location.pathname === item.href ? 'secondary' : 'ghost'
+              }),
+              'w-full justify-start'
+            )}
+          >
+            {item.name}
+          </NavLink>
         ))}
       </div>
     </nav>

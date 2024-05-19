@@ -1,4 +1,4 @@
-import { DocumentType, MaritalStatus, PersonDataSheet } from '@renderer/types'
+import { DocumentType, MaritalStatus, PersonDataSheet } from 'src/types'
 
 export const mockData: PersonDataSheet[] = [
   {

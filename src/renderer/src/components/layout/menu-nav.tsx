@@ -1,8 +1,12 @@
+import { cn } from '@renderer/lib/utils'
 import { Menu } from 'lucide-react'
-import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
-import Nav from './nav'
+import { NavLink, useLocation } from 'react-router-dom'
+import { buttonVariants } from '../ui/button'
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from '../ui/sheet'
+import navItems from './nav-items'
 
 const MenuNav = () => {
+  const location = useLocation()
   return (
     <Sheet>
       <SheetTrigger>
@@ -10,7 +14,22 @@ const MenuNav = () => {
       </SheetTrigger>
       <SheetContent side="left" className="lg:hidden w-[260px]">
         <nav className="flex flex-col gap-4">
-          <Nav />
+          {navItems.map((item) => (
+            <SheetClose asChild key={item.id}>
+              <NavLink
+                key={item.id}
+                to={item.href}
+                className={cn(
+                  buttonVariants({
+                    variant: location.pathname === item.href ? 'secondary' : 'ghost'
+                  }),
+                  'w-full justify-start'
+                )}
+              >
+                {item.name}
+              </NavLink>
+            </SheetClose>
+          ))}
         </nav>
       </SheetContent>
     </Sheet>

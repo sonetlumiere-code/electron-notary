@@ -1,9 +1,9 @@
 import { User } from '@prisma/client'
 import { useEffect, useState } from 'react'
-import { Button } from '../ui/button'
-import { Input } from '../ui/input'
+import { Button } from './ui/button'
+import { Input } from './ui/input'
 
-const MainContent = () => {
+const Demo = () => {
   const [users, setUsers] = useState<User[] | null>(null)
   // Pattern 1
   const renderToMain = async () => {
@@ -41,4 +41,4 @@ const MainContent = () => {
   )
 }
 
-export default MainContent
+export default Demo
