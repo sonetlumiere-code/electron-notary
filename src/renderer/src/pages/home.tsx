@@ -18,8 +18,10 @@ const HomePage = () => {
     <div>
       Welcome !
       {users?.map((user) => (
-        <div key={user.id}>
+        <div key={user.id} className="flex gap-5">
+          <p>{user.id}</p>
           <h1>{user.name}</h1>
+          <h2>{user.email}</h2>
         </div>
       ))}
     </div>

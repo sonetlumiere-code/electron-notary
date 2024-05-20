@@ -1,6 +1,7 @@
 import db from './sqlite-config'
 
 const createUser = ({ name, email }: { name: string; email: string }) => {
+  console.log({ name, email })
   const query = `INSERT INTO users (name, email) VALUES (?, ?)`
 
   db.run(query, [name, email], function (err) {

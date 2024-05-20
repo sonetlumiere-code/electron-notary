@@ -7,7 +7,7 @@ if (!process.contextIsolated) {
 
 // Custom APIs for renderer
 const api = {
-  createUser: ({ name }: { name: string }) => ipcRenderer.send('create-user', { name }),
+  createUser: (user: { name: string; email: string }) => ipcRenderer.send('create-user', user),
 
   createUserWithReply: ({ name }: { name: string }) =>
     ipcRenderer.invoke('create-user-with-reply', { name }),

@@ -2,7 +2,7 @@ import { Button } from '@renderer/components/ui/button'
 
 const CreatePersonPage = () => {
   const create = async () => {
-    window.api.createUser({ name: 'pattern1', email: 'asd@123.com' })
+    window.api.createUser({ name: 'aswd', email: 'asd@123.com' })
   }
 
   return (

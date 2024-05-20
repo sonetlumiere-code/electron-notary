@@ -67,7 +67,6 @@ app.whenReady().then(() => {
 
   ipcMain.handle('get-users', async () => {
     const users = await getUsers()
-    console.log(users)
     return users
   })
 

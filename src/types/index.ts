@@ -71,7 +71,7 @@ export type LegalPersonDataSheet = {
 }
 
 export type User = {
-  id: number
+  id?: number
   name: string
   email: string
 }
