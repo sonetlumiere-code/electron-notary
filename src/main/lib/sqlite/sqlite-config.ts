@@ -7,15 +7,13 @@ const db = new sqlite3.Database('./sqlite.db', (err) => {
     console.log('Database opened successfully')
   }
 })
-console.log(db)
-export default db
 
 db.run(
   `CREATE TABLE IF NOT EXISTS users (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT,
-  email TEXT
-)`,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    email TEXT
+  )`,
   (err) => {
     if (err) {
       console.error('Table creation error: ', err)
@@ -24,3 +22,5 @@ db.run(
     }
   }
 )
+
+export default db
