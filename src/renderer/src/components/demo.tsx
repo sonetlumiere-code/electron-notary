@@ -1,5 +1,5 @@
-import { User } from '@prisma/client'
 import { useEffect, useState } from 'react'
+import { User } from 'src/types'
 import { Button } from './ui/button'
 import { Input } from './ui/input'
 

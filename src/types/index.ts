@@ -69,3 +69,8 @@ export type LegalPersonDataSheet = {
   balanceCopy: string
   representativeData: string
 }
+
+export type User = {
+  id: number
+  name: string
+}

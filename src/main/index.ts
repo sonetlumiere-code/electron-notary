@@ -1,5 +1,4 @@
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
-import { User } from '@prisma/client'
 import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
@@ -56,12 +55,12 @@ app.whenReady().then(() => {
   // IPC test
 
   // Pattern 1
-  ipcMain.on('create-user', async (_event, data: User) => {
+  ipcMain.on('create-user', async (_event, data) => {
     createUser(data)
   })
 
   // Pattern 2
-  ipcMain.handle('create-user-with-reply', async (_event, data: User) => {
+  ipcMain.handle('create-user-with-reply', async (_event, data) => {
     const user = await createUser(data)
     return user.id
   })
