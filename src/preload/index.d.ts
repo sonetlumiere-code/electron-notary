@@ -1,4 +1,4 @@
-import { User } from '@prisma/client'
+import { User } from 'src/types'
 
 export interface IElectronAPI {
   createUser: ({ name: string }) => Promise<void>
