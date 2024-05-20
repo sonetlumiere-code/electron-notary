@@ -1,6 +1,7 @@
 import { createHashRouter, RouterProvider } from 'react-router-dom'
 import Layout from './components/layout/layout'
 import { ThemeProvider } from './components/theme-provider'
+import { Toaster } from './components/ui/toaster'
 import CreatePersonPage from './pages/create-person'
 import HomePage from './pages/home'
 import PersonDetailsPage from './pages/person-details'
@@ -30,6 +31,7 @@ function App(): JSX.Element {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <RouterProvider router={router} />
+      <Toaster />
     </ThemeProvider>
   )
 }

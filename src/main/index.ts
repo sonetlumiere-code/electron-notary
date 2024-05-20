@@ -60,10 +60,10 @@ app.whenReady().then(() => {
   })
 
   // Pattern 2
-  // ipcMain.handle('create-user-with-reply', async (_event, data) => {
-  //   const user = await createUser(data)
-  //   return user.id
-  // })
+  ipcMain.handle('create-user-with-reply', async (_event, data) => {
+    const user = await createUser(data)
+    return user
+  })
 
   ipcMain.handle('get-users', async () => {
     const users = await getUsers()

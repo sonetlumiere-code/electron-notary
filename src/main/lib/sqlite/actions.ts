@@ -1,19 +1,25 @@
 import db from './sqlite-config'
 
-const createUser = ({ name, email }: { name: string; email: string }) => {
-  console.log({ name, email })
+const createUser = async ({ name, email }: { name: string; email: string }) => {
   const query = `INSERT INTO users (name, email) VALUES (?, ?)`
 
-  db.run(query, [name, email], function (err) {
-    if (err) {
-      console.error('Error inserting data: ', err)
-    } else {
-      console.log(`A row has been inserted with rowid ${this.lastID}`)
-    }
+  return new Promise((resolve, reject) => {
+    db.run(query, [name, email], function (err) {
+      if (err) {
+        console.error('Error inserting data: ', err)
+        reject(err)
+      } else {
+        resolve({
+          id: this.lastID,
+          name,
+          email
+        })
+      }
+    })
   })
 }
 
-const getUsers = () => {
+const getUsers = async () => {
   const query = `SELECT * FROM users`
 
   return new Promise((resolve, reject) => {

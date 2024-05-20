@@ -9,8 +9,8 @@ if (!process.contextIsolated) {
 const api = {
   createUser: (user: { name: string; email: string }) => ipcRenderer.send('create-user', user),
 
-  createUserWithReply: ({ name }: { name: string }) =>
-    ipcRenderer.invoke('create-user-with-reply', { name }),
+  createUserWithReply: (user: { name: string; email: string }) =>
+    ipcRenderer.invoke('create-user-with-reply', user),
 
   getUsers: () => ipcRenderer.invoke('get-users')
 }

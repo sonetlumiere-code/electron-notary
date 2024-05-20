@@ -12,8 +12,11 @@ const Demo = () => {
 
   // Pattern 2
   const renderToMain2Way = async () => {
-    const userName = await window.api.createUserWithReply({ name: 'pattern2' })
-    console.log(userName)
+    const newUser = await window.api.createUserWithReply({
+      name: 'pattern2',
+      email: 'asd@123.com'
+    })
+    console.log(newUser)
   }
 
   useEffect(() => {
