@@ -1,7 +1,7 @@
 import { User } from 'src/types'
 
 export interface IElectronAPI {
-  createUser: ({ name: string }) => Promise<void>
+  createUser: (User) => Promise<void>
   createUserWithReply: ({ name: string }) => Promise<string>
   getUsers: () => Promise<User[]>
 }

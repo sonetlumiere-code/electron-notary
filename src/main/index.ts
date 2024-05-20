@@ -1,8 +1,8 @@
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
-import { app, BrowserWindow, ipcMain, shell } from 'electron'
+import { BrowserWindow, app, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
-import { createUser, getUsers } from './lib/actions'
+import { createUser, getUsers } from './lib/sqlite/actions'
 
 function createWindow(): void {
   // Create the browser window.
@@ -60,13 +60,14 @@ app.whenReady().then(() => {
   })
 
   // Pattern 2
-  ipcMain.handle('create-user-with-reply', async (_event, data) => {
-    const user = await createUser(data)
-    return user.id
-  })
+  // ipcMain.handle('create-user-with-reply', async (_event, data) => {
+  //   const user = await createUser(data)
+  //   return user.id
+  // })
 
   ipcMain.handle('get-users', async () => {
     const users = await getUsers()
+    console.log(users)
     return users
   })
 

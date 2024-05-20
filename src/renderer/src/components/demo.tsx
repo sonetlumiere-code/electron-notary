@@ -7,7 +7,7 @@ const Demo = () => {
   const [users, setUsers] = useState<User[] | null>(null)
   // Pattern 1
   const renderToMain = async () => {
-    window.api.createUser({ name: 'pattern1' })
+    window.api.createUser({ name: 'pattern1', email: 'asd@123.com' })
   }
 
   // Pattern 2
