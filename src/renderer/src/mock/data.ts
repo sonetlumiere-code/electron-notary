@@ -1,4 +1,4 @@
-import { DocumentType, MaritalStatus, PersonDataSheet } from 'src/types'
+import { DocumentType, MaritalStatus, PersonDataSheet } from 'src/main/types'
 
 export const mockData: PersonDataSheet[] = [
   {
