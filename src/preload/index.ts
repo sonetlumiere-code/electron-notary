@@ -1,5 +1,6 @@
 // import { electronAPI } from '@electron-toolkit/preload'
 import { contextBridge, ipcRenderer } from 'electron'
+import { User } from '../main/types'
 
 if (!process.contextIsolated) {
   throw new Error('contextIsolation must be enabled in the BrowserWindow')
@@ -7,10 +8,9 @@ if (!process.contextIsolated) {
 
 // Custom APIs for renderer
 const api = {
-  createUser: (user: { name: string; email: string }) => ipcRenderer.send('create-user', user),
+  createUser: (user: User) => ipcRenderer.send('create-user', user),
 
-  createUserWithReply: (user: { name: string; email: string }) =>
-    ipcRenderer.invoke('create-user-with-reply', user),
+  createUserWithReply: (user: User) => ipcRenderer.invoke('create-user-with-reply', user),
 
   getUsers: () => ipcRenderer.invoke('get-users')
 }

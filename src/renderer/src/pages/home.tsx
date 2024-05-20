@@ -1,29 +1,14 @@
-import { useEffect, useState } from 'react'
-import { User } from 'src/types'
+import LegalPersonsList from '@renderer/components/lists/legal-persons.list'
+import PersonsList from '@renderer/components/lists/persons-list'
+import UsersList from '@renderer/components/lists/users-list'
 
 const HomePage = () => {
-  const [users, setUsers] = useState<User[] | null>(null)
-
-  useEffect(() => {
-    const getUsers = async () => {
-      const res = await window.api.getUsers()
-      setUsers(res)
-      console.log(res)
-    }
-
-    getUsers()
-  }, [])
-
   return (
-    <div>
-      Welcome !
-      {users?.map((user) => (
-        <div key={user.id} className="flex gap-5">
-          <p>{user.id}</p>
-          <h1>{user.name}</h1>
-          <h2>{user.email}</h2>
-        </div>
-      ))}
+    <div className="space-y-12">
+      Home page
+      <UsersList />
+      <PersonsList />
+      <LegalPersonsList />
     </div>
   )
 }
