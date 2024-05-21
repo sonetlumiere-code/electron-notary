@@ -11,17 +11,25 @@ try {
     );
 
     CREATE TABLE IF NOT EXISTS person_data_sheets (
-      id TEXT PRIMARY KEY,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       lastName TEXT NOT NULL,
       gender TEXT NOT NULL,
       nationality TEXT NOT NULL,
-      documentType TEXT NOT NULL,
+      documentType TEXT CHECK (documentType IN ('DNI', 'LC', 'LE', 'PASAPORTE')),
       documentNumber INTEGER NOT NULL,
       CUIT_L INTEGER NOT NULL,
       birthdate TEXT NOT NULL,
       birthplace TEXT NOT NULL,
-      maritalStatus TEXT NOT NULL,
+      maritalStatus TEXT CHECK (maritalStatus IN ('SOLTERO', 'CASADO', 'DIVORCIADO', 'VIUDO')),
+      spouseName TEXT,
+      spouseNumber INTEGER,
+      marriageRegime TEXT,
+      divorceNumber INTEGER,
+      divorceDate TEXT,
+      divorceCourt TEXT,
+      divorceAutos TEXT,
+      deceasedSpouseName TEXT,
       numberOfChildren INTEGER,
       address TEXT NOT NULL,
       city TEXT NOT NULL,
@@ -37,21 +45,8 @@ try {
       referredBy TEXT
     );
 
-    CREATE TABLE IF NOT EXISTS marital_status_details (
-      person_id TEXT NOT NULL,
-      spouseName TEXT,
-      spouseNumber INTEGER,
-      marriageRegime TEXT,
-      divorceNumber INTEGER,
-      divorceDate TEXT,
-      divorceCourt TEXT,
-      divorceAutos TEXT,
-      deceasedSpouseName TEXT,
-      FOREIGN KEY(person_id) REFERENCES person_data_sheets(id)
-    );
-
     CREATE TABLE IF NOT EXISTS legal_person_data_sheets (
-      id TEXT PRIMARY KEY,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       businessName TEXT NOT NULL,
       CUIT INTEGER NOT NULL,
       legalAddress TEXT NOT NULL,

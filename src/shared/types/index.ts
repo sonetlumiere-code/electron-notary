@@ -13,19 +13,19 @@ export enum MaritalStatus {
   VIUDO = 'VIUDO'
 }
 
-export interface MaritalStatusDetails {
-  spouseName?: string
-  spouseNumber?: number
-  marriageRegime?: string
-  divorceNumber?: number
-  divorceDate?: Date
-  divorceCourt?: string
-  divorceAutos?: string
-  deceasedSpouseName?: string
-}
+// export interface MaritalStatusDetails {
+//   spouseName?: string
+//   spouseNumber?: number
+//   marriageRegime?: string
+//   divorceNumber?: number
+//   divorceDate?: Date
+//   divorceCourt?: string
+//   divorceAutos?: string
+//   deceasedSpouseName?: string
+// }
 
 export interface PersonDataSheet {
-  id: string
+  id?: number
   name: string
   lastName: string
   gender: string
@@ -36,7 +36,14 @@ export interface PersonDataSheet {
   birthdate: Date
   birthplace: string
   maritalStatus: MaritalStatus
-  maritalStatusDetails?: MaritalStatusDetails
+  spouseName?: string
+  spouseNumber?: number
+  marriageRegime?: string
+  divorceNumber?: number
+  divorceDate?: Date
+  divorceCourt?: string
+  divorceAutos?: string
+  deceasedSpouseName?: string
   numberOfChildren?: number
   address: string
   city: string
@@ -53,7 +60,7 @@ export interface PersonDataSheet {
 }
 
 export type LegalPersonDataSheet = {
-  id: string
+  id?: number
   businessName: string
   CUIT: number
   legalAddress: string

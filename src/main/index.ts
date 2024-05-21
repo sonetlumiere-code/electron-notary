@@ -2,6 +2,12 @@ import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import { BrowserWindow, app, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
+import { LegalPersonDataSheet, PersonDataSheet, User } from '../shared/types'
+import {
+  createLegalPersonDataSheet,
+  getLegalPersons
+} from './lib/sqlite/crud/legal-person-data-sheet'
+import { createPersonDataSheet, getPersons } from './lib/sqlite/crud/person-data-sheet'
 import { createUser, getUsers } from './lib/sqlite/crud/user'
 
 function createWindow(): void {
@@ -52,22 +58,34 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  // IPC test
-
-  // Pattern 1
-  ipcMain.on('create-user', async (_event, data) => {
-    createUser(data)
-  })
-
-  // Pattern 2
-  ipcMain.handle('create-user-with-reply', async (_event, data) => {
-    const user = await createUser(data)
+  ipcMain.handle('create-user', (_event, data: User) => {
+    const user = createUser(data)
     return user
   })
 
-  ipcMain.handle('get-users', async () => {
-    const users = await getUsers()
+  ipcMain.handle('get-users', () => {
+    const users = getUsers()
     return users
+  })
+
+  ipcMain.handle('create-person', (_event, data: PersonDataSheet) => {
+    const person = createPersonDataSheet(data)
+    return person
+  })
+
+  ipcMain.handle('get-persons', () => {
+    const persons = getPersons()
+    return persons
+  })
+
+  ipcMain.handle('create-legal-person', (_event, data: LegalPersonDataSheet) => {
+    const legalPerson = createLegalPersonDataSheet(data)
+    return legalPerson
+  })
+
+  ipcMain.handle('get-legal-persons', () => {
+    const legalPersons = getLegalPersons()
+    return legalPersons
   })
 
   createWindow()

@@ -1,5 +1,5 @@
+import { User } from '@shared/types'
 import { useEffect, useState } from 'react'
-import { User } from 'src/main/types'
 
 const UsersList = () => {
   const [users, setUsers] = useState<User[] | null>(null)

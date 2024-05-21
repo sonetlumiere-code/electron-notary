@@ -2,10 +2,6 @@ import { Button } from '@renderer/components/ui/button'
 import { toast } from '@renderer/components/ui/use-toast'
 
 const CreateUserPage = () => {
-  const create = async () => {
-    window.api.createUser({ name: 'aswd', email: 'asd@123.com' })
-  }
-
   const createWithReply = async () => {
     try {
       const newUser = await window.api.createUserWithReply({
@@ -18,6 +14,7 @@ const CreateUserPage = () => {
         description: newUser.name
       })
     } catch (error) {
+      console.error(error)
       toast({
         variant: 'destructive',
         title: 'Error creating user',
@@ -29,7 +26,6 @@ const CreateUserPage = () => {
   return (
     <div>
       Create user page
-      <Button onClick={create}>Create user</Button>
       <Button onClick={createWithReply}>Create w reply</Button>
     </div>
   )

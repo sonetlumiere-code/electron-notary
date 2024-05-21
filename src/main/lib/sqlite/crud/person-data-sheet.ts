@@ -1,33 +1,78 @@
-import { PersonDataSheet } from '../../../types/index'
+import { PersonDataSheet } from '../../../../shared/types/index'
 import db from '../sqlite-config'
 
 const createPersonDataSheet = (data: PersonDataSheet) => {
   const query = `
     INSERT INTO person_data_sheets (
-      id, name, lastName, gender, nationality, documentType, documentNumber, CUIT_L, birthdate, birthplace,
-      maritalStatus, numberOfChildren, address, city, province, profession, phoneNumber, mobileNumber, email,
-      isPoliticallyExposed, politicalPosition, originOfFunds, reasonForChoosing, referredBy
+      name, lastName, gender, nationality, documentType, documentNumber, CUIT_L, birthdate, birthplace,
+      maritalStatus, spouseName, spouseNumber, marriageRegime, divorceNumber, divorceDate, divorceCourt,
+      divorceAutos, deceasedSpouseName, numberOfChildren, address, city, province, profession, phoneNumber,
+      mobileNumber, email, isPoliticallyExposed, politicalPosition, originOfFunds, reasonForChoosing, referredBy
     ) VALUES (
-      @id, @name, @lastName, @gender, @nationality, @documentType, @documentNumber, @CUIT_L, @birthdate, @birthplace,
-      @maritalStatus, @numberOfChildren, @address, @city, @province, @profession, @phoneNumber, @mobileNumber, @email,
-      @isPoliticallyExposed, @politicalPosition, @originOfFunds, @reasonForChoosing, @referredBy
+      ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
     )
   `
 
   try {
     const stmt = db.prepare(query)
-    stmt.run({
-      ...data,
-      birthdate: data.birthdate.toISOString(), // Convert Date to string
-      isPoliticallyExposed: data.isPoliticallyExposed ? 1 : 0 // Convert boolean to integer
-    })
+    const info = stmt.run(
+      data.name,
+      data.lastName,
+      data.gender,
+      data.nationality,
+      data.documentType,
+      data.documentNumber,
+      data.CUIT_L,
+      data.birthdate.toISOString(),
+      data.birthplace,
+      data.maritalStatus,
+      data.spouseName,
+      data.spouseNumber,
+      data.marriageRegime,
+      data.divorceNumber,
+      data.divorceDate,
+      data.divorceCourt,
+      data.divorceAutos,
+      data.deceasedSpouseName,
+      data.numberOfChildren,
+      data.address,
+      data.city,
+      data.province,
+      data.profession,
+      data.phoneNumber,
+      data.mobileNumber,
+      data.email,
+      data.isPoliticallyExposed ? 1 : 0,
+      data.politicalPosition,
+      data.originOfFunds,
+      data.reasonForChoosing,
+      data.referredBy
+    )
+
+    return {
+      id: info.lastInsertRowid,
+      ...data
+    }
   } catch (err) {
     console.error('Error inserting data: ', err)
     throw err
   }
 }
 
-const getPersonDataSheetById = (id: string): PersonDataSheet | null => {
+const getPersons = (): PersonDataSheet[] | null => {
+  const query = `SELECT * FROM person_data_sheets`
+
+  try {
+    const stmt = db.prepare(query)
+    const rows = stmt.all()
+    return rows
+  } catch (err) {
+    console.error('Error retrieving data: ', err)
+    throw err
+  }
+}
+
+const getPersonDataSheetById = (id: number): PersonDataSheet | null => {
   const query = `SELECT * FROM person_data_sheets WHERE id = ?`
 
   try {
@@ -36,7 +81,6 @@ const getPersonDataSheetById = (id: string): PersonDataSheet | null => {
     if (row) {
       return {
         ...row,
-        birthdate: new Date(row.birthdate), // Convert string to Date
         isPoliticallyExposed: Boolean(row.isPoliticallyExposed) // Convert integer to boolean
       }
     }
@@ -50,46 +94,63 @@ const getPersonDataSheetById = (id: string): PersonDataSheet | null => {
 const updatePersonDataSheet = (data: PersonDataSheet) => {
   const query = `
     UPDATE person_data_sheets SET
-      name = @name,
-      lastName = @lastName,
-      gender = @gender,
-      nationality = @nationality,
-      documentType = @documentType,
-      documentNumber = @documentNumber,
-      CUIT_L = @CUIT_L,
-      birthdate = @birthdate,
-      birthplace = @birthplace,
-      maritalStatus = @maritalStatus,
-      numberOfChildren = @numberOfChildren,
-      address = @address,
-      city = @city,
-      province = @province,
-      profession = @profession,
-      phoneNumber = @phoneNumber,
-      mobileNumber = @mobileNumber,
-      email = @email,
-      isPoliticallyExposed = @isPoliticallyExposed,
-      politicalPosition = @politicalPosition,
-      originOfFunds = @originOfFunds,
-      reasonForChoosing = @reasonForChoosing,
-      referredBy = @referredBy
-    WHERE id = @id
+      name = ?, lastName = ?, gender = ?, nationality = ?, documentType = ?, documentNumber = ?,
+      CUIT_L = ?, birthdate = ?, birthplace = ?, maritalStatus = ?, spouseName = ?, spouseNumber = ?,
+      marriageRegime = ?, divorceNumber = ?, divorceDate = ?, divorceCourt = ?, divorceAutos = ?,
+      deceasedSpouseName = ?, numberOfChildren = ?, address = ?, city = ?, province = ?, profession = ?,
+      phoneNumber = ?, mobileNumber = ?, email = ?, isPoliticallyExposed = ?, politicalPosition = ?,
+      originOfFunds = ?, reasonForChoosing = ?, referredBy = ?
+    WHERE id = ?
   `
 
   try {
     const stmt = db.prepare(query)
-    stmt.run({
-      ...data,
-      birthdate: data.birthdate.toISOString(),
-      isPoliticallyExposed: data.isPoliticallyExposed ? 1 : 0
-    })
+    const info = stmt.run(
+      data.name,
+      data.lastName,
+      data.gender,
+      data.nationality,
+      data.documentType,
+      data.documentNumber,
+      data.CUIT_L,
+      data.birthdate.toISOString(),
+      data.birthplace,
+      data.maritalStatus,
+      data.spouseName,
+      data.spouseNumber,
+      data.marriageRegime,
+      data.divorceNumber,
+      data.divorceDate ? data.divorceDate.toISOString() : null,
+      data.divorceCourt,
+      data.divorceAutos,
+      data.deceasedSpouseName,
+      data.numberOfChildren,
+      data.address,
+      data.city,
+      data.province,
+      data.profession,
+      data.phoneNumber,
+      data.mobileNumber,
+      data.email,
+      data.isPoliticallyExposed ? 1 : 0,
+      data.politicalPosition,
+      data.originOfFunds,
+      data.reasonForChoosing,
+      data.referredBy,
+      data.id
+    )
+
+    return {
+      id: info.lastInsertRowid,
+      ...data
+    }
   } catch (err) {
     console.error('Error updating data: ', err)
     throw err
   }
 }
 
-const deletePersonDataSheet = (id: string) => {
+const deletePersonDataSheet = (id: number) => {
   const query = `DELETE FROM person_data_sheets WHERE id = ?`
 
   try {
@@ -105,5 +166,6 @@ export {
   createPersonDataSheet,
   deletePersonDataSheet,
   getPersonDataSheetById,
+  getPersons,
   updatePersonDataSheet
 }

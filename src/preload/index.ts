@@ -1,6 +1,5 @@
-// import { electronAPI } from '@electron-toolkit/preload'
 import { contextBridge, ipcRenderer } from 'electron'
-import { User } from '../main/types'
+import { LegalPersonDataSheet, PersonDataSheet, User } from '../shared/types'
 
 if (!process.contextIsolated) {
   throw new Error('contextIsolation must be enabled in the BrowserWindow')
@@ -8,11 +7,15 @@ if (!process.contextIsolated) {
 
 // Custom APIs for renderer
 const api = {
-  createUser: (user: User) => ipcRenderer.send('create-user', user),
+  createUserWithReply: (user: User) => ipcRenderer.invoke('create-user', user),
+  getUsers: () => ipcRenderer.invoke('get-users'),
 
-  createUserWithReply: (user: User) => ipcRenderer.invoke('create-user-with-reply', user),
+  createPerson: (person: PersonDataSheet) => ipcRenderer.invoke('create-person', person),
+  getPersons: () => ipcRenderer.invoke('get-persons'),
 
-  getUsers: () => ipcRenderer.invoke('get-users')
+  createLegalPerson: (legalPerson: LegalPersonDataSheet) =>
+    ipcRenderer.invoke('create-legal-person', legalPerson),
+  getLegalPersons: () => ipcRenderer.invoke('get-legal-persons')
 }
 
 try {

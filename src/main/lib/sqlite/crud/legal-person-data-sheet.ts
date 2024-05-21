@@ -1,32 +1,58 @@
-import { LegalPersonDataSheet } from '../../../types'
+import { LegalPersonDataSheet } from '../../../../shared/types'
 import db from '../sqlite-config'
 
 const createLegalPersonDataSheet = (data: LegalPersonDataSheet) => {
   const query = `
     INSERT INTO legal_person_data_sheets (
-      id, businessName, CUIT, legalAddress, mainActivity, instrumentOfConstitution, registrationDate,
+      businessName, CUIT, legalAddress, mainActivity, instrumentOfConstitution, registrationDate,
       registrationNumber, registeredOfficePhone, registeredOfficeAddress, registeredOfficeEmail, statuteCopy,
       proceedingsCopy, balanceCopy, representativeData
-    ) VALUES (
-      @id, @businessName, @CUIT, @legalAddress, @mainActivity, @instrumentOfConstitution, @registrationDate,
-      @registrationNumber, @registeredOfficePhone, @registeredOfficeAddress, @registeredOfficeEmail, @statuteCopy,
-      @proceedingsCopy, @balanceCopy, @representativeData
-    )
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `
 
   try {
     const stmt = db.prepare(query)
-    stmt.run({
-      ...data,
-      registrationDate: data.registrationDate.toISOString() // Convert Date to string
-    })
+    const info = stmt.run(
+      data.businessName,
+      data.CUIT,
+      data.legalAddress,
+      data.mainActivity,
+      data.instrumentOfConstitution,
+      data.registrationDate.toISOString(), // Convert Date to string
+      data.registrationNumber,
+      data.registeredOfficePhone,
+      data.registeredOfficeAddress,
+      data.registeredOfficeEmail,
+      data.statuteCopy,
+      data.proceedingsCopy,
+      data.balanceCopy,
+      data.representativeData
+    )
+
+    return {
+      id: info.lastInsertRowid,
+      ...data
+    }
   } catch (err) {
     console.error('Error inserting data: ', err)
     throw err
   }
 }
 
-const getLegalPersonDataSheetById = (id: string): LegalPersonDataSheet | null => {
+const getLegalPersons = (): LegalPersonDataSheet[] | null => {
+  const query = `SELECT * FROM legal_person_data_sheets`
+
+  try {
+    const stmt = db.prepare(query)
+    const rows = stmt.all()
+    return rows
+  } catch (err) {
+    console.error('Error retrieving data: ', err)
+    throw err
+  }
+}
+
+const getLegalPersonDataSheetById = (id: number): LegalPersonDataSheet | null => {
   const query = `SELECT * FROM legal_person_data_sheets WHERE id = ?`
 
   try {
@@ -48,36 +74,43 @@ const getLegalPersonDataSheetById = (id: string): LegalPersonDataSheet | null =>
 const updateLegalPersonDataSheet = (data: LegalPersonDataSheet) => {
   const query = `
     UPDATE legal_person_data_sheets SET
-      businessName = @businessName,
-      CUIT = @CUIT,
-      legalAddress = @legalAddress,
-      mainActivity = @mainActivity,
-      instrumentOfConstitution = @instrumentOfConstitution,
-      registrationDate = @registrationDate,
-      registrationNumber = @registrationNumber,
-      registeredOfficePhone = @registeredOfficePhone,
-      registeredOfficeAddress = @registeredOfficeAddress,
-      registeredOfficeEmail = @registeredOfficeEmail,
-      statuteCopy = @statuteCopy,
-      proceedingsCopy = @proceedingsCopy,
-      balanceCopy = @balanceCopy,
-      representativeData = @representativeData
-    WHERE id = @id
+      businessName = ?, CUIT = ?, legalAddress = ?, mainActivity = ?, instrumentOfConstitution = ?,
+      registrationDate = ?, registrationNumber = ?, registeredOfficePhone = ?, registeredOfficeAddress = ?,
+      registeredOfficeEmail = ?, statuteCopy = ?, proceedingsCopy = ?, balanceCopy = ?, representativeData = ?
+    WHERE id = ?
   `
 
   try {
     const stmt = db.prepare(query)
-    stmt.run({
-      ...data,
-      registrationDate: data.registrationDate.toISOString()
-    })
+    const info = stmt.run(
+      data.businessName,
+      data.CUIT,
+      data.legalAddress,
+      data.mainActivity,
+      data.instrumentOfConstitution,
+      data.registrationDate.toISOString(), // Convert Date to string
+      data.registrationNumber,
+      data.registeredOfficePhone,
+      data.registeredOfficeAddress,
+      data.registeredOfficeEmail,
+      data.statuteCopy,
+      data.proceedingsCopy,
+      data.balanceCopy,
+      data.representativeData,
+      data.id
+    )
+
+    return {
+      id: info.lastInsertRowid,
+      ...data
+    }
   } catch (err) {
     console.error('Error updating data: ', err)
     throw err
   }
 }
 
-const deleteLegalPersonDataSheet = (id: string) => {
+const deleteLegalPersonDataSheet = (id: number) => {
   const query = `DELETE FROM legal_person_data_sheets WHERE id = ?`
 
   try {
@@ -93,5 +126,6 @@ export {
   createLegalPersonDataSheet,
   deleteLegalPersonDataSheet,
   getLegalPersonDataSheetById,
+  getLegalPersons,
   updateLegalPersonDataSheet
 }

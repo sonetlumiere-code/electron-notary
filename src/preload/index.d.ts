@@ -1,9 +1,14 @@
-import { User } from 'src/types'
+import { LegalPersonDataSheet, PersonDataSheet, User } from 'src/main/types'
 
 export interface IElectronAPI {
-  createUser: (user: User) => Promise<void>
-  createUserWithReply: ({ name: string, email: string }) => Promise<User>
-  getUsers: () => Promise<User[]>
+  createUserWithReply: (user: User) => Promise<User>
+  getUsers: () => Promise<User[] | null>
+
+  createPerson: (person: PersonDataSheet) => Promise<void>
+  getPersons: () => Promise<PersonDataSheet[] | null>
+
+  createLegalPerson: (legalPerson: LegalPersonDataSheet) => Promise<void>
+  getLegalPersons: () => Promise<LegalPersonDataSheet[] | null>
 }
 
 declare global {
