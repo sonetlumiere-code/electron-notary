@@ -4,9 +4,22 @@ import { useEffect, useState } from 'react'
 const PersonsList = () => {
   const [persons, setPersons] = useState<PersonDataSheet[] | null>(null)
 
+  // useEffect(() => {
+  //   const getPersons = async () => {
+  //     const res = await window.api.getPersons()
+  //     setPersons(res)
+  //     console.log(res)
+  //   }
+
+  //   getPersons()
+  // }, [])
+
   useEffect(() => {
     const getPersons = async () => {
-      const res = await window.api.getPersons()
+      const res = await window.api.searchPersons({
+        name: 'Al',
+        email: 'alfio.doe@exampl'
+      })
       setPersons(res)
       console.log(res)
     }

@@ -12,6 +12,8 @@ const api = {
 
   createPerson: (person: PersonDataSheet) => ipcRenderer.invoke('create-person', person),
   getPersons: () => ipcRenderer.invoke('get-persons'),
+  searchPersons: (filters: Partial<PersonDataSheet>) =>
+    ipcRenderer.invoke('search-persons', filters),
 
   createLegalPerson: (legalPerson: LegalPersonDataSheet) =>
     ipcRenderer.invoke('create-legal-person', legalPerson),

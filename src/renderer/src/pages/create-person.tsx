@@ -6,7 +6,7 @@ const CreatePersonPage = () => {
   const createPerson = async () => {
     try {
       const newPerson = await window.api.createPerson({
-        name: 'John',
+        name: 'Alfio',
         lastName: 'Doe',
         gender: 'Male',
         nationality: 'American',
@@ -30,7 +30,7 @@ const CreatePersonPage = () => {
         profession: 'Engineer',
         phoneNumber: '555-1234',
         mobileNumber: '555-5678',
-        email: 'john.doe@example.com',
+        email: 'alfio.doe@example.com',
         isPoliticallyExposed: true,
         politicalPosition: 'asd',
         originOfFunds: 'qqqqqq',

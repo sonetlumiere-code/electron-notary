@@ -7,7 +7,11 @@ import {
   createLegalPersonDataSheet,
   getLegalPersons
 } from './lib/sqlite/crud/legal-person-data-sheet'
-import { createPersonDataSheet, getPersons } from './lib/sqlite/crud/person-data-sheet'
+import {
+  createPersonDataSheet,
+  getPersons,
+  searchPersonDataSheets
+} from './lib/sqlite/crud/person-data-sheet'
 import { createUser, getUsers } from './lib/sqlite/crud/user'
 
 function createWindow(): void {
@@ -75,6 +79,11 @@ app.whenReady().then(() => {
 
   ipcMain.handle('get-persons', () => {
     const persons = getPersons()
+    return persons
+  })
+
+  ipcMain.handle('search-persons', (_event, filters: Partial<PersonDataSheet>) => {
+    const persons = searchPersonDataSheets(filters)
     return persons
   })
 

@@ -162,10 +162,95 @@ const deletePersonDataSheet = (id: number) => {
   }
 }
 
+const searchPersonDataSheets = (filters: Partial<PersonDataSheet>): PersonDataSheet[] => {
+  let query = `SELECT * FROM person_data_sheets WHERE 1=1`
+  const params: (string | number | Date | null)[] = []
+
+  if (filters.name) {
+    query += ` AND name LIKE ?`
+    params.push(`%${filters.name}%`)
+  }
+  if (filters.province) {
+    query += ` AND province LIKE ?`
+    params.push(`%${filters.province}%`)
+  }
+  if (filters.gender) {
+    query += ` AND gender LIKE ?`
+    params.push(`%${filters.gender}%`)
+  }
+  if (filters.nationality) {
+    query += ` AND nationality LIKE ?`
+    params.push(`%${filters.nationality}%`)
+  }
+  if (filters.documentType) {
+    query += ` AND documentType = ?`
+    params.push(filters.documentType)
+  }
+  if (filters.documentNumber) {
+    query += ` AND documentNumber = ?`
+    params.push(filters.documentNumber)
+  }
+  if (filters.birthplace) {
+    query += ` AND birthplace LIKE ?`
+    params.push(`%${filters.birthplace}%`)
+  }
+  if (filters.profession) {
+    query += ` AND profession LIKE ?`
+    params.push(`%${filters.profession}%`)
+  }
+  if (filters.phoneNumber) {
+    query += ` AND phoneNumber = ?`
+    params.push(filters.phoneNumber)
+  }
+  if (filters.mobileNumber) {
+    query += ` AND mobileNumber LIKE ?`
+    params.push(`%${filters.mobileNumber}%`)
+  }
+  if (filters.email) {
+    query += ` AND email LIKE ?`
+    params.push(`%${filters.email}%`)
+  }
+  if (filters.isPoliticallyExposed !== undefined) {
+    query += ` AND isPoliticallyExposed = ?`
+    params.push(filters.isPoliticallyExposed ? 1 : 0)
+  }
+  if (filters.politicalPosition) {
+    query += ` AND politicalPosition LIKE ?`
+    params.push(`%${filters.politicalPosition}%`)
+  }
+  if (filters.originOfFunds) {
+    query += ` AND originOfFunds LIKE ?`
+    params.push(`%${filters.originOfFunds}%`)
+  }
+  if (filters.reasonForChoosing) {
+    query += ` AND reasonForChoosing LIKE ?`
+    params.push(`%${filters.reasonForChoosing}%`)
+  }
+  if (filters.referredBy) {
+    query += ` AND referredBy LIKE ?`
+    params.push(`%${filters.referredBy}%`)
+  }
+
+  try {
+    const stmt = db.prepare(query)
+    const rows = stmt.all(...params)
+    return rows.map((row: PersonDataSheet) => ({
+      ...row,
+      birthdate: new Date(row.birthdate),
+      divorceDate: row.divorceDate ? new Date(row.divorceDate) : null,
+      isPoliticallyExposed: Boolean(row.isPoliticallyExposed)
+    }))
+  } catch (err) {
+    console.error('Error searching data: ', err)
+    throw err
+  }
+}
+
 export {
   createPersonDataSheet,
   deletePersonDataSheet,
   getPersonDataSheetById,
   getPersons,
+  searchPersonDataSheets,
   updatePersonDataSheet
 }
