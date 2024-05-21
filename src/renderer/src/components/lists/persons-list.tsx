@@ -16,7 +16,7 @@ const PersonsList = () => {
 
   return (
     <>
-      <div>PersonsList</div>
+      <div>Persons List</div>
       {persons?.map((person) => (
         <div key={person.id} className="flex gap-5">
           <p>{person.id}</p>

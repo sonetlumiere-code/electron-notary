@@ -23,6 +23,7 @@ const CreatePersonPage = () => {
         divorceDate: 'asd',
         divorceCourt: 'qqqqqq',
         deceasedSpouseName: 'w',
+        numberOfChildren: 2,
         address: '123 Main St',
         city: 'New York City',
         province: 'New York',
@@ -30,6 +31,9 @@ const CreatePersonPage = () => {
         phoneNumber: '555-1234',
         mobileNumber: '555-5678',
         email: 'john.doe@example.com',
+        isPoliticallyExposed: true,
+        politicalPosition: 'asd',
+        originOfFunds: 'qqqqqq',
         reasonForChoosing: 'Recommended by a friend',
         referredBy: 'Jane Smith'
       })
@@ -42,7 +46,7 @@ const CreatePersonPage = () => {
       console.error(error)
       toast({
         variant: 'destructive',
-        title: 'Error creando la ficha de datos personales'
+        title: 'Error creando la ficha de datos personales.'
       })
     }
   }

@@ -14,6 +14,7 @@ export enum MaritalStatus {
 }
 
 // export interface MaritalStatusDetails {
+//   id?: number
 //   spouseName?: string
 //   spouseNumber?: number
 //   marriageRegime?: string

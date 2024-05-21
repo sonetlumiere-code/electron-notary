@@ -1,13 +1,13 @@
 import { LegalPersonDataSheet, PersonDataSheet, User } from 'src/main/types'
 
 export interface IElectronAPI {
-  createUserWithReply: (user: User) => Promise<User>
+  createUserWithReply: (user: User) => Promise<User | null>
   getUsers: () => Promise<User[] | null>
 
-  createPerson: (person: PersonDataSheet) => Promise<void>
+  createPerson: (person: PersonDataSheet) => Promise<PersonDataSheet | null>
   getPersons: () => Promise<PersonDataSheet[] | null>
 
-  createLegalPerson: (legalPerson: LegalPersonDataSheet) => Promise<void>
+  createLegalPerson: (legalPerson: LegalPersonDataSheet) => Promise<LegalPersonDataSheet | null>
   getLegalPersons: () => Promise<LegalPersonDataSheet[] | null>
 }
 
