@@ -17,22 +17,24 @@ const MenuNav = () => {
           <div className="p-5 border-b">
             <Cloud />
           </div>
-          {navItems.map((item) => (
-            <SheetClose asChild key={item.id}>
-              <NavLink
-                key={item.id}
-                to={item.href}
-                className={cn(
-                  buttonVariants({
-                    variant: location.pathname === item.href ? 'secondary' : 'ghost'
-                  }),
-                  'w-full justify-start'
-                )}
-              >
-                {item.name}
-              </NavLink>
-            </SheetClose>
-          ))}
+          <div className="space-y-2">
+            {navItems.map((item) => (
+              <SheetClose asChild key={item.id}>
+                <NavLink
+                  key={item.id}
+                  to={item.href}
+                  className={cn(
+                    buttonVariants({
+                      variant: location.pathname === item.href ? 'secondary' : 'ghost'
+                    }),
+                    'w-full justify-start'
+                  )}
+                >
+                  {item.name}
+                </NavLink>
+              </SheetClose>
+            ))}
+          </div>
         </nav>
       </SheetContent>
     </Sheet>

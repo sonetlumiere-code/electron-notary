@@ -20,6 +20,7 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table'
+import { Search } from 'lucide-react'
 import { useState } from 'react'
 import { columns } from './columns'
 
@@ -55,7 +56,17 @@ export function PersonsDataTable({ data }: PersonsDataTableProps) {
   return (
     <div className="relative grid gap-4">
       <div className="flex items-center">
-        <Input className="max-w-xs" onChange={(event) => setFiltering(event.target.value)} />
+        <div className="relative">
+          <Input
+            type="text"
+            placeholder="Buscar"
+            onChange={(event) => setFiltering(event.target.value)}
+            className="pl-10 pr-4"
+          />
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <Search className="h-4 w-4 text-gray-500" />
+          </div>
+        </div>
         <DataTableViewOptions table={table} />
       </div>
       <div className="">

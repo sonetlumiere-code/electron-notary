@@ -28,13 +28,13 @@ const PersonActions = ({ person }: PersonActionsProps) => {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Acciones</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <Link to={`person/${person.id}`}>
+        <Link to={`/person/${person.id}`}>
           <DropdownMenuItem>
             <ViewIcon className="w-4 h-4 mr-2" />
             <p className="ml-2">Ver</p>
           </DropdownMenuItem>
         </Link>
-        <Link to={`edit-person/${person.id}`}>
+        <Link to={`/edit-person/${person.id}`}>
           <DropdownMenuItem>
             <Edit className="w-4 h-4 mr-2" />
             <p className="ml-2">Editar</p>
