@@ -18,12 +18,11 @@ const DeletePerson = ({ person }: DeletePersonProps) => {
       countDown: 3
     }).then(async () => {
       try {
+        window.api.deletePerson(person.id as number)
         toast({
           title: 'Ficha personal eliminada.',
           description: 'La ficha ha sido eliminada correctamente.'
         })
-        // TO DO
-        console.log({ person })
       } catch (error) {
         toast({
           variant: 'destructive',

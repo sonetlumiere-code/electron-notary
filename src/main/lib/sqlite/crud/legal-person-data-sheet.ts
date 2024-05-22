@@ -1,7 +1,7 @@
 import { LegalPersonDataSheet } from '../../../../shared/types'
 import db from '../sqlite-config'
 
-const createLegalPersonDataSheet = (data: LegalPersonDataSheet) => {
+const createLegalPerson = (data: LegalPersonDataSheet) => {
   const query = `
     INSERT INTO legal_person_data_sheets (
       businessName, CUIT, legalAddress, mainActivity, instrumentOfConstitution, registrationDate,
@@ -52,7 +52,7 @@ const getLegalPersons = (): LegalPersonDataSheet[] | null => {
   }
 }
 
-const getLegalPersonDataSheetById = (id: number): LegalPersonDataSheet | null => {
+const getLegalPersonById = (id: number): LegalPersonDataSheet | null => {
   const query = `SELECT * FROM legal_person_data_sheets WHERE id = ?`
 
   try {
@@ -71,7 +71,7 @@ const getLegalPersonDataSheetById = (id: number): LegalPersonDataSheet | null =>
   }
 }
 
-const updateLegalPersonDataSheet = (data: LegalPersonDataSheet) => {
+const updateLegalPerson = (data: LegalPersonDataSheet) => {
   const query = `
     UPDATE legal_person_data_sheets SET
       businessName = ?, CUIT = ?, legalAddress = ?, mainActivity = ?, instrumentOfConstitution = ?,
@@ -110,7 +110,7 @@ const updateLegalPersonDataSheet = (data: LegalPersonDataSheet) => {
   }
 }
 
-const deleteLegalPersonDataSheet = (id: number) => {
+const deleteLegalPerson = (id: number) => {
   const query = `DELETE FROM legal_person_data_sheets WHERE id = ?`
 
   try {
@@ -121,11 +121,10 @@ const deleteLegalPersonDataSheet = (id: number) => {
     throw err
   }
 }
-
 export {
-  createLegalPersonDataSheet,
-  deleteLegalPersonDataSheet,
-  getLegalPersonDataSheetById,
+  createLegalPerson,
+  deleteLegalPerson,
+  getLegalPersonById,
   getLegalPersons,
-  updateLegalPersonDataSheet
+  updateLegalPerson
 }

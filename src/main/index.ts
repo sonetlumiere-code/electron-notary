@@ -3,14 +3,12 @@ import { BrowserWindow, app, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
 import { LegalPersonDataSheet, PersonDataSheet, User } from '../shared/types'
+import { createLegalPerson, getLegalPersons } from './lib/sqlite/crud/legal-person-data-sheet'
 import {
-  createLegalPersonDataSheet,
-  getLegalPersons
-} from './lib/sqlite/crud/legal-person-data-sheet'
-import {
-  createPersonDataSheet,
+  createPerson,
+  deletePerson,
   getPersons,
-  searchPersonDataSheets
+  searchPersons
 } from './lib/sqlite/crud/person-data-sheet'
 import { createUser, getUsers } from './lib/sqlite/crud/user'
 
@@ -73,7 +71,7 @@ app.whenReady().then(() => {
   })
 
   ipcMain.handle('create-person', (_event, data: PersonDataSheet) => {
-    const person = createPersonDataSheet(data)
+    const person = createPerson(data)
     return person
   })
 
@@ -82,13 +80,18 @@ app.whenReady().then(() => {
     return persons
   })
 
+  ipcMain.handle('delete-person', (_event, id: number) => {
+    const res = deletePerson(id)
+    return res
+  })
+
   ipcMain.handle('search-persons', (_event, filters: Partial<PersonDataSheet>) => {
-    const persons = searchPersonDataSheets(filters)
+    const persons = searchPersons(filters)
     return persons
   })
 
   ipcMain.handle('create-legal-person', (_event, data: LegalPersonDataSheet) => {
-    const legalPerson = createLegalPersonDataSheet(data)
+    const legalPerson = createLegalPerson(data)
     return legalPerson
   })
 

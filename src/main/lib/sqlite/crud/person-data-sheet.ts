@@ -1,7 +1,7 @@
 import { PersonDataSheet } from '../../../../shared/types/index'
 import db from '../sqlite-config'
 
-const createPersonDataSheet = (data: PersonDataSheet) => {
+const createPerson = (data: PersonDataSheet) => {
   const query = `
     INSERT INTO person_data_sheets (
       name, lastName, gender, nationality, documentType, documentNumber, CUIT_L, birthdate, birthplace,
@@ -72,7 +72,7 @@ const getPersons = (): PersonDataSheet[] | null => {
   }
 }
 
-const getPersonDataSheetById = (id: number): PersonDataSheet | null => {
+const getPersonById = (id: number): PersonDataSheet | null => {
   const query = `SELECT * FROM person_data_sheets WHERE id = ?`
 
   try {
@@ -91,7 +91,7 @@ const getPersonDataSheetById = (id: number): PersonDataSheet | null => {
   }
 }
 
-const updatePersonDataSheet = (data: PersonDataSheet) => {
+const updatePerson = (data: PersonDataSheet) => {
   const query = `
     UPDATE person_data_sheets SET
       name = ?, lastName = ?, gender = ?, nationality = ?, documentType = ?, documentNumber = ?,
@@ -150,19 +150,20 @@ const updatePersonDataSheet = (data: PersonDataSheet) => {
   }
 }
 
-const deletePersonDataSheet = (id: number) => {
+const deletePerson = (id: number) => {
   const query = `DELETE FROM person_data_sheets WHERE id = ?`
 
   try {
     const stmt = db.prepare(query)
     stmt.run(id)
+    return id
   } catch (err) {
     console.error('Error deleting data: ', err)
     throw err
   }
 }
 
-const searchPersonDataSheets = (filters: Partial<PersonDataSheet>): PersonDataSheet[] => {
+const searchPersons = (filters: Partial<PersonDataSheet>): PersonDataSheet[] => {
   let query = `SELECT * FROM person_data_sheets WHERE 1=1`
   const params: (string | number | Date | null)[] = []
 
@@ -246,11 +247,4 @@ const searchPersonDataSheets = (filters: Partial<PersonDataSheet>): PersonDataSh
   }
 }
 
-export {
-  createPersonDataSheet,
-  deletePersonDataSheet,
-  getPersonDataSheetById,
-  getPersons,
-  searchPersonDataSheets,
-  updatePersonDataSheet
-}
+export { createPerson, deletePerson, getPersonById, getPersons, searchPersons, updatePerson }
