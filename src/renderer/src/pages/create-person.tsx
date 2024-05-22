@@ -1,6 +1,24 @@
+import PageTitle from '@renderer/components/page-title'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator
+} from '@renderer/components/ui/breadcrumb'
 import { Button } from '@renderer/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from '@renderer/components/ui/card'
 import { toast } from '@renderer/components/ui/use-toast'
 import { DocumentType, MaritalStatus } from '@shared/types'
+import { Link } from 'react-router-dom'
 
 const CreatePersonPage = () => {
   const createPerson = async () => {
@@ -52,10 +70,40 @@ const CreatePersonPage = () => {
   }
 
   return (
-    <>
-      <div>CreatePersonPage</div>
-      <Button onClick={createPerson}>Crear ficha</Button>
-    </>
+    <div className="space-y-6">
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link to="/">Inicio</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link to="/persons-list">Lista de personas</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Crear ficha</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
+      <PageTitle>Crear ficha</PageTitle>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Ficha de persona</CardTitle>
+          <CardDescription>Formulario para crear nueva ficha de persona</CardDescription>
+        </CardHeader>
+        <CardContent>form content</CardContent>
+        <CardFooter>
+          <Button onClick={createPerson}>Crear</Button>
+        </CardFooter>
+      </Card>
+    </div>
   )
 }
 
