@@ -1,5 +1,7 @@
+import PageTitle from '@renderer/components/page-title'
 import { PersonDataSheet } from '@shared/types'
 import { useEffect, useState } from 'react'
+import { PersonsDataTable } from './data-table/persons-data-table'
 
 const PersonsList = () => {
   const [persons, setPersons] = useState<PersonDataSheet[] | null>(null)
@@ -28,16 +30,11 @@ const PersonsList = () => {
   }, [])
 
   return (
-    <>
-      <div>Persons List</div>
-      {persons?.map((person) => (
-        <div key={person.id} className="flex gap-5">
-          <p>{person.id}</p>
-          <h1>{person.name}</h1>
-          <h2>{person.email}</h2>
-        </div>
-      ))}
-    </>
+    <div className="space-y-6">
+      <PageTitle>Fichas personales</PageTitle>
+
+      {persons && <PersonsDataTable data={persons} />}
+    </div>
   )
 }
 

@@ -8,8 +8,9 @@ import {
   DropdownMenuTrigger
 } from '@renderer/components/ui/dropdown-menu'
 import { PersonDataSheet } from '@shared/types'
-import { Edit, MoreHorizontal, Trash2 } from 'lucide-react'
+import { Edit, MoreHorizontal, ViewIcon } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import DeletePerson from './delete-person'
 
 type PersonActionsProps = {
   person: PersonDataSheet
@@ -17,30 +18,33 @@ type PersonActionsProps = {
 
 const PersonActions = ({ person }: PersonActionsProps) => {
   return (
-    <>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="h-8 w-8 p-0">
-            <span className="sr-only">Abrir menú</span>
-            <MoreHorizontal className="h-4 w-4" />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <Link to={`edit-person/${person.id}`}>
-            <DropdownMenuItem>
-              <Edit />
-              <p className="ml-2">Editar</p>
-            </DropdownMenuItem>
-          </Link>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="h-8 w-8 p-0">
+          <span className="sr-only">Abrir menú</span>
+          <MoreHorizontal className="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <Link to={`person/${person.id}`}>
           <DropdownMenuItem>
-            <Trash2 />
-            <p className="ml-2">Eliminar</p>
+            <ViewIcon className="w-4 h-4 mr-2" />
+            <p className="ml-2">Ver</p>
           </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </>
+        </Link>
+        <Link to={`edit-person/${person.id}`}>
+          <DropdownMenuItem>
+            <Edit className="w-4 h-4 mr-2" />
+            <p className="ml-2">Editar</p>
+          </DropdownMenuItem>
+        </Link>
+        <DropdownMenuItem className="p-2">
+          <DeletePerson person={person} />
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }
 
