@@ -1,4 +1,3 @@
-// Define the document type enum
 export enum DocumentType {
   DNI = "DNI",
   LC = "LC",
@@ -56,7 +55,7 @@ export interface PersonDataSheet {
   isPoliticallyExposed?: boolean
   politicalPosition?: string
   originOfFunds?: string
-  reasonForChoosing: string
+  reasonForChoosing?: string
   referredBy?: string
 }
 
