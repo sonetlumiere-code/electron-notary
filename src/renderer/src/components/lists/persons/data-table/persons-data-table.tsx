@@ -22,6 +22,7 @@ import {
 } from '@tanstack/react-table'
 import { Search } from 'lucide-react'
 import { useState } from 'react'
+import PersonBulkActions from './bulk-actions/person-bulk-actions'
 import { columns } from './columns'
 
 interface PersonsDataTableProps {
@@ -110,7 +111,9 @@ export function PersonsDataTable({ data }: PersonsDataTableProps) {
         </Table>
       </div>
       <div className="flex items-center justify-between px-2 h-9">
-        <div className="flex items-center">{/* Bulk actions */}</div>
+        <div className="flex items-center">
+          <PersonBulkActions table={table} />
+        </div>
         <DataTablePagination table={table} setPageSize />
       </div>
     </div>
