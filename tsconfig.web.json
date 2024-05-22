@@ -8,6 +8,8 @@
 , "src/shared/types", "src/renderer/types/nav-item.ts", "src/renderer/src/components/ui/dialog.tsx"  ],
   "compilerOptions": {
     "composite": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {

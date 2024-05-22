@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import * as React from 'react'
 import { DayPicker } from 'react-day-picker'

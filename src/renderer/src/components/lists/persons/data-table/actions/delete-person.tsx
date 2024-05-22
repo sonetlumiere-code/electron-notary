@@ -36,7 +36,7 @@ const DeletePerson = ({ person }: DeletePersonProps) => {
   return (
     <span onClick={deletePerson} className="flex">
       <Trash2 className="w-4 h-4 mr-2" />
-      Eliminar
+      <p className="ml-2">Eliminar</p>
     </span>
   )
 }

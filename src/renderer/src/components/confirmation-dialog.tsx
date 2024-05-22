@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { cn } from '@renderer/lib/utils'
 import { useEffect, useState } from 'react'
 import { Button } from './ui/button'

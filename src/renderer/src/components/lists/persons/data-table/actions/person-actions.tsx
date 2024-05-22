@@ -40,7 +40,7 @@ const PersonActions = ({ person }: PersonActionsProps) => {
             <p className="ml-2">Editar</p>
           </DropdownMenuItem>
         </Link>
-        <DropdownMenuItem className="p-2">
+        <DropdownMenuItem>
           <DeletePerson person={person} />
         </DropdownMenuItem>
       </DropdownMenuContent>
