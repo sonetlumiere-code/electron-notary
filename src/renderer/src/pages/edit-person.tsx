@@ -1,4 +1,4 @@
-import PageTitle from '@renderer/components/page-title'
+import PageTitle from "@renderer/components/page-title"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -6,8 +6,8 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator
-} from '@renderer/components/ui/breadcrumb'
-import { Button } from '@renderer/components/ui/button'
+} from "@renderer/components/ui/breadcrumb"
+import { Button } from "@renderer/components/ui/button"
 import {
   Card,
   CardContent,
@@ -15,8 +15,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle
-} from '@renderer/components/ui/card'
-import { Link } from 'react-router-dom'
+} from "@renderer/components/ui/card"
+import { Link } from "react-router-dom"
 
 const EditPersonPage = () => {
   const editPerson = () => {

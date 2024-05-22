@@ -1,4 +1,4 @@
-import { Button } from '@renderer/components/ui/button'
+import { Button } from "@renderer/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,11 +6,11 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger
-} from '@renderer/components/ui/dropdown-menu'
-import { PersonDataSheet } from '@shared/types'
-import { Edit, MoreHorizontal, ViewIcon } from 'lucide-react'
-import { Link } from 'react-router-dom'
-import DeletePerson from './delete-person'
+} from "@renderer/components/ui/dropdown-menu"
+import { PersonDataSheet } from "@shared/types"
+import { Edit, MoreHorizontal, ViewIcon } from "lucide-react"
+import { Link } from "react-router-dom"
+import DeletePerson from "./delete-person"
 
 type PersonActionsProps = {
   person: PersonDataSheet

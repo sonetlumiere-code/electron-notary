@@ -1,5 +1,5 @@
-import { LegalPersonDataSheet } from '../../../../shared/types'
-import db from '../sqlite-config'
+import { LegalPersonDataSheet } from "@shared/types"
+import db from "../sqlite-config"
 
 const createLegalPerson = (data: LegalPersonDataSheet) => {
   const query = `
@@ -34,7 +34,7 @@ const createLegalPerson = (data: LegalPersonDataSheet) => {
       ...data
     }
   } catch (err) {
-    console.error('Error inserting data: ', err)
+    console.error("Error inserting data: ", err)
     throw err
   }
 }
@@ -47,7 +47,7 @@ const getLegalPersons = (): LegalPersonDataSheet[] | null => {
     const rows = stmt.all()
     return rows
   } catch (err) {
-    console.error('Error retrieving data: ', err)
+    console.error("Error retrieving data: ", err)
     throw err
   }
 }
@@ -66,7 +66,7 @@ const getLegalPersonById = (id: number): LegalPersonDataSheet | null => {
     }
     return null
   } catch (err) {
-    console.error('Error retrieving data: ', err)
+    console.error("Error retrieving data: ", err)
     throw err
   }
 }
@@ -105,7 +105,7 @@ const updateLegalPerson = (data: LegalPersonDataSheet) => {
       ...data
     }
   } catch (err) {
-    console.error('Error updating data: ', err)
+    console.error("Error updating data: ", err)
     throw err
   }
 }
@@ -117,7 +117,7 @@ const deleteLegalPerson = (id: number) => {
     const stmt = db.prepare(query)
     stmt.run(id)
   } catch (err) {
-    console.error('Error deleting data: ', err)
+    console.error("Error deleting data: ", err)
     throw err
   }
 }

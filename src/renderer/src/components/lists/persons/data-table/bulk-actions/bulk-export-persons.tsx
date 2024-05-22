@@ -1,6 +1,6 @@
-import { Button } from '@renderer/components/ui/button'
-import { Table } from '@tanstack/react-table'
-import { ArrowRightFromLine } from 'lucide-react'
+import { Button } from "@renderer/components/ui/button"
+import { Table } from "@tanstack/react-table"
+import { ArrowRightFromLine } from "lucide-react"
 
 type BulkExportPersonsProps<TData> = {
   table: Table<TData>

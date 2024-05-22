@@ -1,6 +1,6 @@
-import { DataTablePagination } from '@renderer/components/ui/data-table-pagination'
-import { DataTableViewOptions } from '@renderer/components/ui/data-table-view-options'
-import { Input } from '@renderer/components/ui/input'
+import { DataTablePagination } from "@renderer/components/ui/data-table-pagination"
+import { DataTableViewOptions } from "@renderer/components/ui/data-table-view-options"
+import { Input } from "@renderer/components/ui/input"
 import {
   Table,
   TableBody,
@@ -8,8 +8,8 @@ import {
   TableHead,
   TableHeader,
   TableRow
-} from '@renderer/components/ui/table'
-import { PersonDataSheet } from '@shared/types'
+} from "@renderer/components/ui/table"
+import { PersonDataSheet } from "@shared/types"
 import {
   SortingState,
   VisibilityState,
@@ -19,11 +19,11 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable
-} from '@tanstack/react-table'
-import { Search } from 'lucide-react'
-import { useState } from 'react'
-import PersonBulkActions from './bulk-actions/person-bulk-actions'
-import { columns } from './columns'
+} from "@tanstack/react-table"
+import { Search } from "lucide-react"
+import { useState } from "react"
+import PersonBulkActions from "./bulk-actions/person-bulk-actions"
+import { columns } from "./columns"
 
 interface PersonsDataTableProps {
   data: PersonDataSheet[]
@@ -31,7 +31,7 @@ interface PersonsDataTableProps {
 
 export function PersonsDataTable({ data }: PersonsDataTableProps) {
   const [sorting, setSorting] = useState<SortingState>([])
-  const [filtering, setFiltering] = useState<string>('')
+  const [filtering, setFiltering] = useState<string>("")
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = useState({})
 
@@ -91,7 +91,7 @@ export function PersonsDataTable({ data }: PersonsDataTableProps) {
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => {
                 return (
-                  <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                  <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id}>
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}

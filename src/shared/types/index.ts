@@ -1,16 +1,16 @@
 // Define the document type enum
 export enum DocumentType {
-  DNI = 'DNI',
-  LC = 'LC',
-  LE = 'LE',
-  PASAPORTE = 'PASAPORTE'
+  DNI = "DNI",
+  LC = "LC",
+  LE = "LE",
+  PASAPORTE = "PASAPORTE"
 }
 
 export enum MaritalStatus {
-  SOLTERO = 'SOLTERO',
-  CASADO = 'CASADO',
-  DIVORCIADO = 'DIVORCIADO',
-  VIUDO = 'VIUDO'
+  SOLTERO = "SOLTERO",
+  CASADO = "CASADO",
+  DIVORCIADO = "DIVORCIADO",
+  VIUDO = "VIUDO"
 }
 
 // export interface MaritalStatusDetails {

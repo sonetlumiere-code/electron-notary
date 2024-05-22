@@ -1,6 +1,6 @@
-import { Table } from '@tanstack/react-table'
-import BulkDeletePersons from './bulk-delete-persons'
-import BulkExportPersons from './bulk-export-persons'
+import { Table } from "@tanstack/react-table"
+import BulkDeletePersons from "./bulk-delete-persons"
+import BulkExportPersons from "./bulk-export-persons"
 
 type PersonsBulkActionsProps<TData> = {
   table: Table<TData>
@@ -20,8 +20,8 @@ const PersonBulkActions = <TData,>({ table }: PersonsBulkActionsProps<TData>) =>
         <div className="flex-1">
           {selectedRows.length > 0 && (
             <div className="text-sm text-muted-foreground ml-2">
-              {selectedRows.length} fila{selectedRows.length > 1 ? 's' : ''} seleccionada
-              {selectedRows.length > 1 ? 's' : '.'}
+              {selectedRows.length} fila{selectedRows.length > 1 ? "s" : ""} seleccionada
+              {selectedRows.length > 1 ? "s" : "."}
             </div>
           )}
         </div>

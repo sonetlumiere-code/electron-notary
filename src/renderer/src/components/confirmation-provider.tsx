@@ -1,5 +1,5 @@
-import { ReactNode, createContext, useContext, useEffect, useRef, useState } from 'react'
-import { ConfirmationDialog, ConfirmationOptions } from './confirmation-dialog'
+import { ReactNode, createContext, useContext, useEffect, useRef, useState } from "react"
+import { ConfirmationDialog, ConfirmationOptions } from "./confirmation-dialog"
 
 export const ConfirmationServiceContext = createContext<
   (options: ConfirmationOptions) => Promise<boolean>

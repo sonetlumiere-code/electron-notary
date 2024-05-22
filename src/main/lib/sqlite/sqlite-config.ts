@@ -1,6 +1,6 @@
-import Database from 'better-sqlite3'
+import Database from "better-sqlite3"
 
-const db = new Database('./sqlite.db')
+const db = new Database("./sqlite.db")
 
 try {
   db.exec(`
@@ -63,9 +63,9 @@ try {
       representativeData TEXT NOT NULL
     );
   `)
-  console.log('Database opened and tables checked/created successfully')
+  console.log("Database opened and tables checked/created successfully")
 } catch (error) {
-  console.error('Database or table creation error: ', error)
+  console.error("Database or table creation error: ", error)
 }
 
 export default db

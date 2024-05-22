@@ -1,8 +1,8 @@
-import { cn } from '@renderer/lib/utils'
-import { Cloud } from 'lucide-react'
-import { NavLink, useLocation } from 'react-router-dom'
-import { buttonVariants } from '../ui/button'
-import navItems from './nav-items'
+import { cn } from "@renderer/lib/utils"
+import { Cloud } from "lucide-react"
+import { NavLink, useLocation } from "react-router-dom"
+import { buttonVariants } from "../ui/button"
+import navItems from "./nav-items"
 
 const Nav = () => {
   const location = useLocation()
@@ -19,9 +19,9 @@ const Nav = () => {
             to={item.href}
             className={cn(
               buttonVariants({
-                variant: location.pathname === item.href ? 'secondary' : 'ghost'
+                variant: location.pathname === item.href ? "secondary" : "ghost"
               }),
-              'w-full justify-start'
+              "w-full justify-start"
             )}
           >
             {item.name}

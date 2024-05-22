@@ -1,6 +1,6 @@
-import { cn } from '@renderer/lib/utils'
-import { useEffect, useState } from 'react'
-import { Button } from './ui/button'
+import { cn } from "@renderer/lib/utils"
+import { useEffect, useState } from "react"
+import { Button } from "./ui/button"
 import {
   Dialog,
   DialogContent,
@@ -8,11 +8,11 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle
-} from './ui/dialog'
+} from "./ui/dialog"
 
 export interface ConfirmationOptions {
   catchOnCancel?: boolean
-  variant?: 'destructive' | 'info'
+  variant?: "destructive" | "info"
   title: string
   description: string
   countDown?: number
@@ -56,7 +56,7 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className={cn({ 'text-destructive': variant === 'destructive' })}>
+          <DialogTitle className={cn({ "text-destructive": variant === "destructive" })}>
             {title}
           </DialogTitle>
           <div className="flex items-start">
@@ -66,12 +66,12 @@ export const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
         <DialogFooter>
           <>
             <Button
-              variant={variant === 'destructive' ? 'destructive' : 'default'}
+              variant={variant === "destructive" ? "destructive" : "default"}
               disabled={seconds > 0}
               onClick={onSubmit}
               className="w-24"
             >
-              {seconds > 0 ? seconds : 'Confirmar'}
+              {seconds > 0 ? seconds : "Confirmar"}
             </Button>
             <Button variant="outline" onClick={onClose} autoFocus>
               Cancelar

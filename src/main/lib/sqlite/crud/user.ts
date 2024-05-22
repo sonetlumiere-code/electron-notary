@@ -1,4 +1,4 @@
-import db from '../sqlite-config'
+import db from "../sqlite-config"
 
 const createUser = ({ name, email }: { name: string; email: string }) => {
   const query = `INSERT INTO users (name, email) VALUES (?, ?)`
@@ -12,7 +12,7 @@ const createUser = ({ name, email }: { name: string; email: string }) => {
       email
     }
   } catch (err) {
-    console.error('Error inserting data: ', err)
+    console.error("Error inserting data: ", err)
     throw err
   }
 }
@@ -25,7 +25,7 @@ const getUsers = () => {
     const rows = stmt.all()
     return rows
   } catch (err) {
-    console.error('Error retrieving data: ', err)
+    console.error("Error retrieving data: ", err)
     throw err
   }
 }
@@ -38,7 +38,7 @@ const getUserById = (id: number) => {
     const row = stmt.get(id)
     return row
   } catch (err) {
-    console.error('Error retrieving data: ', err)
+    console.error("Error retrieving data: ", err)
     throw err
   }
 }
@@ -55,7 +55,7 @@ const updateUser = ({ id, name, email }: { id: number; name: string; email: stri
       email
     }
   } catch (err) {
-    console.error('Error updating data: ', err)
+    console.error("Error updating data: ", err)
     throw err
   }
 }
@@ -68,7 +68,7 @@ const deleteUser = (id: number) => {
     stmt.run(id)
     return { id }
   } catch (err) {
-    console.error('Error deleting data: ', err)
+    console.error("Error deleting data: ", err)
     throw err
   }
 }

@@ -1,13 +1,13 @@
-import { Button } from '@renderer/components/ui/button'
-import { Checkbox } from '@renderer/components/ui/checkbox'
-import { PersonDataSheet } from '@shared/types'
-import { ColumnDef } from '@tanstack/react-table'
-import { ChevronsUpDown } from 'lucide-react'
-import PersonActions from './actions/person-actions'
+import { Button } from "@renderer/components/ui/button"
+import { Checkbox } from "@renderer/components/ui/checkbox"
+import { PersonDataSheet } from "@shared/types"
+import { ColumnDef } from "@tanstack/react-table"
+import { ChevronsUpDown } from "lucide-react"
+import PersonActions from "./actions/person-actions"
 
 export const columns: ColumnDef<PersonDataSheet>[] = [
   {
-    id: 'select',
+    id: "select",
     header: ({ table }) => (
       <div className="">
         <Checkbox
@@ -30,13 +30,13 @@ export const columns: ColumnDef<PersonDataSheet>[] = [
     enableHiding: false
   },
   {
-    accessorKey: 'name',
-    meta: 'Nombre',
+    accessorKey: "name",
+    meta: "Nombre",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Nombre
           <ChevronsUpDown className="ml-2 h-4 w-4" />
@@ -44,17 +44,17 @@ export const columns: ColumnDef<PersonDataSheet>[] = [
       )
     },
     cell: ({ row }) => {
-      return <div className="ml-4 font-medium">{row.getValue('name')}</div>
+      return <div className="ml-4 font-medium">{row.getValue("name")}</div>
     }
   },
   {
-    accessorKey: 'lastName',
-    meta: 'Apellido',
+    accessorKey: "lastName",
+    meta: "Apellido",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Apellido
           <ChevronsUpDown className="ml-2 h-4 w-4" />
@@ -62,17 +62,17 @@ export const columns: ColumnDef<PersonDataSheet>[] = [
       )
     },
     cell: ({ row }) => {
-      return <div className="ml-4 font-medium">{row.getValue('lastName')}</div>
+      return <div className="ml-4 font-medium">{row.getValue("lastName")}</div>
     }
   },
   {
-    accessorKey: 'email',
-    meta: 'Email',
+    accessorKey: "email",
+    meta: "Email",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Email
           <ChevronsUpDown className="ml-2 h-4 w-4" />
@@ -80,17 +80,17 @@ export const columns: ColumnDef<PersonDataSheet>[] = [
       )
     },
     cell: ({ row }) => {
-      return <div className="ml-4 font-medium">{row.getValue('email')}</div>
+      return <div className="ml-4 font-medium">{row.getValue("email")}</div>
     }
   },
   {
-    accessorKey: 'city',
-    meta: 'Ciudad',
+    accessorKey: "city",
+    meta: "Ciudad",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Ciudad
           <ChevronsUpDown className="ml-2 h-4 w-4" />
@@ -98,11 +98,11 @@ export const columns: ColumnDef<PersonDataSheet>[] = [
       )
     },
     cell: ({ row }) => {
-      return <div className="ml-4 font-medium">{row.getValue('city')}</div>
+      return <div className="ml-4 font-medium">{row.getValue("city")}</div>
     }
   },
   {
-    id: 'actions',
+    id: "actions",
     header: () => <div className="text-end">Acciones</div>,
     cell: ({ row }) => {
       const rowData = row.original as PersonDataSheet

@@ -6,6 +6,7 @@
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.wordWrap": "on",
+  "typescript.preferences.quoteStyle": "double",
   "markdownlint.config": {
     "MD041": false
   }

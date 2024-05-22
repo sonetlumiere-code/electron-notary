@@ -1,5 +1,5 @@
-import { ModeToggle } from '../mode-toggle'
-import MenuNav from './menu-nav'
+import { ModeToggle } from "../mode-toggle"
+import MenuNav from "./menu-nav"
 
 const Header = () => {
   return (

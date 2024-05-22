@@ -1,20 +1,20 @@
-import { NavigationItem } from '@renderer/types/nav-item'
+import { NavigationItem } from "@renderer/types/nav-item"
 
 const navItems: NavigationItem[] = [
   {
     id: 1,
-    name: 'Inicio',
-    href: '/'
+    name: "Inicio",
+    href: "/"
   },
   {
     id: 2,
-    name: 'Personas',
-    href: '/persons-list'
+    name: "Personas",
+    href: "/persons-list"
   },
   {
     id: 3,
-    name: 'Personas jurídicas',
-    href: '/legal-persons-list'
+    name: "Personas jurídicas",
+    href: "/legal-persons-list"
   }
 ]
 

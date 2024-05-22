@@ -1,5 +1,5 @@
-import { PersonDataSheet } from '../../../../shared/types/index'
-import db from '../sqlite-config'
+import { PersonDataSheet } from "@shared/types"
+import db from "../sqlite-config"
 
 const createPerson = (data: PersonDataSheet) => {
   const query = `
@@ -54,7 +54,7 @@ const createPerson = (data: PersonDataSheet) => {
       ...data
     }
   } catch (err) {
-    console.error('Error inserting data: ', err)
+    console.error("Error inserting data: ", err)
     throw err
   }
 }
@@ -67,7 +67,7 @@ const getPersons = (): PersonDataSheet[] | null => {
     const rows = stmt.all()
     return rows
   } catch (err) {
-    console.error('Error retrieving data: ', err)
+    console.error("Error retrieving data: ", err)
     throw err
   }
 }
@@ -86,7 +86,7 @@ const getPersonById = (id: number): PersonDataSheet | null => {
     }
     return null
   } catch (err) {
-    console.error('Error retrieving data: ', err)
+    console.error("Error retrieving data: ", err)
     throw err
   }
 }
@@ -145,7 +145,7 @@ const updatePerson = (data: PersonDataSheet) => {
       ...data
     }
   } catch (err) {
-    console.error('Error updating data: ', err)
+    console.error("Error updating data: ", err)
     throw err
   }
 }
@@ -158,7 +158,7 @@ const deletePerson = (id: number) => {
     stmt.run(id)
     return id
   } catch (err) {
-    console.error('Error deleting data: ', err)
+    console.error("Error deleting data: ", err)
     throw err
   }
 }
@@ -242,7 +242,7 @@ const searchPersons = (filters: Partial<PersonDataSheet>): PersonDataSheet[] => 
       isPoliticallyExposed: Boolean(row.isPoliticallyExposed)
     }))
   } catch (err) {
-    console.error('Error searching data: ', err)
+    console.error("Error searching data: ", err)
     throw err
   }
 }

@@ -1,5 +1,5 @@
-import { LegalPersonDataSheet } from '@shared/types'
-import { useEffect, useState } from 'react'
+import { LegalPersonDataSheet } from "@shared/types"
+import { useEffect, useState } from "react"
 
 const LegalPersonsList = () => {
   const [legalPersons, setLegalPersons] = useState<LegalPersonDataSheet[] | null>(null)

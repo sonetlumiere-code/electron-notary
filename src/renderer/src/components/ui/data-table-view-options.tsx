@@ -1,14 +1,14 @@
-import { DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu'
-import { Button } from '@renderer/components/ui/button'
+import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
+import { Button } from "@renderer/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuSeparator
-} from '@renderer/components/ui/dropdown-menu'
-import { Table } from '@tanstack/react-table'
-import { Settings2Icon } from 'lucide-react'
+} from "@renderer/components/ui/dropdown-menu"
+import { Table } from "@tanstack/react-table"
+import { Settings2Icon } from "lucide-react"
 
 interface DataTableViewOptionsProps<TData> {
   table: Table<TData>
@@ -28,7 +28,7 @@ export function DataTableViewOptions<TData>({ table }: DataTableViewOptionsProps
         <DropdownMenuSeparator />
         {table
           .getAllColumns()
-          .filter((column) => typeof column.accessorFn !== 'undefined' && column.getCanHide())
+          .filter((column) => typeof column.accessorFn !== "undefined" && column.getCanHide())
           .map((column) => {
             return (
               <DropdownMenuCheckboxItem

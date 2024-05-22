@@ -1,4 +1,4 @@
-import { LegalPersonDataSheet, PersonDataSheet, User } from 'src/main/types'
+import { LegalPersonDataSheet, PersonDataSheet, User } from "src/main/types"
 
 export interface IElectronAPI {
   createUserWithReply: (user: User) => Promise<User | null>

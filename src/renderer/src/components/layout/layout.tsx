@@ -1,6 +1,6 @@
-import { Outlet } from 'react-router-dom'
-import Header from './header'
-import Nav from './nav'
+import { Outlet } from "react-router-dom"
+import Header from "./header"
+import Nav from "./nav"
 
 const Layout = () => {
   return (
