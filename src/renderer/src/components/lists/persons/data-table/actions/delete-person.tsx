@@ -14,8 +14,7 @@ const DeletePerson = ({ person }: DeletePersonProps) => {
     confirm({
       variant: "destructive",
       title: "Eliminar ficha?",
-      description: "Esta acción es irreversible.",
-      countDown: 3
+      description: "Esta acción es irreversible."
     }).then(async () => {
       try {
         window.api.deletePerson(person.id as number)

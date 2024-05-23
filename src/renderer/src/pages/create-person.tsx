@@ -39,53 +39,56 @@ import {
 import { toast } from "@renderer/components/ui/use-toast"
 import { cn } from "@renderer/lib/utils"
 import { PersonSchema, zodPersonSchema } from "@renderer/lib/validators/person-validator"
-import { DocumentType, MaritalStatus } from "@shared/types"
+import { DocumentType, Gender, MaritalStatus } from "@shared/types"
 import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const CreatePersonPage = () => {
+  const navigate = useNavigate()
+
   const form = useForm<PersonSchema>({
-    resolver: zodResolver(zodPersonSchema)
+    resolver: zodResolver(zodPersonSchema),
+    defaultValues: {
+      name: "",
+      lastName: "",
+      gender: undefined,
+      nationality: "",
+      documentType: undefined,
+      documentNumber: 0,
+      CUIT_L: 0,
+      birthdate: undefined,
+      birthplace: "",
+      maritalStatus: undefined,
+      maritalStatusSpouseName: "",
+      maritalStatusSpouseNumber: 0,
+      maritalStatusMarriageRegime: "",
+      maritalStatusDivorceNumber: 0,
+      maritalStatusDivorceDate: undefined,
+      maritalStatusDivorceCourt: "",
+      maritalStatusDivorceAutos: "",
+      maritalStatusDeceasedSpouseName: "",
+      numberOfChildren: 0,
+      address: "",
+      city: "",
+      province: "",
+      profession: "",
+      phoneNumber: "",
+      mobileNumber: "",
+      email: "",
+      isPoliticallyExposed: false,
+      politicalPosition: "",
+      originOfFunds: "",
+      reasonForChoosing: "",
+      referredBy: ""
+    }
   })
 
   const createPerson = async (data: PersonSchema) => {
     try {
-      console.log(data)
-      // const newPerson = await window.api.createPerson({
-      //   name: "Alfio",
-      //   lastName: "Doe",
-      //   gender: "Male",
-      //   nationality: "American",
-      //   documentType: DocumentType.DNI,
-      //   documentNumber: 12345678,
-      //   CUIT_L: 9876543210,
-      //   birthdate: new Date("1990-01-01"),
-      //   birthplace: "New York",
-      //   maritalStatus: MaritalStatus.SOLTERO,
-      //   spouseName: "Eva",
-      //   spouseNumber: 423232221,
-      //   marriageRegime: "Custom",
-      //   divorceNumber: "demo",
-      //   divorceDate: "asd",
-      //   divorceCourt: "qqqqqq",
-      //   deceasedSpouseName: "w",
-      //   numberOfChildren: 2,
-      //   address: "123 Main St",
-      //   city: "New York City",
-      //   province: "New York",
-      //   profession: "Engineer",
-      //   phoneNumber: "555-1234",
-      //   mobileNumber: "555-5678",
-      //   email: "alfio.doe@example.com",
-      //   isPoliticallyExposed: true,
-      //   politicalPosition: "asd",
-      //   originOfFunds: "qqqqqq",
-      //   reasonForChoosing: "Recommended by a friend",
-      //   referredBy: "Jane Smith"
-      // })
-      // console.log(newPerson)
+      await window.api.createPerson(data)
+      navigate("/persons-list")
       toast({
         title: "Nueva ficha creada.",
         description: "La ficha de datos personales ha sido creada correctamente."
@@ -166,10 +169,25 @@ const CreatePersonPage = () => {
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Género</FormLabel>
-                      <FormControl>
-                        <Input {...field} type="text" disabled={form.formState.isSubmitting} />
-                      </FormControl>
-                      <FormDescription>Ingresa el género.</FormDescription>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value?.toString() || "false"}
+                        disabled={form.formState.isSubmitting}
+                      >
+                        <FormControl>
+                          <SelectTrigger className="capitalize">
+                            <SelectValue placeholder="" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {Object.entries(Gender).map(([key, value]) => (
+                            <SelectItem className="capitalize" key={key} value={value}>
+                              {key.toLowerCase()}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormDescription>Selecciona el género.</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -236,7 +254,7 @@ const CreatePersonPage = () => {
                   name="CUIT_L"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
-                      <FormLabel>CUIT_L</FormLabel>
+                      <FormLabel>CUIT o CUIL</FormLabel>
                       <FormControl>
                         <Input {...field} type="number" disabled={form.formState.isSubmitting} />
                       </FormControl>
@@ -330,7 +348,7 @@ const CreatePersonPage = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="spouseName"
+                  name="maritalStatusSpouseName"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Nombre del Cónyuge</FormLabel>
@@ -344,7 +362,7 @@ const CreatePersonPage = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="spouseNumber"
+                  name="maritalStatusSpouseNumber"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Número del Cónyuge</FormLabel>
@@ -358,7 +376,7 @@ const CreatePersonPage = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="marriageRegime"
+                  name="maritalStatusMarriageRegime"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Régimen Matrimonial</FormLabel>
@@ -372,7 +390,7 @@ const CreatePersonPage = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="divorceNumber"
+                  name="maritalStatusDivorceNumber"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Número de Divorcio</FormLabel>
@@ -386,7 +404,7 @@ const CreatePersonPage = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="divorceDate"
+                  name="maritalStatusDivorceDate"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Fecha de divorcio</FormLabel>
@@ -426,7 +444,7 @@ const CreatePersonPage = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="divorceCourt"
+                  name="maritalStatusDivorceCourt"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Juzgado de Divorcio</FormLabel>
@@ -440,7 +458,7 @@ const CreatePersonPage = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="divorceAutos"
+                  name="maritalStatusDivorceAutos"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Autos de Divorcio</FormLabel>
@@ -454,7 +472,7 @@ const CreatePersonPage = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="deceasedSpouseName"
+                  name="maritalStatusDeceasedSpouseName"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Nombre del Cónyuge Fallecido</FormLabel>
@@ -543,7 +561,7 @@ const CreatePersonPage = () => {
                     <FormItem className="flex flex-col">
                       <FormLabel>Teléfono</FormLabel>
                       <FormControl>
-                        <Input {...field} type="text" disabled={form.formState.isSubmitting} />
+                        <Input {...field} type="number" disabled={form.formState.isSubmitting} />
                       </FormControl>
                       <FormDescription>Ingresa el teléfono.</FormDescription>
                       <FormMessage />
@@ -557,7 +575,7 @@ const CreatePersonPage = () => {
                     <FormItem className="flex flex-col">
                       <FormLabel>Móvil</FormLabel>
                       <FormControl>
-                        <Input {...field} type="text" disabled={form.formState.isSubmitting} />
+                        <Input {...field} type="number" disabled={form.formState.isSubmitting} />
                       </FormControl>
                       <FormDescription>Ingresa el número móvil.</FormDescription>
                       <FormMessage />

@@ -5,8 +5,8 @@ const createPerson = (data: PersonDataSheet) => {
   const query = `
     INSERT INTO person_data_sheets (
       name, lastName, gender, nationality, documentType, documentNumber, CUIT_L, birthdate, birthplace,
-      maritalStatus, spouseName, spouseNumber, marriageRegime, divorceNumber, divorceDate, divorceCourt,
-      divorceAutos, deceasedSpouseName, numberOfChildren, address, city, province, profession, phoneNumber,
+      maritalStatus, maritalStatusSpouseName, maritalStatusSpouseNumber, maritalStatusMarriageRegime, maritalStatusDivorceNumber, maritalStatusDivorceDate, maritalStatusDivorceCourt,
+      maritalStatusDivorceAutos, maritalStatusDeceasedSpouseName, numberOfChildren, address, city, province, profession, phoneNumber,
       mobileNumber, email, isPoliticallyExposed, politicalPosition, originOfFunds, reasonForChoosing, referredBy
     ) VALUES (
       ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
@@ -26,14 +26,14 @@ const createPerson = (data: PersonDataSheet) => {
       data.birthdate.toISOString(),
       data.birthplace,
       data.maritalStatus,
-      data.spouseName,
-      data.spouseNumber,
-      data.marriageRegime,
-      data.divorceNumber,
-      data.divorceDate,
-      data.divorceCourt,
-      data.divorceAutos,
-      data.deceasedSpouseName,
+      data.maritalStatusSpouseName,
+      data.maritalStatusSpouseNumber,
+      data.maritalStatusMarriageRegime,
+      data.maritalStatusDivorceNumber,
+      data.maritalStatusDivorceDate,
+      data.maritalStatusDivorceCourt,
+      data.maritalStatusDivorceAutos,
+      data.maritalStatusDeceasedSpouseName,
       data.numberOfChildren,
       data.address,
       data.city,
@@ -116,14 +116,14 @@ const updatePerson = (data: PersonDataSheet) => {
       data.birthdate.toISOString(),
       data.birthplace,
       data.maritalStatus,
-      data.spouseName,
-      data.spouseNumber,
-      data.marriageRegime,
-      data.divorceNumber,
-      data.divorceDate ? data.divorceDate.toISOString() : null,
-      data.divorceCourt,
-      data.divorceAutos,
-      data.deceasedSpouseName,
+      data.maritalStatusSpouseName,
+      data.maritalStatusSpouseNumber,
+      data.maritalStatusMarriageRegime,
+      data.maritalStatusDivorceNumber,
+      data.maritalStatusDivorceDate ? data.maritalStatusDivorceDate.toISOString() : null,
+      data.maritalStatusDivorceCourt,
+      data.maritalStatusDivorceAutos,
+      data.maritalStatusDeceasedSpouseName,
       data.numberOfChildren,
       data.address,
       data.city,
@@ -238,7 +238,7 @@ const searchPersons = (filters: Partial<PersonDataSheet>): PersonDataSheet[] => 
     return rows.map((row: PersonDataSheet) => ({
       ...row,
       birthdate: new Date(row.birthdate),
-      divorceDate: row.divorceDate ? new Date(row.divorceDate) : null,
+      divorceDate: row.maritalStatusDivorceDate ? new Date(row.maritalStatusDivorceDate) : null,
       isPoliticallyExposed: Boolean(row.isPoliticallyExposed)
     }))
   } catch (err) {

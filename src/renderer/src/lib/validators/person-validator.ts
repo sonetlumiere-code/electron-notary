@@ -1,36 +1,37 @@
-import { DocumentType, MaritalStatus } from "@shared/types"
+import { DocumentType, Gender, MaritalStatus } from "@shared/types"
 import { z } from "zod"
 
 export const zodPersonSchema = z.object({
-  id: z.number().optional(),
-  name: z.string().trim().min(1, { message: "Ingresa el nombre." }),
+  name: z.string().min(1, { message: "Ingresa el nombre." }),
   lastName: z.string().trim().min(1, { message: "Ingresa el apellido." }),
-  gender: z.string().trim().min(1, { message: "Ingresa el género." }),
+  gender: z.nativeEnum(Gender, {
+    errorMap: () => ({
+      message: "Selecciona el género."
+    })
+  }),
   nationality: z.string().trim().min(1, { message: "Ingresa la nacionalidad." }),
-  // documentType: z.enum(["DNI", "LC", "LE", "PASAPORTE"]),
   documentType: z.nativeEnum(DocumentType, {
     errorMap: () => ({
       message: "Selecciona el tipo de documento."
     })
   }),
-  documentNumber: z.number(),
-  CUIT_L: z.number(),
+  documentNumber: z.coerce.number().min(1, { message: "Ingresa el número de documento." }),
+  CUIT_L: z.coerce.number().min(1, { message: "Ingresa el CUIT o CUIL." }),
   birthdate: z.date({ required_error: "Ingresa la fecha de nacimiento." }),
   birthplace: z.string().trim().min(1, { message: "Ingresa el lugar de nacimiento." }),
-  // maritalStatus: z.enum(["SOLTERO", "CASADO", "DIVORCIADO", "VIUDO"]),
   maritalStatus: z.nativeEnum(MaritalStatus, {
     errorMap: () => ({
       message: "Selecciona el estado marital."
     })
   }),
-  spouseName: z.string().trim().optional(),
-  spouseNumber: z.number().optional(),
-  marriageRegime: z.string().trim().optional(),
-  divorceNumber: z.number().optional(),
-  divorceDate: z.date().optional(),
-  divorceCourt: z.string().trim().optional(),
-  divorceAutos: z.string().trim().optional(),
-  deceasedSpouseName: z.string().trim().optional(),
+  maritalStatusSpouseName: z.string().trim().optional(),
+  maritalStatusSpouseNumber: z.number().optional(),
+  maritalStatusMarriageRegime: z.string().trim().optional(),
+  maritalStatusDivorceNumber: z.number().optional(),
+  maritalStatusDivorceDate: z.date().optional(),
+  maritalStatusDivorceCourt: z.string().trim().optional(),
+  maritalStatusDivorceAutos: z.string().trim().optional(),
+  maritalStatusDeceasedSpouseName: z.string().trim().optional(),
   numberOfChildren: z.number().optional(),
   address: z.string().trim().min(1, { message: "Ingresa la dirección." }),
   city: z.string().trim().min(1, { message: "Ingresa la ciudad." }),

@@ -4,17 +4,11 @@ const db = new Database("./sqlite.db")
 
 try {
   db.exec(`
-    CREATE TABLE IF NOT EXISTS users (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      email TEXT NOT NULL
-    );
-
     CREATE TABLE IF NOT EXISTS person_data_sheets (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
       lastName TEXT NOT NULL,
-      gender TEXT NOT NULL,
+      gender TEXT CHECK (gender IN ('MASCULINO', 'FEMENINO', 'OTRO')),
       nationality TEXT NOT NULL,
       documentType TEXT CHECK (documentType IN ('DNI', 'LC', 'LE', 'PASAPORTE')),
       documentNumber INTEGER NOT NULL,
@@ -22,20 +16,20 @@ try {
       birthdate TEXT NOT NULL,
       birthplace TEXT NOT NULL,
       maritalStatus TEXT CHECK (maritalStatus IN ('SOLTERO', 'CASADO', 'DIVORCIADO', 'VIUDO')),
-      spouseName TEXT,
-      spouseNumber INTEGER,
-      marriageRegime TEXT,
-      divorceNumber INTEGER,
-      divorceDate TEXT,
-      divorceCourt TEXT,
-      divorceAutos TEXT,
-      deceasedSpouseName TEXT,
+      maritalStatusSpouseName TEXT,
+      maritalStatusSpouseNumber INTEGER,
+      maritalStatusMarriageRegime TEXT,
+      maritalStatusDivorceNumber INTEGER,
+      maritalStatusDivorceDate TEXT,
+      maritalStatusDivorceCourt TEXT,
+      maritalStatusDivorceAutos TEXT,
+      maritalStatusDeceasedSpouseName TEXT,
       numberOfChildren INTEGER,
       address TEXT NOT NULL,
       city TEXT NOT NULL,
       province TEXT NOT NULL,
-      profession TEXT NOT NULL,
-      phoneNumber TEXT NOT NULL,
+      profession INTEGER,
+      phoneNumber INTEGER,
       mobileNumber TEXT NOT NULL,
       email TEXT NOT NULL,
       isPoliticallyExposed INTEGER,

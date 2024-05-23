@@ -1,9 +1,6 @@
-import { LegalPersonDataSheet, PersonDataSheet, User } from "src/main/types"
+import { LegalPersonDataSheet, PersonDataSheet } from "src/main/types"
 
 export interface IElectronAPI {
-  createUserWithReply: (user: User) => Promise<User | null>
-  getUsers: () => Promise<User[] | null>
-
   createPerson: (person: PersonDataSheet) => Promise<PersonDataSheet | null>
   getPersons: () => Promise<PersonDataSheet[] | null>
   searchPersons: (filters: Partial<PersonDataSheet>) => Promise<PersonDataSheet[] | null>

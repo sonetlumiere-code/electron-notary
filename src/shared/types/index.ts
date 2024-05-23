@@ -12,23 +12,17 @@ export enum MaritalStatus {
   VIUDO = "VIUDO"
 }
 
-// export interface MaritalStatusDetails {
-//   id?: number
-//   spouseName?: string
-//   spouseNumber?: number
-//   marriageRegime?: string
-//   divorceNumber?: number
-//   divorceDate?: Date
-//   divorceCourt?: string
-//   divorceAutos?: string
-//   deceasedSpouseName?: string
-// }
+export enum Gender {
+  MASCULINO = "MASCULINO",
+  FEMENINO = "FEMENINO",
+  OTRO = "OTRO"
+}
 
 export interface PersonDataSheet {
   id?: number
   name: string
   lastName: string
-  gender: string
+  gender: Gender
   nationality: string
   documentType: DocumentType
   documentNumber: number
@@ -36,21 +30,21 @@ export interface PersonDataSheet {
   birthdate: Date
   birthplace: string
   maritalStatus: MaritalStatus
-  spouseName?: string
-  spouseNumber?: number
-  marriageRegime?: string
-  divorceNumber?: number
-  divorceDate?: Date
-  divorceCourt?: string
-  divorceAutos?: string
-  deceasedSpouseName?: string
+  maritalStatusSpouseName?: string
+  maritalStatusSpouseNumber?: number
+  maritalStatusMarriageRegime?: string
+  maritalStatusDivorceNumber?: number
+  maritalStatusDivorceDate?: Date
+  maritalStatusDivorceCourt?: string
+  maritalStatusDivorceAutos?: string
+  maritalStatusDeceasedSpouseName?: string
   numberOfChildren?: number
   address: string
   city: string
   province: string
   profession: string
-  phoneNumber: string
-  mobileNumber: string
+  phoneNumber: number
+  mobileNumber: number
   email: string
   isPoliticallyExposed?: boolean
   politicalPosition?: string
@@ -75,10 +69,4 @@ export type LegalPersonDataSheet = {
   proceedingsCopy: string
   balanceCopy: string
   representativeData: string
-}
-
-export type User = {
-  id?: number
-  name: string
-  email: string
 }

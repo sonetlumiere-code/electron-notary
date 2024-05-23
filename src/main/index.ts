@@ -2,15 +2,9 @@ import { electronApp, is, optimizer } from "@electron-toolkit/utils"
 import { BrowserWindow, app, ipcMain, shell } from "electron"
 import { join } from "path"
 import icon from "../../resources/icon.png?asset"
-import { LegalPersonDataSheet, PersonDataSheet, User } from "../shared/types"
-import { createLegalPerson, getLegalPersons } from "./lib/sqlite/crud/legal-person-data-sheet"
-import {
-  createPerson,
-  deletePerson,
-  getPersons,
-  searchPersons
-} from "./lib/sqlite/crud/person-data-sheet"
-import { createUser, getUsers } from "./lib/sqlite/crud/user"
+import { LegalPersonDataSheet, PersonDataSheet } from "../shared/types"
+import { createLegalPerson, getLegalPersons } from "./lib/sqlite/models/legal-person"
+import { createPerson, deletePerson, getPersons, searchPersons } from "./lib/sqlite/models/person"
 
 function createWindow(): void {
   // Create the browser window.
@@ -58,16 +52,6 @@ app.whenReady().then(() => {
   // see https://github.com/alex8088/electron-toolkit/tree/master/packages/utils
   app.on("browser-window-created", (_, window) => {
     optimizer.watchWindowShortcuts(window)
-  })
-
-  ipcMain.handle("create-user", (_event, data: User) => {
-    const user = createUser(data)
-    return user
-  })
-
-  ipcMain.handle("get-users", () => {
-    const users = getUsers()
-    return users
   })
 
   ipcMain.handle("create-person", (_event, data: PersonDataSheet) => {
