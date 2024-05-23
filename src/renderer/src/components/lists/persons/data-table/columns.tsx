@@ -3,7 +3,7 @@ import { Checkbox } from "@renderer/components/ui/checkbox"
 import { PersonDataSheet } from "@shared/types"
 import { ColumnDef } from "@tanstack/react-table"
 import { ChevronsUpDown } from "lucide-react"
-import PersonActions from "./actions/person-actions"
+import PersonActions from "../actions/person-actions"
 
 export const columns: ColumnDef<PersonDataSheet>[] = [
   {
@@ -108,7 +108,7 @@ export const columns: ColumnDef<PersonDataSheet>[] = [
       const rowData = row.original as PersonDataSheet
       return (
         <div className="flex justify-end space-x-1">
-          <PersonActions person={rowData} />
+          <PersonActions person={rowData} showView showEdit showDelete />
         </div>
       )
     }

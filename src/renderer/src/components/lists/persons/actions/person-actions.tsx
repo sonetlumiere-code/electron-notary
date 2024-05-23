@@ -14,9 +14,12 @@ import DeletePerson from "./delete-person"
 
 type PersonActionsProps = {
   person: PersonDataSheet
+  showView?: boolean
+  showEdit?: boolean
+  showDelete?: boolean
 }
 
-const PersonActions = ({ person }: PersonActionsProps) => {
+const PersonActions = ({ person, showView, showEdit, showDelete }: PersonActionsProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -28,21 +31,27 @@ const PersonActions = ({ person }: PersonActionsProps) => {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Acciones</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <Link to={`/person/${person.id}`}>
+        {showView && (
+          <Link to={`/person/${person.id}`}>
+            <DropdownMenuItem>
+              <ViewIcon className="w-4 h-4 mr-2" />
+              <p className="ml-2">Ver</p>
+            </DropdownMenuItem>
+          </Link>
+        )}
+        {showEdit && (
+          <Link to={`/edit-person/${person.id}`}>
+            <DropdownMenuItem>
+              <Edit className="w-4 h-4 mr-2" />
+              <p className="ml-2">Editar</p>
+            </DropdownMenuItem>
+          </Link>
+        )}
+        {showDelete && (
           <DropdownMenuItem>
-            <ViewIcon className="w-4 h-4 mr-2" />
-            <p className="ml-2">Ver</p>
+            <DeletePerson person={person} />
           </DropdownMenuItem>
-        </Link>
-        <Link to={`/edit-person/${person.id}`}>
-          <DropdownMenuItem>
-            <Edit className="w-4 h-4 mr-2" />
-            <p className="ml-2">Editar</p>
-          </DropdownMenuItem>
-        </Link>
-        <DropdownMenuItem>
-          <DeletePerson person={person} />
-        </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   )

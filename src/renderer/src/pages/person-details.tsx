@@ -1,3 +1,4 @@
+import PersonActions from "@renderer/components/lists/persons/actions/person-actions"
 import PageTitle from "@renderer/components/page-title"
 import {
   Breadcrumb,
@@ -63,8 +64,13 @@ const PersonDetailsPage = () => {
 
       <Card>
         <CardHeader>
-          <CardTitle>Ficha de persona</CardTitle>
-          <CardDescription>Detalle de ficha de persona</CardDescription>
+          <div className="flex justify-between">
+            <div>
+              <CardTitle>Ficha de persona</CardTitle>
+              <CardDescription>Detalle de ficha de persona</CardDescription>
+            </div>
+            {person && <PersonActions person={person} showEdit showDelete />}
+          </div>
         </CardHeader>
         <CardContent>
           {person && (
