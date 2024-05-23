@@ -1,6 +1,6 @@
 import { Button } from "@renderer/components/ui/button"
 import { Checkbox } from "@renderer/components/ui/checkbox"
-import { PersonDataSheet } from "@shared/types"
+import { MaritalStatus, PersonDataSheet } from "@shared/types"
 import { ColumnDef } from "@tanstack/react-table"
 import { ChevronsUpDown } from "lucide-react"
 import PersonActions from "../actions/person-actions"
@@ -101,6 +101,79 @@ export const columns: ColumnDef<PersonDataSheet>[] = [
       return <div className="ml-4 font-medium">{row.getValue("city")}</div>
     }
   },
+  // {
+  //   accessorKey: "CUIT_L",
+  //   meta: "CUIT/L",
+  //   header: ({ column }) => {
+  //     return (
+  //       <Button
+  //         variant="ghost"
+  //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+  //       >
+  //         CUIT/L
+  //         <ChevronsUpDown className="ml-2 h-4 w-4" />
+  //       </Button>
+  //     )
+  //   },
+  //   cell: ({ row }) => {
+  //     return <div className="ml-4 font-medium">{row.getValue("CUIT_L")}</div>
+  //   }
+  // },
+  // {
+  //   accessorKey: "documentType",
+  //   meta: "Número de documento",
+  //   header: ({ column }) => {
+  //     return (
+  //       <Button
+  //         variant="ghost"
+  //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+  //       >
+  //         Tipo de documento
+  //         <ChevronsUpDown className="ml-2 h-4 w-4" />
+  //       </Button>
+  //     )
+  //   },
+  //   cell: ({ row }) => {
+  //     return <div className="ml-4 font-medium">{row.getValue("documentType")}</div>
+  //   }
+  // },
+  {
+    accessorKey: "documentNumber",
+    meta: "Número de documento",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Número de documento
+          <ChevronsUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => {
+      return <div className="ml-4 font-medium">{row.getValue("documentNumber")}</div>
+    }
+  },
+  {
+    accessorKey: "maritalStatus",
+    meta: "Estado civil",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Estado civil
+          <ChevronsUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => {
+      const maritalStatus = row.getValue("maritalStatus") as MaritalStatus
+      return <div className="ml-4 font-medium capitalize">{maritalStatus.toLowerCase()}</div>
+    }
+  },
   {
     id: "actions",
     header: () => <div className="text-end">Acciones</div>,
@@ -108,7 +181,7 @@ export const columns: ColumnDef<PersonDataSheet>[] = [
       const rowData = row.original as PersonDataSheet
       return (
         <div className="flex justify-end space-x-1">
-          <PersonActions person={rowData} showView showEdit showDelete />
+          <PersonActions person={rowData} showView showEdit />
         </div>
       )
     }

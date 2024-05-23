@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
+import PersonActions from "@renderer/components/lists/persons/actions/person-actions"
 import PageTitle from "@renderer/components/page-title"
 import {
   Breadcrumb,
@@ -114,8 +115,13 @@ const EditPersonPage = () => {
           <Form {...form}>
             <form onSubmit={form.handleSubmit(editPerson)}>
               <CardHeader>
-                <CardTitle>Ficha de persona</CardTitle>
-                <CardDescription>Formulario para editar ficha de persona</CardDescription>
+                <div className="flex justify-between">
+                  <div>
+                    <CardTitle>Ficha de persona</CardTitle>
+                    <CardDescription>Formulario para editar ficha de persona</CardDescription>
+                  </div>
+                  {person && <PersonActions person={person} showView showDelete />}
+                </div>
               </CardHeader>
               <CardContent>
                 <div className="relative grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">

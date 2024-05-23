@@ -2,12 +2,14 @@ import { useConfirmation } from "@renderer/components/confirmation-provider"
 import { toast } from "@renderer/components/ui/use-toast"
 import { PersonDataSheet } from "@shared/types"
 import { Trash2 } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
 type DeletePersonProps = {
   person: PersonDataSheet
 }
 
 const DeletePerson = ({ person }: DeletePersonProps) => {
+  const navigate = useNavigate()
   const confirm = useConfirmation()
 
   const deletePerson = async () => {
@@ -17,7 +19,8 @@ const DeletePerson = ({ person }: DeletePersonProps) => {
       description: "Esta acción es irreversible."
     }).then(async () => {
       try {
-        window.personAPI.deletePerson(person.id as number)
+        await window.personAPI.deletePerson(person.id as number)
+        navigate("/persons-list")
         toast({
           title: "Ficha personal eliminada.",
           description: "La ficha ha sido eliminada correctamente."
