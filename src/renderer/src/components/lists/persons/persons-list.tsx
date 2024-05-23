@@ -20,7 +20,7 @@ const PersonsList = () => {
 
   useEffect(() => {
     const getPersons = async () => {
-      const res = await window.api.getPersons()
+      const res = await window.personAPI.getPersons()
       setPersons(res)
     }
 
@@ -29,7 +29,7 @@ const PersonsList = () => {
 
   // useEffect(() => {
   //   const getPersons = async () => {
-  //     const res = await window.api.searchPersons({
+  //     const res = await window.personAPI.searchPersons({
   //       name: 'Al',
   //       email: 'alfio.doe@exampl'
   //     })

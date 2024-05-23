@@ -95,9 +95,9 @@ const updatePerson = (data: PersonDataSheet) => {
   const query = `
     UPDATE person_data_sheets SET
       name = ?, lastName = ?, gender = ?, nationality = ?, documentType = ?, documentNumber = ?,
-      CUIT_L = ?, birthdate = ?, birthplace = ?, maritalStatus = ?, spouseName = ?, spouseNumber = ?,
-      marriageRegime = ?, divorceNumber = ?, divorceDate = ?, divorceCourt = ?, divorceAutos = ?,
-      deceasedSpouseName = ?, numberOfChildren = ?, address = ?, city = ?, province = ?, profession = ?,
+      CUIT_L = ?, birthdate = ?, birthplace = ?, maritalStatus = ?, maritalStatusSpouseName = ?, maritalStatusSpouseNumber = ?,
+      maritalStatusMarriageRegime = ?, maritalStatusDivorceNumber = ?, maritalStatusDivorceDate = ?, maritalStatusDivorceCourt = ?, maritalStatusDivorceAutos = ?,
+      maritalStatusDeceasedSpouseName = ?, numberOfChildren = ?, address = ?, city = ?, province = ?, profession = ?,
       phoneNumber = ?, mobileNumber = ?, email = ?, isPoliticallyExposed = ?, politicalPosition = ?,
       originOfFunds = ?, reasonForChoosing = ?, referredBy = ?
     WHERE id = ?

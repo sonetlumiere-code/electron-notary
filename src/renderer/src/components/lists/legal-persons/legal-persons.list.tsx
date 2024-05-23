@@ -6,7 +6,7 @@ const LegalPersonsList = () => {
 
   useEffect(() => {
     const getLegalPersons = async () => {
-      const res = await window.api.getLegalPersons()
+      const res = await window.legalPersonAPI.getLegalPersons()
       setLegalPersons(res)
       console.log(res)
     }

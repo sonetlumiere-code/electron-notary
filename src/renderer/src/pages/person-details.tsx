@@ -30,7 +30,7 @@ const PersonDetailsPage = () => {
   useEffect(() => {
     const getPerson = async () => {
       if (id) {
-        const res = await window.api.getPersonById(parseInt(id))
+        const res = await window.personAPI.getPersonById(parseInt(id))
         setPerson(res)
       }
     }

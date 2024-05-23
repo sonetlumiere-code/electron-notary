@@ -4,7 +4,7 @@ import { toast } from "@renderer/components/ui/use-toast"
 const CreateLegalPersonPage = () => {
   const createLegalPerson = async () => {
     try {
-      const newLegalPerson = await window.api.createLegalPerson({
+      const newLegalPerson = await window.legalPersonAPI.createLegalPerson({
         businessName: "Tech Innovators Inc.",
         CUIT: 12345678901,
         legalAddress: "123 Innovation Drive, Suite 100, Silicon Valley, CA",

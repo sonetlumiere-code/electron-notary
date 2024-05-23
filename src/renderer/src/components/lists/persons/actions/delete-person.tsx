@@ -17,7 +17,7 @@ const DeletePerson = ({ person }: DeletePersonProps) => {
       description: "Esta acción es irreversible."
     }).then(async () => {
       try {
-        window.api.deletePerson(person.id as number)
+        window.personAPI.deletePerson(person.id as number)
         toast({
           title: "Ficha personal eliminada.",
           description: "La ficha ha sido eliminada correctamente."

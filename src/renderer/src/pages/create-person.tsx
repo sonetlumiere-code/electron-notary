@@ -87,7 +87,7 @@ const CreatePersonPage = () => {
 
   const createPerson = async (data: PersonSchema) => {
     try {
-      await window.api.createPerson(data)
+      await window.personAPI.createPerson(data)
       navigate("/persons-list")
       toast({
         title: "Nueva ficha creada.",

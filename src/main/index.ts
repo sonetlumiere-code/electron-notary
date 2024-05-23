@@ -9,7 +9,8 @@ import {
   deletePerson,
   getPersonById,
   getPersons,
-  searchPersons
+  searchPersons,
+  updatePerson
 } from "./lib/sqlite/models/person"
 
 function createWindow(): void {
@@ -73,6 +74,10 @@ app.whenReady().then(() => {
   ipcMain.handle("get-person-by-id", (_event, id: number) => {
     const person = getPersonById(id)
     return person
+  })
+
+  ipcMain.handle("update-person", (_event, data: PersonDataSheet) => {
+    const person = updatePerson(data)
   })
 
   ipcMain.handle("delete-person", (_event, id: number) => {
