@@ -30,7 +30,7 @@ const createPerson = (data: PersonDataSheet) => {
       data.maritalStatusSpouseNumber,
       data.maritalStatusMarriageRegime,
       data.maritalStatusDivorceNumber,
-      data.maritalStatusDivorceDate,
+      data.maritalStatusDivorceDate ? data.maritalStatusDivorceDate.toISOString() : null,
       data.maritalStatusDivorceCourt,
       data.maritalStatusDivorceAutos,
       data.maritalStatusDeceasedSpouseName,
@@ -65,7 +65,7 @@ const getPersons = (): PersonDataSheet[] | null => {
   try {
     const stmt = db.prepare(query)
     const rows = stmt.all()
-    return rows
+    return rows.map((row: PersonDataSheet) => formatResponse(row))
   } catch (err) {
     console.error("Error retrieving data: ", err)
     throw err
@@ -79,10 +79,7 @@ const getPersonById = (id: number): PersonDataSheet | null => {
     const stmt = db.prepare(query)
     const row = stmt.get(id)
     if (row) {
-      return {
-        ...row,
-        isPoliticallyExposed: Boolean(row.isPoliticallyExposed) // Convert integer to boolean
-      }
+      return formatResponse(row)
     }
     return null
   } catch (err) {
@@ -92,6 +89,7 @@ const getPersonById = (id: number): PersonDataSheet | null => {
 }
 
 const updatePerson = (data: PersonDataSheet) => {
+  console.log(data)
   const query = `
     UPDATE person_data_sheets SET
       name = ?, lastName = ?, gender = ?, nationality = ?, documentType = ?, documentNumber = ?,
@@ -235,15 +233,21 @@ const searchPersons = (filters: Partial<PersonDataSheet>): PersonDataSheet[] => 
   try {
     const stmt = db.prepare(query)
     const rows = stmt.all(...params)
-    return rows.map((row: PersonDataSheet) => ({
-      ...row,
-      birthdate: new Date(row.birthdate),
-      divorceDate: row.maritalStatusDivorceDate ? new Date(row.maritalStatusDivorceDate) : null,
-      isPoliticallyExposed: Boolean(row.isPoliticallyExposed)
-    }))
+    return rows.map((row: PersonDataSheet) => formatResponse(row))
   } catch (err) {
     console.error("Error searching data: ", err)
     throw err
+  }
+}
+
+const formatResponse = (row: PersonDataSheet): PersonDataSheet => {
+  return {
+    ...row,
+    birthdate: new Date(row.birthdate),
+    maritalStatusDivorceDate: row.maritalStatusDivorceDate
+      ? new Date(row.maritalStatusDivorceDate)
+      : undefined,
+    isPoliticallyExposed: Boolean(row.isPoliticallyExposed)
   }
 }
 

@@ -78,6 +78,7 @@ app.whenReady().then(() => {
 
   ipcMain.handle("update-person", (_event, data: PersonDataSheet) => {
     const person = updatePerson(data)
+    return person
   })
 
   ipcMain.handle("delete-person", (_event, id: number) => {

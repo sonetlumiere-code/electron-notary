@@ -28,16 +28,16 @@ const PersonsList = () => {
   }, [])
 
   // useEffect(() => {
-  //   const getPersons = async () => {
+  //   const searchPersons = async () => {
   //     const res = await window.personAPI.searchPersons({
-  //       name: 'Al',
-  //       email: 'alfio.doe@exampl'
+  //       name: "A",
+  //       email: "@exampl"
   //     })
   //     setPersons(res)
   //     console.log(res)
   //   }
 
-  //   getPersons()
+  //   searchPersons()
   // }, [])
 
   return (

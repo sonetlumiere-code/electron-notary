@@ -74,8 +74,8 @@ const CreatePersonPage = () => {
       city: "",
       province: "",
       profession: "",
-      phoneNumber: "",
-      mobileNumber: "",
+      phoneNumber: 0,
+      mobileNumber: 0,
       email: "",
       isPoliticallyExposed: false,
       politicalPosition: "",
@@ -603,8 +603,8 @@ const CreatePersonPage = () => {
                     <FormItem className="flex flex-col">
                       <FormLabel>¿Es Persona Políticamente Expuesta?</FormLabel>
                       <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value?.toString() || "false"}
+                        value={field.value.toString()}
+                        onValueChange={(value) => field.onChange(value === "true")}
                         disabled={form.formState.isSubmitting}
                       >
                         <FormControl>
@@ -614,10 +614,10 @@ const CreatePersonPage = () => {
                         </FormControl>
                         <SelectContent>
                           {[
-                            { key: "Si", value: "true" },
-                            { key: "No", value: "false" }
+                            { key: "Si", value: true },
+                            { key: "No", value: false }
                           ].map(({ key, value }) => (
-                            <SelectItem key={key} value={value}>
+                            <SelectItem key={key} value={value.toString()}>
                               {key}
                             </SelectItem>
                           ))}
