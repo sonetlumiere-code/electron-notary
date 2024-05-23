@@ -9,6 +9,7 @@ if (!process.contextIsolated) {
 const api = {
   createPerson: (person: PersonDataSheet) => ipcRenderer.invoke("create-person", person),
   getPersons: () => ipcRenderer.invoke("get-persons"),
+  getPersonById: (id: number) => ipcRenderer.invoke("get-person-by-id", id),
   searchPersons: (filters: Partial<PersonDataSheet>) =>
     ipcRenderer.invoke("search-persons", filters),
   deletePerson: (id: number) => ipcRenderer.invoke("delete-person", id),

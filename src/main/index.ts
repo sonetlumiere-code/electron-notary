@@ -4,7 +4,13 @@ import { join } from "path"
 import icon from "../../resources/icon.png?asset"
 import { LegalPersonDataSheet, PersonDataSheet } from "../shared/types"
 import { createLegalPerson, getLegalPersons } from "./lib/sqlite/models/legal-person"
-import { createPerson, deletePerson, getPersons, searchPersons } from "./lib/sqlite/models/person"
+import {
+  createPerson,
+  deletePerson,
+  getPersonById,
+  getPersons,
+  searchPersons
+} from "./lib/sqlite/models/person"
 
 function createWindow(): void {
   // Create the browser window.
@@ -62,6 +68,11 @@ app.whenReady().then(() => {
   ipcMain.handle("get-persons", () => {
     const persons = getPersons()
     return persons
+  })
+
+  ipcMain.handle("get-person-by-id", (_event, id: number) => {
+    const person = getPersonById(id)
+    return person
   })
 
   ipcMain.handle("delete-person", (_event, id: number) => {
