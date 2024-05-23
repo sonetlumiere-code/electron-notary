@@ -109,15 +109,15 @@ const EditPersonPage = () => {
 
       <PageTitle>Editar ficha</PageTitle>
 
-      <Card>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(editPerson)}>
-            <CardHeader>
-              <CardTitle>Ficha de persona</CardTitle>
-              <CardDescription>Formulario para editar ficha de persona</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {person && (
+      {person && (
+        <Card>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(editPerson)}>
+              <CardHeader>
+                <CardTitle>Ficha de persona</CardTitle>
+                <CardDescription>Formulario para editar ficha de persona</CardDescription>
+              </CardHeader>
+              <CardContent>
                 <div className="relative grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                   <FormField
                     control={form.control}
@@ -671,16 +671,16 @@ const EditPersonPage = () => {
                     )}
                   />
                 </div>
-              )}
-            </CardContent>
-            <CardFooter>
-              <Button type="submit" disabled={form.formState.isSubmitting}>
-                Editar
-              </Button>
-            </CardFooter>
-          </form>
-        </Form>
-      </Card>
+              </CardContent>
+              <CardFooter>
+                <Button type="submit" disabled={form.formState.isSubmitting}>
+                  Editar
+                </Button>
+              </CardFooter>
+            </form>
+          </Form>
+        </Card>
+      )}
     </div>
   )
 }
