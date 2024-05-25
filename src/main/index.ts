@@ -1,6 +1,7 @@
 import { electronApp, is, optimizer } from "@electron-toolkit/utils"
-import { BrowserWindow, app, ipcMain, shell } from "electron"
-import { join } from "path"
+import { BrowserWindow, app, dialog, ipcMain, shell } from "electron"
+import fs from "fs"
+import path, { join } from "path"
 import icon from "../../resources/icon.png?asset"
 import { LegalPersonDataSheet, PersonDataSheet } from "../shared/types"
 import { createLegalPerson, getLegalPersons } from "./lib/sqlite/models/legal-person"
@@ -100,6 +101,36 @@ app.whenReady().then(() => {
     const legalPersons = getLegalPersons()
     return legalPersons
   })
+
+  ipcMain.handle("select-directory", async (_event) => {
+    const result = await dialog.showOpenDialog({ properties: ["openDirectory"] })
+    return result.filePaths[0]
+  })
+
+  ipcMain.handle(
+    "export-persons",
+    async (_event, { directory, fileName }: { directory: string; fileName: string }) => {
+      const data = getPersons()
+      const filePath = path.join(directory, fileName)
+      fs.writeFileSync(filePath, JSON.stringify(data, null, 2))
+      return filePath
+    }
+  )
+
+  ipcMain.handle(
+    "export-persons-by-ids",
+    async (
+      _event,
+      { directory, fileName, ids }: { directory: string; fileName: string; ids: number[] }
+    ) => {
+      const data = searchPersons({
+        ids
+      })
+      const filePath = path.join(directory, fileName)
+      fs.writeFileSync(filePath, JSON.stringify(data, null, 2))
+      return filePath
+    }
+  )
 
   createWindow()
 

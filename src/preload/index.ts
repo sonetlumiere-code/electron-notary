@@ -6,6 +6,10 @@ if (!process.contextIsolated) {
 }
 
 // Custom APIs for renderer
+const electronAPI = {
+  selectDirectory: () => ipcRenderer.invoke("select-directory")
+}
+
 const personAPI = {
   createPerson: (person: PersonDataSheet) => ipcRenderer.invoke("create-person", person),
   getPersons: () => ipcRenderer.invoke("get-persons"),
@@ -13,7 +17,18 @@ const personAPI = {
   searchPersons: (filters: Partial<PersonDataSheet>) =>
     ipcRenderer.invoke("search-persons", filters),
   updatePerson: (person: PersonDataSheet) => ipcRenderer.invoke("update-person", person),
-  deletePerson: (id: number) => ipcRenderer.invoke("delete-person", id)
+  deletePerson: (id: number) => ipcRenderer.invoke("delete-person", id),
+  exportPersons: ({ directory, fileName }: { directory: string; fileName: string }) =>
+    ipcRenderer.invoke("export-persons", { directory, fileName }),
+  exportPersonsByIds: ({
+    directory,
+    fileName,
+    ids
+  }: {
+    directory: string
+    fileName: string
+    ids: number[]
+  }) => ipcRenderer.invoke("export-persons-by-ids", { directory, fileName, ids })
 }
 
 const legalPersonAPI = {
@@ -23,6 +38,7 @@ const legalPersonAPI = {
 }
 
 try {
+  contextBridge.exposeInMainWorld("electronAPI", electronAPI)
   contextBridge.exposeInMainWorld("personAPI", personAPI)
   contextBridge.exposeInMainWorld("legalPersonAPI", legalPersonAPI)
 } catch (error) {

@@ -161,10 +161,17 @@ const deletePerson = (id: number) => {
   }
 }
 
-const searchPersons = (filters: Partial<PersonDataSheet>): PersonDataSheet[] => {
+const searchPersons = (
+  filters: Partial<PersonDataSheet> & { ids?: number[] }
+): PersonDataSheet[] => {
   let query = `SELECT * FROM person_data_sheets WHERE 1=1`
   const params: (string | number | Date | null)[] = []
 
+  if (filters.ids && filters.ids.length > 0) {
+    const placeholders = filters.ids.map(() => "?").join(",")
+    query += ` AND id IN (${placeholders})`
+    params.push(...filters.ids)
+  }
   if (filters.name) {
     query += ` AND name LIKE ?`
     params.push(`%${filters.name}%`)

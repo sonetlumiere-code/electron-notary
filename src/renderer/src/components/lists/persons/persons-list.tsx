@@ -30,8 +30,9 @@ const PersonsList = () => {
   // useEffect(() => {
   //   const searchPersons = async () => {
   //     const res = await window.personAPI.searchPersons({
-  //       name: "A",
-  //       email: "@exampl"
+  //       name: "",
+  //       email: "",
+  //       ids: ["4"]
   //     })
   //     setPersons(res)
   //     console.log(res)
