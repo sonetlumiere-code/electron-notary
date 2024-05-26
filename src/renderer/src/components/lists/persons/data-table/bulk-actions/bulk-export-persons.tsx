@@ -16,19 +16,17 @@ const BulkExportPersons = <TData,>({ table }: BulkExportPersonsProps<TData>) => 
     const directory = await window.electronAPI.selectDirectory()
 
     if (directory) {
-      const fileName = "person_data_sheets.json"
-      const res = await window.personAPI.exportPersonsByIds({
-        directory,
-        fileName,
-        ids: selectedPersonsIds as number[]
+      const res = await window.personAPI.bulkExportPersons({
+        ids: selectedPersonsIds as number[],
+        directory
       })
 
       table.resetRowSelection()
 
       toast({
         title: "Exportación realizada.",
-        description: `Las filas seleccionadas han sido exportadas al archivo ${res}/${fileName}`,
-        duration: 6000
+        description: `Las filas seleccionadas han sido exportadas al archivo ${res}`,
+        duration: 10000
       })
     }
   }

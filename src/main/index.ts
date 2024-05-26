@@ -6,6 +6,7 @@ import icon from "../../resources/icon.png?asset"
 import { LegalPersonDataSheet, PersonDataSheet } from "../shared/types"
 import { createLegalPerson, getLegalPersons } from "./lib/sqlite/models/legal-person"
 import {
+  bulkDeletePersons,
   createPerson,
   deletePerson,
   getPersonById,
@@ -118,19 +119,22 @@ app.whenReady().then(() => {
   )
 
   ipcMain.handle(
-    "export-persons-by-ids",
-    async (
-      _event,
-      { directory, fileName, ids }: { directory: string; fileName: string; ids: number[] }
-    ) => {
+    "bulk-export-persons",
+    async (_event, { directory, ids }: { directory: string; ids: number[] }) => {
       const data = searchPersons({
         ids
       })
+      const fileName = "person_data_sheets.json"
       const filePath = path.join(directory, fileName)
       fs.writeFileSync(filePath, JSON.stringify(data, null, 2))
       return filePath
     }
   )
+
+  ipcMain.handle("bulk-delete-persons", async (_event, ids: number[]) => {
+    const res = bulkDeletePersons(ids)
+    return res
+  })
 
   createWindow()
 

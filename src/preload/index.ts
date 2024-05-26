@@ -18,17 +18,12 @@ const personAPI = {
     ipcRenderer.invoke("search-persons", filters),
   updatePerson: (person: PersonDataSheet) => ipcRenderer.invoke("update-person", person),
   deletePerson: (id: number) => ipcRenderer.invoke("delete-person", id),
+  importPersons: () => ipcRenderer.invoke("import-persons"),
   exportPersons: ({ directory, fileName }: { directory: string; fileName: string }) =>
     ipcRenderer.invoke("export-persons", { directory, fileName }),
-  exportPersonsByIds: ({
-    directory,
-    fileName,
-    ids
-  }: {
-    directory: string
-    fileName: string
-    ids: number[]
-  }) => ipcRenderer.invoke("export-persons-by-ids", { directory, fileName, ids })
+  bulkExportPersons: ({ ids, directory }: { ids: number[]; directory: string }) =>
+    ipcRenderer.invoke("bulk-export-persons", { ids, directory }),
+  bulkDeletePersons: (ids: number[]) => ipcRenderer.invoke("bulk-delete-persons", ids)
 }
 
 const legalPersonAPI = {

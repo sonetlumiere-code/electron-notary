@@ -258,4 +258,26 @@ const formatResponse = (row: PersonDataSheet): PersonDataSheet => {
   }
 }
 
-export { createPerson, deletePerson, getPersonById, getPersons, searchPersons, updatePerson }
+const bulkDeletePersons = (ids: number[]) => {
+  const placeholders = ids.map(() => "?").join(",")
+  const query = `DELETE FROM person_data_sheets WHERE id IN (${placeholders})`
+
+  try {
+    const stmt = db.prepare(query)
+    stmt.run(...ids)
+    return ids
+  } catch (err) {
+    console.error("Error bulk deleting data: ", err)
+    throw err
+  }
+}
+
+export {
+  bulkDeletePersons,
+  createPerson,
+  deletePerson,
+  getPersonById,
+  getPersons,
+  searchPersons,
+  updatePerson
+}

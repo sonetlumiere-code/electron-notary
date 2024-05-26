@@ -11,12 +11,10 @@ export interface personAPI {
   searchPersons: (filters: Partial<PersonDataSheet>) => Promise<PersonDataSheet[] | null>
   updatePerson: (person: PersonDataSheet) => Promise<PersonDataSheet | null>
   deletePerson: (id: number) => Promise<number | null>
+  importPersons: () => Promise<PersonDataSheet[]>
   exportPersons: (params: { directory: string; fileName: string }) => Promise<string>
-  exportPersonsByIds: (params: {
-    directory: string
-    fileName: string
-    ids: number[]
-  }) => Promise<string>
+  bulkExportPersons: (params: { ids: number[]; directory: string }) => Promise<string>
+  bulkDeletePersons: (ids: number[]) => Promise<number[] | null>
 }
 
 export interface legalPersonAPI {
