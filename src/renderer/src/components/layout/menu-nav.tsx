@@ -12,7 +12,7 @@ const MenuNav = () => {
       <SheetTrigger>
         <Menu className="block lg:hidden h-6 w-6" />
       </SheetTrigger>
-      <SheetContent side="left" className="lg:hidden w-[260px]">
+      <SheetContent side="left" className="lg:hidden w-[240px]">
         <nav className="flex flex-col gap-4">
           <div className="p-5 border-b">
             <Cloud />
