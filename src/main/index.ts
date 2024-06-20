@@ -4,7 +4,7 @@ import fs from "fs"
 import path, { join } from "path"
 import icon from "../../resources/icon.png?asset"
 import { LegalPersonDataSheet, PersonDataSheet } from "../shared/types"
-import { createLegalPerson, getLegalPersons } from "./lib/sqlite/models/legal-person"
+import { createLegalPerson, getLegalPersons } from "./lib/sqlite/services/legal-person"
 import {
   bulkDeletePersons,
   createPerson,
@@ -13,7 +13,7 @@ import {
   getPersons,
   searchPersons,
   updatePerson
-} from "./lib/sqlite/models/person"
+} from "./lib/sqlite/services/person"
 
 function createWindow(): void {
   // Create the browser window.
