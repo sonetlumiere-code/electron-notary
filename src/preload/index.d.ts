@@ -12,7 +12,7 @@ export interface personAPI {
   updatePerson: (person: PersonDataSheet) => Promise<PersonDataSheet | null>
   deletePerson: (id: number) => Promise<number | null>
   importPersons: () => Promise<PersonDataSheet[]>
-  exportPersons: (params: { directory: string; fileName: string }) => Promise<string>
+  exportPersons: (directory: string) => Promise<string>
   bulkExportPersons: (params: { ids: number[]; directory: string }) => Promise<string>
   bulkDeletePersons: (ids: number[]) => Promise<number[] | null>
 }
@@ -20,6 +20,16 @@ export interface personAPI {
 export interface legalPersonAPI {
   createLegalPerson: (legalPerson: LegalPersonDataSheet) => Promise<LegalPersonDataSheet | null>
   getLegalPersons: () => Promise<LegalPersonDataSheet[] | null>
+  getLegalPersonById: (id: number) => Promise<LegalPersonDataSheet | null>
+  searchLegalPersons: (
+    filters: Partial<LegalPersonDataSheet>
+  ) => Promise<LegalPersonDataSheet[] | null>
+  updateLegalPerson: (legalPerson: LegalPersonDataSheet) => Promise<LegalPersonDataSheet | null>
+  deleteLegalPerson: (id: number) => Promise<number | null>
+  importLegalPersons: () => Promise<LegalPersonDataSheet[]>
+  exportLegalPersons: (directory: string) => Promise<string>
+  bulkExportLegalPersons: (params: { ids: number[]; directory: string }) => Promise<string>
+  bulkDeleteLegalPersons: (ids: number[]) => Promise<number[] | null>
 }
 
 declare global {

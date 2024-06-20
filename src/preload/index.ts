@@ -19,8 +19,7 @@ const personAPI = {
   updatePerson: (person: PersonDataSheet) => ipcRenderer.invoke("update-person", person),
   deletePerson: (id: number) => ipcRenderer.invoke("delete-person", id),
   importPersons: () => ipcRenderer.invoke("import-persons"),
-  exportPersons: ({ directory, fileName }: { directory: string; fileName: string }) =>
-    ipcRenderer.invoke("export-persons", { directory, fileName }),
+  exportPersons: (directory: string) => ipcRenderer.invoke("export-persons", directory),
   bulkExportPersons: ({ ids, directory }: { ids: number[]; directory: string }) =>
     ipcRenderer.invoke("bulk-export-persons", { ids, directory }),
   bulkDeletePersons: (ids: number[]) => ipcRenderer.invoke("bulk-delete-persons", ids)
@@ -29,7 +28,18 @@ const personAPI = {
 const legalPersonAPI = {
   createLegalPerson: (legalPerson: LegalPersonDataSheet) =>
     ipcRenderer.invoke("create-legal-person", legalPerson),
-  getLegalPersons: () => ipcRenderer.invoke("get-legal-persons")
+  getLegalPersons: () => ipcRenderer.invoke("get-legal-persons"),
+  getLegalPersonById: (id: number) => ipcRenderer.invoke("get-legal-person-by-id", id),
+  searchLegalPersons: (filters: Partial<LegalPersonDataSheet>) =>
+    ipcRenderer.invoke("search-legal-persons", filters),
+  updateLegalPerson: (legalPerson: LegalPersonDataSheet) =>
+    ipcRenderer.invoke("update-legal-person", legalPerson),
+  deleteLegalPerson: (id: number) => ipcRenderer.invoke("delete-legal-person", id),
+  importLegalPersons: () => ipcRenderer.invoke("import-legal-persons"),
+  exportLegalPersons: (directory: string) => ipcRenderer.invoke("export-legal-persons", directory),
+  bulkExportLegalPersons: ({ ids, directory }: { ids: number[]; directory: string }) =>
+    ipcRenderer.invoke("bulk-export-legal-persons", { ids, directory }),
+  bulkDeleteLegalPersons: (ids: number[]) => ipcRenderer.invoke("bulk-delete-legal-persons", ids)
 }
 
 try {

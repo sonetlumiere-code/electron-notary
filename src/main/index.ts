@@ -1,16 +1,29 @@
 import { electronApp, is, optimizer } from "@electron-toolkit/utils"
 import { BrowserWindow, app, dialog, ipcMain, shell } from "electron"
-import fs from "fs"
-import path, { join } from "path"
+import { join } from "path"
 import icon from "../../resources/icon.png?asset"
 import { LegalPersonDataSheet, PersonDataSheet } from "../shared/types"
-import { createLegalPerson, getLegalPersons } from "./lib/sqlite/services/legal-person"
+import {
+  bulkDeleteLegalPersons,
+  bulkExportLegalPersons,
+  createLegalPerson,
+  deleteLegalPerson,
+  exportLegalPersons,
+  getLegalPersonById,
+  getLegalPersons,
+  importLegalPersons,
+  searchLegalPersons,
+  updateLegalPerson
+} from "./lib/sqlite/services/legal-person"
 import {
   bulkDeletePersons,
+  bulkExportPersons,
   createPerson,
   deletePerson,
+  exportPersons,
   getPersonById,
   getPersons,
+  importPersons,
   searchPersons,
   updatePerson
 } from "./lib/sqlite/services/person"
@@ -105,25 +118,20 @@ app.whenReady().then(() => {
     return res
   })
 
-  ipcMain.handle(
-    "export-persons",
-    async (_event, { directory, fileName }: { directory: string; fileName: string }) => {
-      const data = getPersons()
-      const filePath = path.join(directory, fileName)
-      fs.writeFileSync(filePath, JSON.stringify(data, null, 2))
-      return filePath
-    }
-  )
+  ipcMain.handle("import-persons", async (_event, filePath: string) => {
+    const legalPersons = importPersons(filePath)
+    return legalPersons
+  })
+
+  ipcMain.handle("export-persons", async (_event, directory: string) => {
+    const filePath = exportPersons(directory)
+    return filePath
+  })
 
   ipcMain.handle(
     "bulk-export-persons",
     async (_event, { directory, ids }: { directory: string; ids: number[] }) => {
-      const data = searchPersons({
-        ids
-      })
-      const fileName = "person_data_sheets.json"
-      const filePath = path.join(directory, fileName)
-      fs.writeFileSync(filePath, JSON.stringify(data, null, 2))
+      const filePath = bulkExportPersons(directory, ids)
       return filePath
     }
   )
@@ -139,6 +147,49 @@ app.whenReady().then(() => {
     const legalPersons = getLegalPersons()
     return legalPersons
   })
+
+  ipcMain.handle("get-legal-person-by-id", (_event, id: number) => {
+    const legalPerson = getLegalPersonById(id)
+    return legalPerson
+  })
+
+  ipcMain.handle("search-legal-persons", (_event, filters: Partial<LegalPersonDataSheet>) => {
+    const legalPersons = searchLegalPersons(filters)
+    return legalPersons
+  })
+
+  ipcMain.handle("update-legal-person", (_event, data: LegalPersonDataSheet) => {
+    const legalPerson = updateLegalPerson(data)
+    return legalPerson
+  })
+
+  ipcMain.handle("delete-legal-person", (_event, id: number) => {
+    const res = deleteLegalPerson(id)
+    return res
+  })
+
+  ipcMain.handle("bulk-delete-legal-persons", async (_event, ids: number[]) => {
+    const res = bulkDeleteLegalPersons(ids)
+    return res
+  })
+
+  ipcMain.handle("import-legal-persons", async (_event, filePath: string) => {
+    const legalPersons = importLegalPersons(filePath)
+    return legalPersons
+  })
+
+  ipcMain.handle("export-legal-persons", async (_event, directory: string) => {
+    const filePath = exportLegalPersons(directory)
+    return filePath
+  })
+
+  ipcMain.handle(
+    "bulk-export-legal-persons",
+    async (_event, { directory, ids }: { directory: string; ids: number[] }) => {
+      const filePath = bulkExportLegalPersons(directory, ids)
+      return filePath
+    }
+  )
 
   createWindow()
 

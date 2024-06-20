@@ -1,4 +1,6 @@
 import { LegalPersonDataSheet } from "@shared/types"
+import fs from "fs"
+import path from "path"
 import db from "../sqlite-config"
 
 const createLegalPerson = (data: LegalPersonDataSheet) => {
@@ -211,6 +213,48 @@ const bulkDeleteLegalPersons = (ids: number[]) => {
   }
 }
 
+const importLegalPersons = (filePath: string): LegalPersonDataSheet[] => {
+  try {
+    const data = fs.readFileSync(filePath, "utf-8")
+    const legalPersons: LegalPersonDataSheet[] = JSON.parse(data)
+
+    legalPersons.forEach((legalPerson) => {
+      createLegalPerson(legalPerson)
+    })
+
+    return legalPersons
+  } catch (err) {
+    console.error("Error importing legal persons: ", err)
+    throw err
+  }
+}
+
+const exportLegalPersons = (directory: string): string => {
+  try {
+    const data = getLegalPersons()
+    const fileName = `all_legal_persons_${new Date().getTime().toString()}.json`
+    const filePath = path.join(directory, fileName)
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2))
+    return filePath
+  } catch (err) {
+    console.error("Error exporting legal persons: ", err)
+    throw err
+  }
+}
+
+const bulkExportLegalPersons = (directory: string, ids: number[]): string => {
+  try {
+    const data = searchLegalPersons({ ids })
+    const fileName = `legal_persons_${new Date().getTime().toString()}.json`
+    const filePath = path.join(directory, fileName)
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2))
+    return filePath
+  } catch (err) {
+    console.error("Error bulk exporting legal persons: ", err)
+    throw err
+  }
+}
+
 const formatResponse = (row: LegalPersonDataSheet): LegalPersonDataSheet => {
   return {
     ...row,
@@ -220,10 +264,13 @@ const formatResponse = (row: LegalPersonDataSheet): LegalPersonDataSheet => {
 
 export {
   bulkDeleteLegalPersons,
+  bulkExportLegalPersons,
   createLegalPerson,
   deleteLegalPerson,
+  exportLegalPersons,
   getLegalPersonById,
   getLegalPersons,
+  importLegalPersons,
   searchLegalPersons,
   updateLegalPerson
 }

@@ -1,4 +1,6 @@
 import { PersonDataSheet } from "@shared/types"
+import fs from "fs"
+import path from "path"
 import db from "../sqlite-config"
 
 const createPerson = (data: PersonDataSheet) => {
@@ -260,6 +262,48 @@ const bulkDeletePersons = (ids: number[]) => {
   }
 }
 
+const importPersons = (filePath: string): PersonDataSheet[] => {
+  try {
+    const data = fs.readFileSync(filePath, "utf-8")
+    const legalPersons: PersonDataSheet[] = JSON.parse(data)
+
+    legalPersons.forEach((person) => {
+      createPerson(person)
+    })
+
+    return legalPersons
+  } catch (err) {
+    console.error("Error importing persons: ", err)
+    throw err
+  }
+}
+
+const exportPersons = (directory: string): string => {
+  try {
+    const data = getPersons()
+    const fileName = `all_persons_${new Date().getTime().toString()}.json`
+    const filePath = path.join(directory, fileName)
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2))
+    return filePath
+  } catch (err) {
+    console.error("Error exporting persons: ", err)
+    throw err
+  }
+}
+
+const bulkExportPersons = (directory: string, ids: number[]): string => {
+  try {
+    const data = searchPersons({ ids })
+    const fileName = `persons_${new Date().getTime().toString()}.json`
+    const filePath = path.join(directory, fileName)
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2))
+    return filePath
+  } catch (err) {
+    console.error("Error bulk exporting persons: ", err)
+    throw err
+  }
+}
+
 const formatResponse = (row: PersonDataSheet): PersonDataSheet => {
   return {
     ...row,
@@ -273,10 +317,13 @@ const formatResponse = (row: PersonDataSheet): PersonDataSheet => {
 
 export {
   bulkDeletePersons,
+  bulkExportPersons,
   createPerson,
   deletePerson,
+  exportPersons,
   getPersonById,
   getPersons,
+  importPersons,
   searchPersons,
   updatePerson
 }
