@@ -1,32 +1,10 @@
 import { electronApp, is, optimizer } from "@electron-toolkit/utils"
-import { BrowserWindow, app, dialog, ipcMain, shell } from "electron"
+import { BrowserWindow, app, shell } from "electron"
 import { join } from "path"
 import icon from "../../resources/icon.png?asset"
-import { LegalPersonDataSheet, PersonDataSheet } from "../shared/types"
-import {
-  bulkDeleteLegalPersons,
-  bulkExportLegalPersons,
-  createLegalPerson,
-  deleteLegalPerson,
-  exportLegalPersons,
-  getLegalPersonById,
-  getLegalPersons,
-  importLegalPersons,
-  searchLegalPersons,
-  updateLegalPerson
-} from "./lib/sqlite/services/legal-person"
-import {
-  bulkDeletePersons,
-  bulkExportPersons,
-  createPerson,
-  deletePerson,
-  exportPersons,
-  getPersonById,
-  getPersons,
-  importPersons,
-  searchPersons,
-  updatePerson
-} from "./lib/sqlite/services/person"
+import commonIPCHandlers from "./ipc-handlers/common-ipc-handlers"
+import legalPersonIPCHandlers from "./ipc-handlers/legal-person-ipc-handlers"
+import personIPCHandlers from "./ipc-handlers/person-ipc-handlers"
 
 function createWindow(): void {
   // Create the browser window.
@@ -76,120 +54,9 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  ipcMain.handle("select-directory", async (_event) => {
-    const result = await dialog.showOpenDialog({ properties: ["openDirectory"] })
-    return result.filePaths[0]
-  })
-
-  // Persons
-
-  ipcMain.handle("create-person", (_event, data: PersonDataSheet) => {
-    const person = createPerson(data)
-    return person
-  })
-
-  ipcMain.handle("get-persons", () => {
-    const persons = getPersons()
-    return persons
-  })
-
-  ipcMain.handle("get-person-by-id", (_event, id: number) => {
-    const person = getPersonById(id)
-    return person
-  })
-
-  ipcMain.handle("search-persons", (_event, filters: Partial<PersonDataSheet>) => {
-    const persons = searchPersons(filters)
-    return persons
-  })
-
-  ipcMain.handle("update-person", (_event, data: PersonDataSheet) => {
-    const person = updatePerson(data)
-    return person
-  })
-
-  ipcMain.handle("delete-person", (_event, id: number) => {
-    const res = deletePerson(id)
-    return res
-  })
-
-  ipcMain.handle("bulk-delete-persons", async (_event, ids: number[]) => {
-    const res = bulkDeletePersons(ids)
-    return res
-  })
-
-  ipcMain.handle("import-persons", async (_event, filePath: string) => {
-    const legalPersons = importPersons(filePath)
-    return legalPersons
-  })
-
-  ipcMain.handle("export-persons", async (_event, directory: string) => {
-    const filePath = exportPersons(directory)
-    return filePath
-  })
-
-  ipcMain.handle(
-    "bulk-export-persons",
-    async (_event, { directory, ids }: { directory: string; ids: number[] }) => {
-      const filePath = bulkExportPersons(directory, ids)
-      return filePath
-    }
-  )
-
-  // Legal persons
-
-  ipcMain.handle("create-legal-person", (_event, data: LegalPersonDataSheet) => {
-    const legalPerson = createLegalPerson(data)
-    return legalPerson
-  })
-
-  ipcMain.handle("get-legal-persons", () => {
-    const legalPersons = getLegalPersons()
-    return legalPersons
-  })
-
-  ipcMain.handle("get-legal-person-by-id", (_event, id: number) => {
-    const legalPerson = getLegalPersonById(id)
-    return legalPerson
-  })
-
-  ipcMain.handle("search-legal-persons", (_event, filters: Partial<LegalPersonDataSheet>) => {
-    const legalPersons = searchLegalPersons(filters)
-    return legalPersons
-  })
-
-  ipcMain.handle("update-legal-person", (_event, data: LegalPersonDataSheet) => {
-    const legalPerson = updateLegalPerson(data)
-    return legalPerson
-  })
-
-  ipcMain.handle("delete-legal-person", (_event, id: number) => {
-    const res = deleteLegalPerson(id)
-    return res
-  })
-
-  ipcMain.handle("bulk-delete-legal-persons", async (_event, ids: number[]) => {
-    const res = bulkDeleteLegalPersons(ids)
-    return res
-  })
-
-  ipcMain.handle("import-legal-persons", async (_event, filePath: string) => {
-    const legalPersons = importLegalPersons(filePath)
-    return legalPersons
-  })
-
-  ipcMain.handle("export-legal-persons", async (_event, directory: string) => {
-    const filePath = exportLegalPersons(directory)
-    return filePath
-  })
-
-  ipcMain.handle(
-    "bulk-export-legal-persons",
-    async (_event, { directory, ids }: { directory: string; ids: number[] }) => {
-      const filePath = bulkExportLegalPersons(directory, ids)
-      return filePath
-    }
-  )
+  commonIPCHandlers()
+  personIPCHandlers()
+  legalPersonIPCHandlers()
 
   createWindow()
 
