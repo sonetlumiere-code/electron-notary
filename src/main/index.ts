@@ -63,6 +63,13 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
+  ipcMain.handle("select-directory", async (_event) => {
+    const result = await dialog.showOpenDialog({ properties: ["openDirectory"] })
+    return result.filePaths[0]
+  })
+
+  // Persons
+
   ipcMain.handle("create-person", (_event, data: PersonDataSheet) => {
     const person = createPerson(data)
     return person
@@ -78,6 +85,11 @@ app.whenReady().then(() => {
     return person
   })
 
+  ipcMain.handle("search-persons", (_event, filters: Partial<PersonDataSheet>) => {
+    const persons = searchPersons(filters)
+    return persons
+  })
+
   ipcMain.handle("update-person", (_event, data: PersonDataSheet) => {
     const person = updatePerson(data)
     return person
@@ -88,24 +100,9 @@ app.whenReady().then(() => {
     return res
   })
 
-  ipcMain.handle("search-persons", (_event, filters: Partial<PersonDataSheet>) => {
-    const persons = searchPersons(filters)
-    return persons
-  })
-
-  ipcMain.handle("create-legal-person", (_event, data: LegalPersonDataSheet) => {
-    const legalPerson = createLegalPerson(data)
-    return legalPerson
-  })
-
-  ipcMain.handle("get-legal-persons", () => {
-    const legalPersons = getLegalPersons()
-    return legalPersons
-  })
-
-  ipcMain.handle("select-directory", async (_event) => {
-    const result = await dialog.showOpenDialog({ properties: ["openDirectory"] })
-    return result.filePaths[0]
+  ipcMain.handle("bulk-delete-persons", async (_event, ids: number[]) => {
+    const res = bulkDeletePersons(ids)
+    return res
   })
 
   ipcMain.handle(
@@ -131,9 +128,16 @@ app.whenReady().then(() => {
     }
   )
 
-  ipcMain.handle("bulk-delete-persons", async (_event, ids: number[]) => {
-    const res = bulkDeletePersons(ids)
-    return res
+  // Legal persons
+
+  ipcMain.handle("create-legal-person", (_event, data: LegalPersonDataSheet) => {
+    const legalPerson = createLegalPerson(data)
+    return legalPerson
+  })
+
+  ipcMain.handle("get-legal-persons", () => {
+    const legalPersons = getLegalPersons()
+    return legalPersons
   })
 
   createWindow()

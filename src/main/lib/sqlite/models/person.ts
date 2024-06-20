@@ -148,19 +148,6 @@ const updatePerson = (data: PersonDataSheet) => {
   }
 }
 
-const deletePerson = (id: number) => {
-  const query = `DELETE FROM person_data_sheets WHERE id = ?`
-
-  try {
-    const stmt = db.prepare(query)
-    stmt.run(id)
-    return id
-  } catch (err) {
-    console.error("Error deleting data: ", err)
-    throw err
-  }
-}
-
 const searchPersons = (
   filters: Partial<PersonDataSheet> & { ids?: number[] }
 ): PersonDataSheet[] => {
@@ -247,14 +234,16 @@ const searchPersons = (
   }
 }
 
-const formatResponse = (row: PersonDataSheet): PersonDataSheet => {
-  return {
-    ...row,
-    birthdate: new Date(row.birthdate),
-    maritalStatusDivorceDate: row.maritalStatusDivorceDate
-      ? new Date(row.maritalStatusDivorceDate)
-      : undefined,
-    isPoliticallyExposed: Boolean(row.isPoliticallyExposed)
+const deletePerson = (id: number) => {
+  const query = `DELETE FROM person_data_sheets WHERE id = ?`
+
+  try {
+    const stmt = db.prepare(query)
+    stmt.run(id)
+    return id
+  } catch (err) {
+    console.error("Error deleting data: ", err)
+    throw err
   }
 }
 
@@ -269,6 +258,17 @@ const bulkDeletePersons = (ids: number[]) => {
   } catch (err) {
     console.error("Error bulk deleting data: ", err)
     throw err
+  }
+}
+
+const formatResponse = (row: PersonDataSheet): PersonDataSheet => {
+  return {
+    ...row,
+    birthdate: new Date(row.birthdate),
+    maritalStatusDivorceDate: row.maritalStatusDivorceDate
+      ? new Date(row.maritalStatusDivorceDate)
+      : undefined,
+    isPoliticallyExposed: Boolean(row.isPoliticallyExposed)
   }
 }
 
