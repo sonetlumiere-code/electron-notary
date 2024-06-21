@@ -2,7 +2,7 @@ import { FileFormat, PersonDataSheet } from "@shared/types"
 import fs from "fs"
 import { parse } from "json2csv"
 import path from "path"
-import db from "../sqlite-config"
+import db from "../lib/sqlite/sqlite-config"
 
 const createPerson = (data: PersonDataSheet) => {
   const query = `

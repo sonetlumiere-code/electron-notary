@@ -9,7 +9,7 @@ import {
   importPersons,
   searchPersons,
   updatePerson
-} from "@/lib/sqlite/services/person"
+} from "@/services/person"
 import { ipcMain } from "electron"
 
 export default function personIPCHandlers(): void {
