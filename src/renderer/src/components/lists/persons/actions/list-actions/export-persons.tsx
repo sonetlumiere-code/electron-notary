@@ -29,7 +29,7 @@ const ExportPersons = () => {
   return (
     <DropdownMenuSub>
       <DropdownMenuSubTrigger>
-        <span>Exportar personas</span>
+        <span>Exportar</span>
       </DropdownMenuSubTrigger>
       <DropdownMenuPortal>
         <DropdownMenuSubContent>

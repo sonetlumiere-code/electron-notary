@@ -10,7 +10,7 @@ const ImportPersons = () => {
   return (
     <DropdownMenuSub>
       <DropdownMenuSubTrigger>
-        <span>Importar personas</span>
+        <span>Importar</span>
       </DropdownMenuSubTrigger>
       <DropdownMenuPortal>
         <DropdownMenuSubContent>
