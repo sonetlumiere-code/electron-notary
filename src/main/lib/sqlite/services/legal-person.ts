@@ -1,5 +1,6 @@
-import { LegalPersonDataSheet } from "@shared/types"
+import { FileFormat, LegalPersonDataSheet } from "@shared/types"
 import fs from "fs"
+import { parse } from "json2csv"
 import path from "path"
 import db from "../sqlite-config"
 
@@ -229,12 +230,40 @@ const importLegalPersons = (filePath: string): LegalPersonDataSheet[] => {
   }
 }
 
-const exportLegalPersons = (directory: string): string => {
+const exportLegalPersons = (directory: string, fileFormat: FileFormat): string => {
   try {
-    const data = getLegalPersons()
-    const fileName = `all_legal_persons_${new Date().getTime().toString()}.json`
-    const filePath = path.join(directory, fileName)
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2))
+    const data: LegalPersonDataSheet[] | null = getLegalPersons()
+
+    if (!data) {
+      throw new Error("Failed to get legal persons")
+    }
+
+    let filePath: string
+    let content: string
+
+    switch (fileFormat) {
+      case FileFormat.JSON: {
+        const jsonFileName = `all_legal_persons_${new Date().getTime()}.json`
+        filePath = path.join(directory, jsonFileName)
+        content = JSON.stringify(data, null, 2)
+        break
+      }
+
+      case FileFormat.CSV: {
+        const csvFileName = `all_legal_persons_${new Date().getTime()}.csv`
+        filePath = path.join(directory, csvFileName)
+        const csvData = parse(data)
+        content = csvData
+        break
+      }
+
+      default:
+        throw new Error(
+          `Unsupported file format: ${fileFormat}. Supported formats are 'json' and 'csv'.`
+        )
+    }
+
+    fs.writeFileSync(filePath, content)
     return filePath
   } catch (err) {
     console.error("Error exporting legal persons: ", err)
@@ -242,12 +271,40 @@ const exportLegalPersons = (directory: string): string => {
   }
 }
 
-const bulkExportLegalPersons = (directory: string, ids: number[]): string => {
+const bulkExportLegalPersons = (
+  directory: string,
+  ids: number[],
+  fileFormat: FileFormat
+): string => {
   try {
-    const data = searchLegalPersons({ ids })
-    const fileName = `legal_persons_${new Date().getTime().toString()}.json`
-    const filePath = path.join(directory, fileName)
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2))
+    const data: LegalPersonDataSheet[] = searchLegalPersons({ ids })
+
+    let filePath: string
+    let content: string
+
+    switch (fileFormat) {
+      case FileFormat.JSON: {
+        const jsonFileName = `legal_persons_${new Date().getTime()}.json`
+        filePath = path.join(directory, jsonFileName)
+        content = JSON.stringify(data, null, 2)
+        break
+      }
+
+      case FileFormat.CSV: {
+        const csvFileName = `legal_persons_${new Date().getTime()}.csv`
+        filePath = path.join(directory, csvFileName)
+        const csvData = parse(data)
+        content = csvData
+        break
+      }
+
+      default:
+        throw new Error(
+          `Unsupported file format: ${fileFormat}. Supported formats are 'json' and 'csv'.`
+        )
+    }
+
+    fs.writeFileSync(filePath, content)
     return filePath
   } catch (err) {
     console.error("Error bulk exporting legal persons: ", err)

@@ -21,8 +21,10 @@ export default function legalPersonIPCHandlers(): void {
   ipcMain.handle("delete-legal-person", (_event, id) => deleteLegalPerson(id))
   ipcMain.handle("bulk-delete-legal-persons", async (_event, ids) => bulkDeleteLegalPersons(ids))
   ipcMain.handle("import-legal-persons", async (_event, filePath) => importLegalPersons(filePath))
-  ipcMain.handle("export-legal-persons", async (_event, directory) => exportLegalPersons(directory))
-  ipcMain.handle("bulk-export-legal-persons", async (_event, { directory, ids }) =>
-    bulkExportLegalPersons(directory, ids)
+  ipcMain.handle("export-legal-persons", async (_event, { directory, fileFormat }) =>
+    exportLegalPersons(directory, fileFormat)
+  )
+  ipcMain.handle("bulk-export-legal-persons", async (_event, { directory, ids, fileFormat }) =>
+    bulkExportLegalPersons(directory, ids, fileFormat)
   )
 }

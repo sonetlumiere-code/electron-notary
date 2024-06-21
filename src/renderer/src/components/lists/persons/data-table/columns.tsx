@@ -3,7 +3,7 @@ import { Checkbox } from "@renderer/components/ui/checkbox"
 import { PersonDataSheet } from "@shared/types"
 import { ColumnDef } from "@tanstack/react-table"
 import { ChevronsUpDown } from "lucide-react"
-import PersonActions from "../actions/person-actions"
+import PersonActions from "../actions/item-actions/person-actions"
 
 export const columns: ColumnDef<PersonDataSheet>[] = [
   {

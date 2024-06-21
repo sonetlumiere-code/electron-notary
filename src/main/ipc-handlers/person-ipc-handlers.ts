@@ -21,8 +21,10 @@ export default function personIPCHandlers(): void {
   ipcMain.handle("delete-person", (_event, id) => deletePerson(id))
   ipcMain.handle("bulk-delete-persons", async (_event, ids) => bulkDeletePersons(ids))
   ipcMain.handle("import-persons", async (_event, filePath) => importPersons(filePath))
-  ipcMain.handle("export-persons", async (_event, directory) => exportPersons(directory))
-  ipcMain.handle("bulk-export-persons", async (_event, { directory, ids }) =>
-    bulkExportPersons(directory, ids)
+  ipcMain.handle("export-persons", async (_event, { directory, fileFormat }) =>
+    exportPersons(directory, fileFormat)
+  )
+  ipcMain.handle("bulk-export-persons", async (_event, { directory, ids, fileFormat }) =>
+    bulkExportPersons(directory, ids, fileFormat)
   )
 }

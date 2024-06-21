@@ -13,6 +13,7 @@ import { PersonDataSheet } from "@shared/types"
 import { CirclePlus } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import PersonListActions from "./actions/list-actions/person-list-actions"
 import { PersonsDataTable } from "./data-table/persons-data-table"
 
 const PersonsList = () => {
@@ -26,20 +27,6 @@ const PersonsList = () => {
 
     getPersons()
   }, [])
-
-  // useEffect(() => {
-  //   const searchPersons = async () => {
-  //     const res = await window.personAPI.searchPersons({
-  //       name: "",
-  //       email: "",
-  //       ids: ["4"]
-  //     })
-  //     setPersons(res)
-  //     console.log(res)
-  //   }
-
-  //   searchPersons()
-  // }, [])
 
   return (
     <div className="space-y-6">
@@ -59,10 +46,13 @@ const PersonsList = () => {
 
       <div className="flex justify-between items-center">
         <PageTitle>Fichas de personas</PageTitle>
-        <Link to="/create-person" className={cn(buttonVariants({ variant: "default" }))}>
-          <CirclePlus className="w-4 h-4 mr-2" />
-          Crear
-        </Link>
+        <div className="space-x-3">
+          <Link to="/create-person" className={cn(buttonVariants({ variant: "default" }))}>
+            <CirclePlus className="w-4 h-4 mr-2" />
+            Crear
+          </Link>
+          <PersonListActions />
+        </div>
       </div>
 
       {persons && <PersonsDataTable data={persons} />}

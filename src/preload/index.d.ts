@@ -1,3 +1,4 @@
+import { FileFormat } from "@shared/types"
 import { LegalPersonDataSheet, PersonDataSheet } from "src/main/types"
 
 export interface electronAPI {
@@ -12,8 +13,12 @@ export interface personAPI {
   updatePerson: (person: PersonDataSheet) => Promise<PersonDataSheet | null>
   deletePerson: (id: number) => Promise<number | null>
   importPersons: () => Promise<PersonDataSheet[]>
-  exportPersons: (directory: string) => Promise<string>
-  bulkExportPersons: (params: { ids: number[]; directory: string }) => Promise<string>
+  exportPersons: (params: { directory: string; fileFormat: FileFormat }) => Promise<string>
+  bulkExportPersons: (params: {
+    ids: number[]
+    directory: string
+    fileFormat: FileFormat
+  }) => Promise<string>
   bulkDeletePersons: (ids: number[]) => Promise<number[] | null>
 }
 
@@ -27,8 +32,12 @@ export interface legalPersonAPI {
   updateLegalPerson: (legalPerson: LegalPersonDataSheet) => Promise<LegalPersonDataSheet | null>
   deleteLegalPerson: (id: number) => Promise<number | null>
   importLegalPersons: () => Promise<LegalPersonDataSheet[]>
-  exportLegalPersons: (directory: string) => Promise<string>
-  bulkExportLegalPersons: (params: { ids: number[]; directory: string }) => Promise<string>
+  exportLegalPersons: (params: { directory: string; fileFormat: FileFormat }) => Promise<string>
+  bulkExportLegalPersons: (params: {
+    ids: number[]
+    directory: string
+    fileFormat: FileFormat
+  }) => Promise<string>
   bulkDeleteLegalPersons: (ids: number[]) => Promise<number[] | null>
 }
 

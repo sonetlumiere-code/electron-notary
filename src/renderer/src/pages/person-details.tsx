@@ -1,4 +1,4 @@
-import PersonActions from "@renderer/components/lists/persons/actions/person-actions"
+import PersonActions from "@renderer/components/lists/persons/actions/item-actions/person-actions"
 import PageTitle from "@renderer/components/page-title"
 import {
   Breadcrumb,

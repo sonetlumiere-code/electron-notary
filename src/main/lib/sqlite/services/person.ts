@@ -1,5 +1,6 @@
-import { PersonDataSheet } from "@shared/types"
+import { FileFormat, PersonDataSheet } from "@shared/types"
 import fs from "fs"
+import { parse } from "json2csv"
 import path from "path"
 import db from "../sqlite-config"
 
@@ -278,12 +279,38 @@ const importPersons = (filePath: string): PersonDataSheet[] => {
   }
 }
 
-const exportPersons = (directory: string): string => {
+const exportPersons = (directory: string, format: FileFormat): string => {
   try {
-    const data = getPersons()
-    const fileName = `all_persons_${new Date().getTime().toString()}.json`
-    const filePath = path.join(directory, fileName)
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2))
+    const data: PersonDataSheet[] | null = getPersons()
+
+    if (!data) {
+      throw new Error("Failed to get persons")
+    }
+
+    let filePath: string
+    let content: string
+
+    switch (format) {
+      case FileFormat.JSON: {
+        const jsonFileName = `all_persons_${new Date().getTime()}.json`
+        filePath = path.join(directory, jsonFileName)
+        content = JSON.stringify(data, null, 2)
+        break
+      }
+
+      case FileFormat.CSV: {
+        const csvFileName = `all_persons_${new Date().getTime()}.csv`
+        filePath = path.join(directory, csvFileName)
+        const csvData = parse(data)
+        content = csvData
+        break
+      }
+
+      default:
+        throw new Error(`Unsupported format: ${format}. Supported formats are 'json' and 'csv'.`)
+    }
+
+    fs.writeFileSync(filePath, content)
     return filePath
   } catch (err) {
     console.error("Error exporting persons: ", err)
@@ -291,12 +318,36 @@ const exportPersons = (directory: string): string => {
   }
 }
 
-const bulkExportPersons = (directory: string, ids: number[]): string => {
+const bulkExportPersons = (directory: string, ids: number[], fileFormat: FileFormat): string => {
   try {
-    const data = searchPersons({ ids })
-    const fileName = `persons_${new Date().getTime().toString()}.json`
-    const filePath = path.join(directory, fileName)
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2))
+    const data: PersonDataSheet[] = searchPersons({ ids })
+
+    let filePath: string
+    let content: string
+
+    switch (fileFormat) {
+      case FileFormat.JSON: {
+        const jsonFileName = `persons_${new Date().getTime()}.json`
+        filePath = path.join(directory, jsonFileName)
+        content = JSON.stringify(data, null, 2)
+        break
+      }
+
+      case FileFormat.CSV: {
+        const csvFileName = `persons_${new Date().getTime()}.csv`
+        filePath = path.join(directory, csvFileName)
+        const csvData = parse(data)
+        content = csvData
+        break
+      }
+
+      default:
+        throw new Error(
+          `Unsupported file format: ${fileFormat}. Supported formats are 'json' and 'csv'.`
+        )
+    }
+
+    fs.writeFileSync(filePath, content)
     return filePath
   } catch (err) {
     console.error("Error bulk exporting persons: ", err)

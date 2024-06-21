@@ -70,3 +70,8 @@ export type LegalPersonDataSheet = {
   balanceCopy: string
   representativeData: string
 }
+
+export enum FileFormat {
+  JSON = "json",
+  CSV = "csv"
+}

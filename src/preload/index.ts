@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer } from "electron"
-import { LegalPersonDataSheet, PersonDataSheet } from "../shared/types"
+import { FileFormat, LegalPersonDataSheet, PersonDataSheet } from "../shared/types"
 
 if (!process.contextIsolated) {
   throw new Error("contextIsolation must be enabled in the BrowserWindow")
@@ -19,9 +19,17 @@ const personAPI = {
   updatePerson: (person: PersonDataSheet) => ipcRenderer.invoke("update-person", person),
   deletePerson: (id: number) => ipcRenderer.invoke("delete-person", id),
   importPersons: () => ipcRenderer.invoke("import-persons"),
-  exportPersons: (directory: string) => ipcRenderer.invoke("export-persons", directory),
-  bulkExportPersons: ({ ids, directory }: { ids: number[]; directory: string }) =>
-    ipcRenderer.invoke("bulk-export-persons", { ids, directory }),
+  exportPersons: ({ directory, fileFormat }: { directory: string; fileFormat: FileFormat }) =>
+    ipcRenderer.invoke("export-persons", { directory, fileFormat }),
+  bulkExportPersons: ({
+    ids,
+    directory,
+    fileFormat
+  }: {
+    ids: number[]
+    directory: string
+    fileFormat: FileFormat
+  }) => ipcRenderer.invoke("bulk-export-persons", { ids, directory, fileFormat }),
   bulkDeletePersons: (ids: number[]) => ipcRenderer.invoke("bulk-delete-persons", ids)
 }
 
@@ -36,9 +44,16 @@ const legalPersonAPI = {
     ipcRenderer.invoke("update-legal-person", legalPerson),
   deleteLegalPerson: (id: number) => ipcRenderer.invoke("delete-legal-person", id),
   importLegalPersons: () => ipcRenderer.invoke("import-legal-persons"),
-  exportLegalPersons: (directory: string) => ipcRenderer.invoke("export-legal-persons", directory),
-  bulkExportLegalPersons: ({ ids, directory }: { ids: number[]; directory: string }) =>
-    ipcRenderer.invoke("bulk-export-legal-persons", { ids, directory }),
+  exportLegalPersons: ({ directory, fileFormat }: { directory: string; fileFormat: FileFormat }) =>
+    ipcRenderer.invoke("export-legal-persons", { directory, fileFormat }),
+  bulkExportLegalPersons: ({
+    ids,
+    directory
+  }: {
+    ids: number[]
+    directory: string
+    fileFormat: FileFormat
+  }) => ipcRenderer.invoke("bulk-export-legal-persons", { ids, directory }),
   bulkDeleteLegalPersons: (ids: number[]) => ipcRenderer.invoke("bulk-delete-legal-persons", ids)
 }
 
