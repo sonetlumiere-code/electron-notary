@@ -12,6 +12,7 @@ export interface personAPI {
   searchPersons: (filters: Partial<PersonDataSheet>) => Promise<PersonDataSheet[] | null>
   updatePerson: (person: PersonDataSheet) => Promise<PersonDataSheet | null>
   deletePerson: (id: number) => Promise<number | null>
+  deletePersons: () => Promise<void>
   importPersons: () => Promise<PersonDataSheet[]>
   exportPersons: (params: { directory: string; fileFormat: FileFormat }) => Promise<string>
   bulkExportPersons: (params: {
@@ -31,6 +32,7 @@ export interface legalPersonAPI {
   ) => Promise<LegalPersonDataSheet[] | null>
   updateLegalPerson: (legalPerson: LegalPersonDataSheet) => Promise<LegalPersonDataSheet | null>
   deleteLegalPerson: (id: number) => Promise<number | null>
+  deleteLegalPersons: () => Promise<void>
   importLegalPersons: () => Promise<LegalPersonDataSheet[]>
   exportLegalPersons: (params: { directory: string; fileFormat: FileFormat }) => Promise<string>
   bulkExportLegalPersons: (params: {

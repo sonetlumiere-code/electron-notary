@@ -34,7 +34,7 @@ const PersonActions = ({ person, showView, showEdit, showDelete }: PersonActions
         {showView && (
           <Link to={`/person/${person.id}`}>
             <DropdownMenuItem>
-              <ViewIcon className="w-4 h-4 mr-2" />
+              <ViewIcon className="w-4 h-4" />
               <p className="ml-2">Ver</p>
             </DropdownMenuItem>
           </Link>
@@ -42,7 +42,7 @@ const PersonActions = ({ person, showView, showEdit, showDelete }: PersonActions
         {showEdit && (
           <Link to={`/edit-person/${person.id}`}>
             <DropdownMenuItem>
-              <Edit className="w-4 h-4 mr-2" />
+              <Edit className="w-4 h-4" />
               <p className="ml-2">Editar</p>
             </DropdownMenuItem>
           </Link>

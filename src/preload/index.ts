@@ -18,6 +18,7 @@ const personAPI = {
     ipcRenderer.invoke("search-persons", filters),
   updatePerson: (person: PersonDataSheet) => ipcRenderer.invoke("update-person", person),
   deletePerson: (id: number) => ipcRenderer.invoke("delete-person", id),
+  deletePersons: () => ipcRenderer.invoke("delete-persons"),
   importPersons: () => ipcRenderer.invoke("import-persons"),
   exportPersons: ({ directory, fileFormat }: { directory: string; fileFormat: FileFormat }) =>
     ipcRenderer.invoke("export-persons", { directory, fileFormat }),
@@ -43,6 +44,7 @@ const legalPersonAPI = {
   updateLegalPerson: (legalPerson: LegalPersonDataSheet) =>
     ipcRenderer.invoke("update-legal-person", legalPerson),
   deleteLegalPerson: (id: number) => ipcRenderer.invoke("delete-legal-person", id),
+  deleteLegalPersons: () => ipcRenderer.invoke("delete-legal-persons"),
   importLegalPersons: () => ipcRenderer.invoke("import-legal-persons"),
   exportLegalPersons: ({ directory, fileFormat }: { directory: string; fileFormat: FileFormat }) =>
     ipcRenderer.invoke("export-legal-persons", { directory, fileFormat }),

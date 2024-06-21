@@ -2,11 +2,13 @@ import { Button } from "@renderer/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@renderer/components/ui/dropdown-menu"
 import { MoreHorizontal } from "lucide-react"
+import DeletePersons from "./delete-persons"
 import ExportPersons from "./export-persons"
 import ImportPersons from "./import-persons"
 
@@ -24,6 +26,10 @@ const PersonListActions = () => {
         <DropdownMenuSeparator />
         <ImportPersons />
         <ExportPersons />
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          <DeletePersons />
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

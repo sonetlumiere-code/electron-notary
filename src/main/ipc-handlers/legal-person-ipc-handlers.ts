@@ -3,6 +3,7 @@ import {
   bulkExportLegalPersons,
   createLegalPerson,
   deleteLegalPerson,
+  deleteLegalPersons,
   exportLegalPersons,
   getLegalPersonById,
   getLegalPersons,
@@ -19,6 +20,7 @@ export default function legalPersonIPCHandlers(): void {
   ipcMain.handle("search-legal-persons", (_event, filters) => searchLegalPersons(filters))
   ipcMain.handle("update-legal-person", (_event, data) => updateLegalPerson(data))
   ipcMain.handle("delete-legal-person", (_event, id) => deleteLegalPerson(id))
+  ipcMain.handle("delete-legal-persons", () => deleteLegalPersons())
   ipcMain.handle("bulk-delete-legal-persons", async (_event, ids) => bulkDeleteLegalPersons(ids))
   ipcMain.handle("import-legal-persons", async (_event, filePath) => importLegalPersons(filePath))
   ipcMain.handle("export-legal-persons", async (_event, { directory, fileFormat }) =>

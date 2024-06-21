@@ -200,6 +200,19 @@ const deleteLegalPerson = (id: number) => {
   }
 }
 
+const deleteLegalPersons = (): void => {
+  const query = `DELETE FROM legal_person_data_sheets`
+
+  try {
+    const stmt = db.prepare(query)
+    stmt.run()
+    console.log("All legal persons have been deleted.")
+  } catch (err) {
+    console.error("Error deleting all legal persons: ", err)
+    throw err
+  }
+}
+
 const bulkDeleteLegalPersons = (ids: number[]) => {
   const placeholders = ids.map(() => "?").join(",")
   const query = `DELETE FROM legal_person_data_sheets WHERE id IN (${placeholders})`
@@ -324,6 +337,7 @@ export {
   bulkExportLegalPersons,
   createLegalPerson,
   deleteLegalPerson,
+  deleteLegalPersons,
   exportLegalPersons,
   getLegalPersonById,
   getLegalPersons,

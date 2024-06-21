@@ -21,7 +21,7 @@ const PersonBulkActions = <TData,>({ table }: PersonsBulkActionsProps<TData>) =>
           {selectedRows.length > 0 && (
             <div className="text-sm text-muted-foreground ml-2">
               {selectedRows.length} fila{selectedRows.length > 1 ? "s" : ""} seleccionada
-              {selectedRows.length > 1 ? "s" : "."}
+              {selectedRows.length > 1 ? "s" : ""}
             </div>
           )}
         </div>
