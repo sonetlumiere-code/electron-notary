@@ -1,9 +1,11 @@
 import { useConfirmation } from "@renderer/components/confirmation-provider"
 import { toast } from "@renderer/components/ui/use-toast"
 import { Trash2 } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
 const DeletePersons = () => {
   const confirm = useConfirmation()
+  const navigate = useNavigate()
 
   const deletePersons = async () => {
     confirm({
@@ -14,7 +16,7 @@ const DeletePersons = () => {
     }).then(async () => {
       try {
         await window.personAPI.deletePersons()
-
+        navigate("/")
         toast({
           title: "Fichas personales eliminadas.",
           description: "Las fichas han sido eliminadas correctamente."
