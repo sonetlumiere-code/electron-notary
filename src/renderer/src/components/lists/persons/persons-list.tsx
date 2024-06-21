@@ -51,6 +51,7 @@ const PersonsList = () => {
             <CirclePlus className="w-4 h-4 mr-2" />
             Crear
           </Link>
+
           <PersonListActions />
         </div>
       </div>

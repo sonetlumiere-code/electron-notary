@@ -48,12 +48,13 @@ const legalPersonAPI = {
     ipcRenderer.invoke("export-legal-persons", { directory, fileFormat }),
   bulkExportLegalPersons: ({
     ids,
-    directory
+    directory,
+    fileFormat
   }: {
     ids: number[]
     directory: string
     fileFormat: FileFormat
-  }) => ipcRenderer.invoke("bulk-export-legal-persons", { ids, directory }),
+  }) => ipcRenderer.invoke("bulk-export-legal-persons", { ids, directory, fileFormat }),
   bulkDeleteLegalPersons: (ids: number[]) => ipcRenderer.invoke("bulk-delete-legal-persons", ids)
 }
 

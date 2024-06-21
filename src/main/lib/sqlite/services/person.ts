@@ -279,7 +279,7 @@ const importPersons = (filePath: string): PersonDataSheet[] => {
   }
 }
 
-const exportPersons = (directory: string, format: FileFormat): string => {
+const exportPersons = (directory: string, fileFormat: FileFormat): string => {
   try {
     const data: PersonDataSheet[] | null = getPersons()
 
@@ -290,7 +290,7 @@ const exportPersons = (directory: string, format: FileFormat): string => {
     let filePath: string
     let content: string
 
-    switch (format) {
+    switch (fileFormat) {
       case FileFormat.JSON: {
         const jsonFileName = `all_persons_${new Date().getTime()}.json`
         filePath = path.join(directory, jsonFileName)
@@ -307,7 +307,9 @@ const exportPersons = (directory: string, format: FileFormat): string => {
       }
 
       default:
-        throw new Error(`Unsupported format: ${format}. Supported formats are 'json' and 'csv'.`)
+        throw new Error(
+          `Unsupported format: ${fileFormat}. Supported formats are 'json' and 'csv'.`
+        )
     }
 
     fs.writeFileSync(filePath, content)
