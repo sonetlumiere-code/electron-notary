@@ -11,6 +11,10 @@ const electronAPI = {
   selectFile: (params: { fileFormat: FileFormat }) => ipcRenderer.invoke("select-file", params)
 }
 
+const authAPI = {
+  logIn: (data: { username: string; password: string }) => ipcRenderer.invoke("log-in", data)
+}
+
 const personAPI = {
   createPerson: (person: PersonDataSheet) => ipcRenderer.invoke("create-person", person),
   getPersons: () => ipcRenderer.invoke("get-persons"),
@@ -63,6 +67,7 @@ const legalPersonAPI = {
 
 try {
   contextBridge.exposeInMainWorld("electronAPI", electronAPI)
+  contextBridge.exposeInMainWorld("authAPI", authAPI)
   contextBridge.exposeInMainWorld("personAPI", personAPI)
   contextBridge.exposeInMainWorld("legalPersonAPI", legalPersonAPI)
 } catch (error) {

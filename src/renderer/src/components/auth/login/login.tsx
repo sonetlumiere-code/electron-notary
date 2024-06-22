@@ -100,9 +100,6 @@ const LoginForm = () => {
                     </div>
                   </FormControl>
                   <FormMessage />
-                  {/* <Button size="sm" variant="link" asChild className="px-0 font-normal">
-                    <Link to="/reset-password">¿Olvidaste tu contraseña?</Link>
-                  </Button> */}
                 </FormItem>
               )}
             />

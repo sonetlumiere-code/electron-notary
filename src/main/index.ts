@@ -2,6 +2,7 @@ import { electronApp, is, optimizer } from "@electron-toolkit/utils"
 import { BrowserWindow, app, shell } from "electron"
 import { join } from "path"
 import icon from "../../resources/icon.png?asset"
+import authIPCHandlers from "./ipc-handlers/auth-ipc-handlers"
 import commonIPCHandlers from "./ipc-handlers/common-ipc-handlers"
 import legalPersonIPCHandlers from "./ipc-handlers/legal-person-ipc-handlers"
 import personIPCHandlers from "./ipc-handlers/person-ipc-handlers"
@@ -55,6 +56,7 @@ app.whenReady().then(() => {
   })
 
   commonIPCHandlers()
+  authIPCHandlers()
   personIPCHandlers()
   legalPersonIPCHandlers()
 

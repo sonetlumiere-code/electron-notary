@@ -1,4 +1,4 @@
-import { AuthSchema } from "@renderer/lib/validators/auth-validator"
+import { AuthSchema, zodAuthSchema } from "@renderer/lib/validators/auth-validator"
 import { User } from "@shared/types"
 import { createContext, useContext, useState } from "react"
 
@@ -32,27 +32,27 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<Partial<User> | null>(null)
 
   const login = async (data: AuthSchema): Promise<AuthResponse> => {
-    if (data.username === "admin" && data.password === "password") {
-      const loggedInUser: User = {
-        id: 1,
-        username: data.username,
-        password: data.password
-      }
+    const validatedFields = zodAuthSchema.safeParse(data)
 
-      const safeUser = {
-        id: loggedInUser.id,
-        username: loggedInUser.username
-      }
-
-      setUser(safeUser)
-
-      return {
-        success: true,
-        user: safeUser
-      }
-    } else {
-      return { success: false, error: "Credenciales incorrectas." }
+    if (!validatedFields.success) {
+      return { error: "Campos inválidos." }
     }
+
+    const { username, password } = validatedFields.data
+
+    const res = await window.authAPI.logIn({ username, password })
+
+    if (res.error) {
+      return { success: false, error: res.error }
+    }
+
+    if (res.user) {
+      setUser(res.user)
+
+      return { success: true, user: res.user }
+    }
+
+    return { success: false, error: "Algo salió mal." }
   }
 
   const logout = () => {

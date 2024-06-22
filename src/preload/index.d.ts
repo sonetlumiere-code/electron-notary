@@ -1,4 +1,4 @@
-import { FileFormat } from "@shared/types"
+import { FileFormat, User } from "@shared/types"
 import { LegalPersonDataSheet, PersonDataSheet } from "src/main/types"
 
 export interface electronAPI {
@@ -6,6 +6,12 @@ export interface electronAPI {
   selectFile: (params: { fileFormat: FileFormat }) => Promise<string>
 }
 
+export interface authAPI {
+  logIn: (data: {
+    username: string
+    password: string
+  }) => Promise<{ user?: Partial<User>; error?: string }>
+}
 export interface personAPI {
   createPerson: (person: PersonDataSheet) => Promise<PersonDataSheet | null>
   getPersons: () => Promise<PersonDataSheet[] | null>
@@ -47,6 +53,7 @@ export interface legalPersonAPI {
 declare global {
   interface Window {
     electronAPI: electronAPI
+    authAPI: authAPI
     personAPI: personAPI
     legalPersonAPI: legalPersonAPI
   }

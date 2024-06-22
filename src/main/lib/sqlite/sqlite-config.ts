@@ -1,4 +1,5 @@
 import Database from "better-sqlite3"
+import { seedDatabase } from "./seed-db"
 
 const db = new Database("./sqlite.db")
 
@@ -56,8 +57,17 @@ try {
       balanceCopy TEXT NOT NULL,
       representativeData TEXT NOT NULL
     );
+
+    CREATE TABLE IF NOT EXISTS users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      username TEXT NOT NULL,
+      password TEXT NOT NULL
+    );
   `)
+
   console.log("Database opened and tables checked/created successfully")
+
+  seedDatabase()
 } catch (error) {
   console.error("Database or table creation error: ", error)
 }
