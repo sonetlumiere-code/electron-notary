@@ -1,12 +1,13 @@
+import { buttonVariants } from "@renderer/components/ui/button"
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@renderer/components/ui/sheet"
 import { cn } from "@renderer/lib/utils"
 import { Cloud, Menu } from "lucide-react"
 import { NavLink, useLocation } from "react-router-dom"
-import { buttonVariants } from "../ui/button"
-import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet"
 import navItems from "./nav-items"
 
 const MenuNav = () => {
   const location = useLocation()
+
   return (
     <Sheet>
       <SheetTrigger>

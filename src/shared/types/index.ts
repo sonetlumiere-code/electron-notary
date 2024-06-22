@@ -75,3 +75,9 @@ export enum FileFormat {
   JSON = "json",
   CSV = "csv"
 }
+
+export type User = {
+  id: number
+  username: string
+  password: string
+}

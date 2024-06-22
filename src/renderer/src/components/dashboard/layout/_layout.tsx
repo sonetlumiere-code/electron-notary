@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom"
 import Header from "./header"
 import Nav from "./nav"
 
-const Layout = () => {
+const DashboardLayout = () => {
   return (
     <div className="flex flex-row h-screen">
       <div className="flex flex-1 overflow-hidden">
@@ -20,4 +20,4 @@ const Layout = () => {
   )
 }
 
-export default Layout
+export default DashboardLayout

@@ -16,7 +16,7 @@ import { Link } from "react-router-dom"
 import PersonListActions from "./actions/list-actions/person-list-actions"
 import { PersonsDataTable } from "./data-table/persons-data-table"
 
-const PersonsList = () => {
+const PersonsListPage = () => {
   const [persons, setPersons] = useState<PersonDataSheet[] | null>(null)
 
   useEffect(() => {
@@ -62,4 +62,4 @@ const PersonsList = () => {
   )
 }
 
-export default PersonsList
+export default PersonsListPage

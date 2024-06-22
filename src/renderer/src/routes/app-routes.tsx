@@ -1,6 +1,8 @@
-import Layout from "@renderer/components/layout/layout"
-import LegalPersonsList from "@renderer/components/lists/legal-persons/legal-persons.list"
-import PersonsList from "@renderer/components/lists/persons/persons-list"
+import AuthLayout from "@renderer/components/auth/_layout"
+import LoginPage from "@renderer/components/auth/login/login"
+import DashboardLayout from "@renderer/components/dashboard/layout/_layout"
+import LegalPersonsListPage from "@renderer/components/dashboard/lists/legal-persons/legal-persons.list"
+import PersonsListPage from "@renderer/components/dashboard/lists/persons/persons-list"
 import CreateLegalPersonPage from "@renderer/pages/create-legal-person"
 import CreatePersonPage from "@renderer/pages/create-person"
 import EditLegalPersonPage from "@renderer/pages/edit-legal-person"
@@ -9,11 +11,17 @@ import HomePage from "@renderer/pages/home"
 import LegalPersonDetailsPage from "@renderer/pages/legal-person-details"
 import PersonDetailsPage from "@renderer/pages/person-details"
 import { createHashRouter, RouterProvider } from "react-router-dom"
+import PrivateRoute from "./private-route"
+import PublicRoute from "./public-route"
 
 const router = createHashRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "/",
@@ -21,7 +29,7 @@ const router = createHashRouter([
       },
       {
         path: "/persons-list",
-        element: <PersonsList />
+        element: <PersonsListPage />
       },
       {
         path: "/create-person",
@@ -37,7 +45,7 @@ const router = createHashRouter([
       },
       {
         path: "/legal-persons-list",
-        element: <LegalPersonsList />
+        element: <LegalPersonsListPage />
       },
       {
         path: "/create-legal-person",
@@ -50,6 +58,20 @@ const router = createHashRouter([
       {
         path: "/legal-person/:id",
         element: <LegalPersonDetailsPage />
+      }
+    ]
+  },
+  {
+    path: "/auth",
+    element: (
+      <PublicRoute>
+        <AuthLayout />
+      </PublicRoute>
+    ),
+    children: [
+      {
+        path: "login",
+        element: <LoginPage />
       }
     ]
   }

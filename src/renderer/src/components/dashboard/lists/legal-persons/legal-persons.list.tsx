@@ -1,7 +1,7 @@
 import { LegalPersonDataSheet } from "@shared/types"
 import { useEffect, useState } from "react"
 
-const LegalPersonsList = () => {
+const LegalPersonsListPage = () => {
   const [legalPersons, setLegalPersons] = useState<LegalPersonDataSheet[] | null>(null)
 
   useEffect(() => {
@@ -28,4 +28,4 @@ const LegalPersonsList = () => {
   )
 }
 
-export default LegalPersonsList
+export default LegalPersonsListPage
