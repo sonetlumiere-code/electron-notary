@@ -18,7 +18,7 @@ const ImportPersons = () => {
 
       if (res.length > 0) {
         toast({
-          title: "Importación de personas exitosa.",
+          title: "Importación exitosa.",
           description: `Se han importado ${res.length} fichas personales.`
         })
       } else {
