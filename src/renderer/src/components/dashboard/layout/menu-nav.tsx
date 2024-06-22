@@ -1,7 +1,7 @@
 import { buttonVariants } from "@renderer/components/ui/button"
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@renderer/components/ui/sheet"
 import { cn } from "@renderer/lib/utils"
-import { Cloud, Menu } from "lucide-react"
+import { Feather, Menu } from "lucide-react"
 import { NavLink, useLocation } from "react-router-dom"
 import navItems from "./nav-items"
 
@@ -16,7 +16,7 @@ const MenuNav = () => {
       <SheetContent side="left" className="lg:hidden w-[240px]">
         <nav className="flex flex-col gap-4">
           <div className="p-5 border-b">
-            <Cloud />
+            <Feather />
           </div>
           <div className="space-y-2">
             {navItems.map((item) => (

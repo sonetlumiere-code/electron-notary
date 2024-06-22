@@ -25,7 +25,7 @@ const BulkDeletePersons = <TData,>({ table }: BulkDeletePersonsProps<TData>) => 
 
       table.resetRowSelection()
       toast({
-        title: "Eliminación masiva realizada.",
+        title: "Eliminación realizada.",
         description: `Se han eliminado ${res?.length} documentos.`,
         duration: 5000
       })

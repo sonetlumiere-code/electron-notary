@@ -1,6 +1,6 @@
 import { buttonVariants } from "@renderer/components/ui/button"
 import { cn } from "@renderer/lib/utils"
-import { Cloud } from "lucide-react"
+import { Feather } from "lucide-react"
 import { NavLink, useLocation } from "react-router-dom"
 import navItems from "./nav-items"
 
@@ -10,7 +10,7 @@ const Nav = () => {
   return (
     <nav className="flex flex-col gap-4 p-4">
       <div className="p-5 border-b">
-        <Cloud />
+        <Feather />
       </div>
       <div className="space-y-2">
         {navItems.map((item) => (

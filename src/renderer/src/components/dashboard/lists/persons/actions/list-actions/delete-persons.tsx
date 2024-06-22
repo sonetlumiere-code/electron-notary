@@ -15,7 +15,8 @@ const DeletePersons = () => {
       countDown: 5
     }).then(async () => {
       try {
-        await window.personAPI.deletePersons()
+        const res = await window.personAPI.deletePersons()
+
         navigate("/")
         toast({
           title: "Fichas personales eliminadas.",
