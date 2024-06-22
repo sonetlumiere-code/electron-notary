@@ -1,8 +1,9 @@
+import db from "@/lib/sqlite/sqlite-config"
 import { FileFormat, PersonDataSheet } from "@shared/types"
+import csvParser from "csv-parser"
 import fs from "fs"
 import { parse } from "json2csv"
 import path from "path"
-import db from "../lib/sqlite/sqlite-config"
 
 const createPerson = (data: PersonDataSheet) => {
   const query = `
@@ -15,6 +16,13 @@ const createPerson = (data: PersonDataSheet) => {
       ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
     )
   `
+
+  if (typeof data.birthdate === "string") {
+    data.birthdate = new Date(data.birthdate)
+  }
+  if (data.maritalStatusDivorceDate && typeof data.maritalStatusDivorceDate === "string") {
+    data.maritalStatusDivorceDate = new Date(data.maritalStatusDivorceDate)
+  }
 
   try {
     const stmt = db.prepare(query)
@@ -276,16 +284,33 @@ const bulkDeletePersons = (ids: number[]) => {
   }
 }
 
-const importPersons = (filePath: string): PersonDataSheet[] => {
+const importPersons = async (filePath: string): Promise<PersonDataSheet[]> => {
   try {
-    const data = fs.readFileSync(filePath, "utf-8")
-    const legalPersons: PersonDataSheet[] = JSON.parse(data)
+    const ext = path.extname(filePath).toLowerCase()
 
-    legalPersons.forEach((person) => {
+    const data = fs.readFileSync(filePath, "utf-8")
+    let importedPersons: PersonDataSheet[] = []
+
+    if (ext === ".json") {
+      importedPersons = JSON.parse(data)
+    } else if (ext === ".csv") {
+      importedPersons = await new Promise<PersonDataSheet[]>((resolve, reject) => {
+        const results: PersonDataSheet[] = []
+        fs.createReadStream(filePath)
+          .pipe(csvParser())
+          .on("data", (data: PersonDataSheet) => results.push(data))
+          .on("end", () => resolve(results))
+          .on("error", (err) => reject(err))
+      })
+    } else {
+      throw new Error("Unsupported file format")
+    }
+
+    importedPersons.forEach((person) => {
       createPerson(person)
     })
 
-    return legalPersons
+    return importedPersons
   } catch (err) {
     console.error("Error importing persons: ", err)
     throw err

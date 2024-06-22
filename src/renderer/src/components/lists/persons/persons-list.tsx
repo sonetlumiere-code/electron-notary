@@ -30,30 +30,31 @@ const PersonsList = () => {
 
   return (
     <div className="space-y-6">
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink asChild>
-              <Link to="/">Inicio</Link>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>Lista de personas</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+      <div className="flex justify-between items-center">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link to="/">Inicio</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Lista de personas</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+
+        <PersonListActions />
+      </div>
 
       <div className="flex justify-between items-center">
         <PageTitle>Fichas de personas</PageTitle>
-        <div className="space-x-3">
-          <Link to="/create-person" className={cn(buttonVariants({ variant: "default" }))}>
-            <CirclePlus className="w-4 h-4 mr-2" />
-            Crear
-          </Link>
 
-          <PersonListActions />
-        </div>
+        <Link to="/create-person" className={cn(buttonVariants({ variant: "default" }))}>
+          <CirclePlus className="w-4 h-4 mr-2" />
+          Crear
+        </Link>
       </div>
 
       {persons && <PersonsDataTable data={persons} />}

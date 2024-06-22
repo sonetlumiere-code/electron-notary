@@ -3,6 +3,7 @@ import { LegalPersonDataSheet, PersonDataSheet } from "src/main/types"
 
 export interface electronAPI {
   selectDirectory: () => Promise<string>
+  selectFile: (params: { fileFormat: FileFormat }) => Promise<string>
 }
 
 export interface personAPI {
@@ -13,7 +14,7 @@ export interface personAPI {
   updatePerson: (person: PersonDataSheet) => Promise<PersonDataSheet | null>
   deletePerson: (id: number) => Promise<number | null>
   deletePersons: () => Promise<void>
-  importPersons: () => Promise<PersonDataSheet[]>
+  importPersons: (filePath: string) => Promise<PersonDataSheet[]>
   exportPersons: (params: { directory: string; fileFormat: FileFormat }) => Promise<string>
   bulkExportPersons: (params: {
     ids: number[]
@@ -33,7 +34,7 @@ export interface legalPersonAPI {
   updateLegalPerson: (legalPerson: LegalPersonDataSheet) => Promise<LegalPersonDataSheet | null>
   deleteLegalPerson: (id: number) => Promise<number | null>
   deleteLegalPersons: () => Promise<void>
-  importLegalPersons: () => Promise<LegalPersonDataSheet[]>
+  importLegalPersons: (filePath: string) => Promise<LegalPersonDataSheet[]>
   exportLegalPersons: (params: { directory: string; fileFormat: FileFormat }) => Promise<string>
   bulkExportLegalPersons: (params: {
     ids: number[]

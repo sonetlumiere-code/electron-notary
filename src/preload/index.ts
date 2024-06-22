@@ -7,7 +7,8 @@ if (!process.contextIsolated) {
 
 // Custom APIs for renderer
 const electronAPI = {
-  selectDirectory: () => ipcRenderer.invoke("select-directory")
+  selectDirectory: () => ipcRenderer.invoke("select-directory"),
+  selectFile: (params: { fileFormat: FileFormat }) => ipcRenderer.invoke("select-file", params)
 }
 
 const personAPI = {
@@ -19,7 +20,7 @@ const personAPI = {
   updatePerson: (person: PersonDataSheet) => ipcRenderer.invoke("update-person", person),
   deletePerson: (id: number) => ipcRenderer.invoke("delete-person", id),
   deletePersons: () => ipcRenderer.invoke("delete-persons"),
-  importPersons: () => ipcRenderer.invoke("import-persons"),
+  importPersons: (filePath: string) => ipcRenderer.invoke("import-persons", filePath),
   exportPersons: ({ directory, fileFormat }: { directory: string; fileFormat: FileFormat }) =>
     ipcRenderer.invoke("export-persons", { directory, fileFormat }),
   bulkExportPersons: ({
@@ -45,7 +46,7 @@ const legalPersonAPI = {
     ipcRenderer.invoke("update-legal-person", legalPerson),
   deleteLegalPerson: (id: number) => ipcRenderer.invoke("delete-legal-person", id),
   deleteLegalPersons: () => ipcRenderer.invoke("delete-legal-persons"),
-  importLegalPersons: () => ipcRenderer.invoke("import-legal-persons"),
+  importLegalPersons: (filePath: string) => ipcRenderer.invoke("import-legal-persons", filePath),
   exportLegalPersons: ({ directory, fileFormat }: { directory: string; fileFormat: FileFormat }) =>
     ipcRenderer.invoke("export-legal-persons", { directory, fileFormat }),
   bulkExportLegalPersons: ({
