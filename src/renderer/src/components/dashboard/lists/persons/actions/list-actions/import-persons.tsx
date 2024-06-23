@@ -16,18 +16,26 @@ const ImportPersons = () => {
     const filePath = await window.electronAPI.selectFile({ fileFormat })
 
     if (filePath) {
-      const res = await window.personAPI.importPersons(filePath)
+      try {
+        const res = await window.personAPI.importPersons(filePath)
 
-      if (res.length > 0) {
-        addPersons(res)
+        if (res.length > 0) {
+          addPersons(res)
+          toast({
+            title: "Importación exitosa.",
+            description: `Se han importado ${res.length} fichas personales.`
+          })
+        } else {
+          toast({
+            title: "No se ha importado ninguna ficha.",
+            description: "Las fichas ya estaban registradas o algo falló durante la importación."
+          })
+        }
+      } catch (error) {
         toast({
-          title: "Importación exitosa.",
-          description: `Se han importado ${res.length} fichas personales.`
-        })
-      } else {
-        toast({
-          title: "No se ha importado ninguna ficha.",
-          description: "Las fichas ya estaban registradas o algo falló durante la importación."
+          variant: "destructive",
+          title: "Error importando las fichas personales.",
+          description: "Formato de datos incorrectos."
         })
       }
     }
