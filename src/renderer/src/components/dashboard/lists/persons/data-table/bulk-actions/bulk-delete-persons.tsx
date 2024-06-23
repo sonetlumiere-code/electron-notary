@@ -1,4 +1,5 @@
 import { useConfirmation } from "@renderer/components/confirmation-provider"
+import { usePersons } from "@renderer/components/persons-provider"
 import { Button } from "@renderer/components/ui/button"
 import { toast } from "@renderer/components/ui/use-toast"
 import { PersonDataSheet } from "@shared/types"
@@ -10,6 +11,8 @@ type BulkDeletePersonsProps<TData> = {
 }
 
 const BulkDeletePersons = <TData,>({ table }: BulkDeletePersonsProps<TData>) => {
+  const { deletePersons } = usePersons()
+
   const confirm = useConfirmation()
 
   const bulkDelete = async () => {
@@ -17,18 +20,22 @@ const BulkDeletePersons = <TData,>({ table }: BulkDeletePersonsProps<TData>) => 
     const selectedPersonsIds = selectedRows.map((row) => (row.original as PersonDataSheet).id)
 
     confirm({
-      title: "Eliminar fichas personales?",
-      description: `${selectedRows.length} documentos serán eliminados.`,
-      variant: "destructive"
+      variant: "destructive",
+      title: "¿Eliminar fichas personales?",
+      description: `${selectedRows.length} documento${selectedRows.length > 1 ? "s" : ""} será${selectedRows.length > 1 ? "n" : ""} eliminado${selectedRows.length > 1 ? "s" : ""}.`
     }).then(async () => {
       const res = await window.personAPI.bulkDeletePersons(selectedPersonsIds as number[])
 
-      table.resetRowSelection()
-      toast({
-        title: "Eliminación realizada.",
-        description: `Se han eliminado ${res?.length} documentos.`,
-        duration: 5000
-      })
+      if (res?.length) {
+        deletePersons(res)
+        table.resetRowSelection()
+
+        toast({
+          title: "Eliminación realizada.",
+          description: `Se ha${res?.length > 1 ? "n" : ""} eliminado ${res?.length} documento${res?.length > 1 ? "s" : ""}.`,
+          duration: 5000
+        })
+      }
     })
   }
 

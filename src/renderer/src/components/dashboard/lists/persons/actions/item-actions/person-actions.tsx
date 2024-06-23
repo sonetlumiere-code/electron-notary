@@ -48,9 +48,12 @@ const PersonActions = ({ person, showView, showEdit, showDelete }: PersonActions
           </Link>
         )}
         {showDelete && (
-          <DropdownMenuItem>
-            <DeletePerson person={person} />
-          </DropdownMenuItem>
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
+              <DeletePerson person={person} />
+            </DropdownMenuItem>
+          </>
         )}
       </DropdownMenuContent>
     </DropdownMenu>

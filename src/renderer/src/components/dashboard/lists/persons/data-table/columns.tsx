@@ -29,6 +29,24 @@ export const columns: ColumnDef<PersonDataSheet>[] = [
     enableSorting: false,
     enableHiding: false
   },
+  // {
+  //   accessorKey: "id",
+  //   meta: "ID",
+  //   header: ({ column }) => {
+  //     return (
+  //       <Button
+  //         variant="ghost"
+  //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+  //       >
+  //         ID
+  //         <ChevronsUpDown className="ml-2 h-4 w-4" />
+  //       </Button>
+  //     )
+  //   },
+  //   cell: ({ row }) => {
+  //     return <div className="ml-4 font-medium">{row.getValue("id")}</div>
+  //   }
+  // },
   {
     accessorKey: "name",
     meta: "Nombre",
@@ -181,7 +199,7 @@ export const columns: ColumnDef<PersonDataSheet>[] = [
       const rowData = row.original as PersonDataSheet
       return (
         <div className="flex justify-end space-x-1">
-          <PersonActions person={rowData} showView showEdit />
+          <PersonActions person={rowData} showView showEdit showDelete />
         </div>
       )
     }

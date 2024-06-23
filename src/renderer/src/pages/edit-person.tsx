@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import PersonActions from "@renderer/components/dashboard/lists/persons/actions/item-actions/person-actions"
 import PageTitle from "@renderer/components/page-title"
+import { usePersons } from "@renderer/components/persons-provider"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -37,6 +38,7 @@ import {
   SelectTrigger,
   SelectValue
 } from "@renderer/components/ui/select"
+import { ToastAction } from "@renderer/components/ui/toast"
 import { toast } from "@renderer/components/ui/use-toast"
 import { cn } from "@renderer/lib/utils"
 import { PersonSchema, zodPersonSchema } from "@renderer/lib/validators/person-validator"
@@ -51,6 +53,8 @@ const EditPersonPage = () => {
   const [person, setPerson] = useState<PersonDataSheet | null>(null)
 
   const { id } = useParams()
+  const personId = Number(id)
+  const { updatePerson } = usePersons()
   const navigate = useNavigate()
 
   const form = useForm<PersonSchema>({
@@ -59,8 +63,8 @@ const EditPersonPage = () => {
 
   useEffect(() => {
     const getPerson = async () => {
-      if (id) {
-        const res = await window.personAPI.getPersonById(parseInt(id))
+      const res: PersonDataSheet | null = await window.personAPI.getPersonById(personId)
+      if (res) {
         form.reset(res)
         setPerson(res)
       }
@@ -71,12 +75,21 @@ const EditPersonPage = () => {
 
   const editPerson = async (data: PersonDataSheet) => {
     try {
-      await window.personAPI.updatePerson({ id, ...data })
-      navigate("/persons-list")
-      toast({
-        title: "Ficha editada.",
-        description: "La ficha de datos personales ha sido editada correctamente."
-      })
+      const res = await window.personAPI.updatePerson({ id: personId, ...data })
+
+      if (res) {
+        updatePerson(personId, res)
+        navigate("/persons-list")
+        toast({
+          title: "Ficha editada.",
+          description: "La ficha de datos personales ha sido editada correctamente.",
+          action: (
+            <ToastAction altText="Ver" onClick={() => navigate(`/person/${personId}`)}>
+              Ver
+            </ToastAction>
+          )
+        })
+      }
     } catch (error) {
       console.error(error)
       toast({
@@ -116,7 +129,7 @@ const EditPersonPage = () => {
             <form onSubmit={form.handleSubmit(editPerson)}>
               <CardHeader>
                 <div className="flex justify-between">
-                  <div>
+                  <div className="space-y-2">
                     <CardTitle>Ficha de persona</CardTitle>
                     <CardDescription>Formulario para editar ficha de persona</CardDescription>
                   </div>

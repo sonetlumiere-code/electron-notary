@@ -15,7 +15,7 @@ export interface authAPI {
 export interface personAPI {
   createPerson: (person: PersonDataSheet) => Promise<PersonDataSheet | null>
   getPersons: () => Promise<PersonDataSheet[] | null>
-  getPersonById: (id: number) => Promise<PromiseDataSheet | null>
+  getPersonById: (id: number) => Promise<PersonDataSheet | null>
   searchPersons: (filters: Partial<PersonDataSheet>) => Promise<PersonDataSheet[] | null>
   updatePerson: (person: PersonDataSheet) => Promise<PersonDataSheet | null>
   deletePerson: (id: number) => Promise<number | null>

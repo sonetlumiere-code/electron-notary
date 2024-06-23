@@ -26,13 +26,12 @@ const PersonDetailsPage = () => {
   const [person, setPerson] = useState<PersonDataSheet | null>(null)
 
   const { id } = useParams()
+  const personId = Number(id)
 
   useEffect(() => {
     const getPerson = async () => {
-      if (id) {
-        const res = await window.personAPI.getPersonById(parseInt(id))
-        setPerson(res)
-      }
+      const res = await window.personAPI.getPersonById(personId)
+      setPerson(res)
     }
 
     getPerson()
@@ -65,7 +64,7 @@ const PersonDetailsPage = () => {
       <Card>
         <CardHeader>
           <div className="flex justify-between">
-            <div>
+            <div className="space-y-2">
               <CardTitle>Ficha de persona</CardTitle>
               <CardDescription>Detalle de ficha de persona</CardDescription>
             </div>

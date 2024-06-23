@@ -5,7 +5,7 @@ import fs from "fs"
 import { parse } from "json2csv"
 import path from "path"
 
-const createPerson = (data: PersonDataSheet) => {
+const createPerson = (data: PersonDataSheet): PersonDataSheet => {
   const query = `
     INSERT INTO person_data_sheets (
       name, lastName, gender, nationality, documentType, documentNumber, CUIT_L, birthdate, birthplace,
@@ -61,8 +61,8 @@ const createPerson = (data: PersonDataSheet) => {
     )
 
     return {
-      id: info.lastInsertRowid,
-      ...data
+      ...data,
+      id: info.lastInsertRowid
     }
   } catch (err) {
     console.error("Error inserting data: ", err)
@@ -100,6 +100,7 @@ const getPersonById = (id: number): PersonDataSheet | null => {
 }
 
 const updatePerson = (data: PersonDataSheet) => {
+  console.log(data)
   const query = `
     UPDATE person_data_sheets SET
       name = ?, lastName = ?, gender = ?, nationality = ?, documentType = ?, documentNumber = ?,
@@ -148,10 +149,7 @@ const updatePerson = (data: PersonDataSheet) => {
       data.id
     )
 
-    return {
-      id: info.lastInsertRowid,
-      ...data
-    }
+    return data
   } catch (err) {
     console.error("Error updating data: ", err)
     throw err
@@ -306,11 +304,20 @@ const importPersons = async (filePath: string): Promise<PersonDataSheet[]> => {
       throw new Error("Unsupported file format")
     }
 
+    const personsDB: PersonDataSheet[] | null = getPersons()
+
+    const createdPersons: PersonDataSheet[] = []
+
     importedPersons.forEach((person) => {
-      createPerson(person)
+      const personExists = personsDB?.some((dbPerson) => dbPerson.id === person.id)
+
+      if (!personExists) {
+        const newPerson = createPerson(person)
+        createdPersons.push(newPerson)
+      }
     })
 
-    return importedPersons
+    return createdPersons
   } catch (err) {
     console.error("Error importing persons: ", err)
     throw err

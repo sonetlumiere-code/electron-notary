@@ -33,8 +33,8 @@ const createLegalPerson = (data: LegalPersonDataSheet) => {
     )
 
     return {
-      id: info.lastInsertRowid,
-      ...data
+      ...data,
+      id: info.lastInsertRowid
     }
   } catch (err) {
     console.error("Error inserting data: ", err)
@@ -100,10 +100,7 @@ const updateLegalPerson = (data: LegalPersonDataSheet) => {
       data.id
     )
 
-    return {
-      id: info.lastInsertRowid,
-      ...data
-    }
+    return data
   } catch (err) {
     console.error("Error updating data: ", err)
     throw err

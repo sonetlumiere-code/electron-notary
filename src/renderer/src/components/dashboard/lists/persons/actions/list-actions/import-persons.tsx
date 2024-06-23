@@ -1,3 +1,4 @@
+import { usePersons } from "@renderer/components/persons-provider"
 import {
   DropdownMenuItem,
   DropdownMenuPortal,
@@ -9,23 +10,24 @@ import { toast } from "@renderer/components/ui/use-toast"
 import { FileFormat } from "@shared/types"
 
 const ImportPersons = () => {
+  const { addPersons } = usePersons()
+
   const importPersons = async (fileFormat: FileFormat) => {
     const filePath = await window.electronAPI.selectFile({ fileFormat })
 
     if (filePath) {
       const res = await window.personAPI.importPersons(filePath)
-      console.log(res)
 
       if (res.length > 0) {
+        addPersons(res)
         toast({
           title: "Importación exitosa.",
           description: `Se han importado ${res.length} fichas personales.`
         })
       } else {
         toast({
-          variant: "destructive",
-          title: "Error importando personas.",
-          description: "Algó salió mal."
+          title: "No se ha importado ninguna ficha.",
+          description: "Las fichas ya estaban registradas o algo falló durante la importación."
         })
       }
     }

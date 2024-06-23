@@ -1,4 +1,8 @@
-import { NavigationItem } from "@renderer/types/nav-item"
+type NavigationItem = {
+  id: number
+  name: string
+  href: string
+}
 
 const navItems: NavigationItem[] = [
   {

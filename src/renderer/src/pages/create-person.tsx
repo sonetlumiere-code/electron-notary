@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import PageTitle from "@renderer/components/page-title"
+import { usePersons } from "@renderer/components/persons-provider"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -39,13 +40,14 @@ import {
 import { toast } from "@renderer/components/ui/use-toast"
 import { cn } from "@renderer/lib/utils"
 import { PersonSchema, zodPersonSchema } from "@renderer/lib/validators/person-validator"
-import { DocumentType, Gender, MaritalStatus } from "@shared/types"
+import { DocumentType, Gender, MaritalStatus, PersonDataSheet } from "@shared/types"
 import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { Link, useNavigate } from "react-router-dom"
 
 const CreatePersonPage = () => {
+  const { addPersons } = usePersons()
   const navigate = useNavigate()
 
   const form = useForm<PersonSchema>({
@@ -87,12 +89,15 @@ const CreatePersonPage = () => {
 
   const createPerson = async (data: PersonSchema) => {
     try {
-      await window.personAPI.createPerson(data)
-      navigate("/persons-list")
-      toast({
-        title: "Nueva ficha creada.",
-        description: "La ficha de datos personales ha sido creada correctamente."
-      })
+      const res: PersonDataSheet | null = await window.personAPI.createPerson(data)
+      if (res) {
+        addPersons([res])
+        navigate("/persons-list")
+        toast({
+          title: "Nueva ficha creada.",
+          description: "La ficha de datos personales ha sido creada correctamente."
+        })
+      }
     } catch (error) {
       console.error(error)
       toast({

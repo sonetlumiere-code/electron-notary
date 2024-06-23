@@ -1,13 +1,13 @@
 import { useConfirmation } from "@renderer/components/confirmation-provider"
+import { usePersons } from "@renderer/components/persons-provider"
 import { toast } from "@renderer/components/ui/use-toast"
 import { Trash2 } from "lucide-react"
-import { useNavigate } from "react-router-dom"
 
 const DeletePersons = () => {
+  const { clearPersons } = usePersons()
   const confirm = useConfirmation()
-  const navigate = useNavigate()
 
-  const deletePersons = async () => {
+  const onDelete = async () => {
     confirm({
       variant: "destructive",
       title: "¿Eliminar todas las fichas personales?",
@@ -15,9 +15,8 @@ const DeletePersons = () => {
       countDown: 5
     }).then(async () => {
       try {
-        const res = await window.personAPI.deletePersons()
-
-        navigate("/")
+        await window.personAPI.deletePersons()
+        clearPersons()
         toast({
           title: "Fichas personales eliminadas.",
           description: "Las fichas han sido eliminadas correctamente."
@@ -33,7 +32,7 @@ const DeletePersons = () => {
   }
 
   return (
-    <span onClick={deletePersons} className="flex">
+    <span onClick={onDelete} className="flex">
       <Trash2 className="w-4 h-4 text-destructive" />
       <p className="ml-2 text-destructive">Eliminar</p>
     </span>
