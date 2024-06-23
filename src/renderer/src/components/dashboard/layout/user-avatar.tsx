@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@renderer/components/ui/dropdown-menu"
-import { CircleUser, LogOut, Settings } from "lucide-react"
+import { CircleUser, LogOut } from "lucide-react"
 
 const UserAvatar = () => {
   const { logout } = useAuth()
@@ -22,12 +22,12 @@ const UserAvatar = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Mi cuenta</DropdownMenuLabel>
-        <DropdownMenuSeparator />
+        <DropdownMenuLabel className="text-center">Mi cuenta</DropdownMenuLabel>
+        {/* <DropdownMenuSeparator />
         <DropdownMenuItem className="cursor-pointer">
           <Settings className="w-4 h-4 mr-2" />
           Configuración
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
         <DropdownMenuSeparator />
         <DropdownMenuItem className="cursor-pointer" onClick={logout}>
           <LogOut className="w-4 h-4 mr-2" />

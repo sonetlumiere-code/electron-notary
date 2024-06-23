@@ -41,6 +41,7 @@
     "clsx": "^2.1.1",
     "csv-parser": "^3.0.0",
     "date-fns": "^3.6.0",
+    "docx": "^8.5.0",
     "json2csv": "^6.0.0-alpha.2",
     "lucide-react": "^0.378.0",
     "react-day-picker": "^8.10.1",

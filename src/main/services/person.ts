@@ -1,3 +1,4 @@
+import personDocBuffer from "@/lib/docx/person-doc-buffer"
 import db from "@/lib/sqlite/sqlite-config"
 import { FileFormat, PersonDataSheet } from "@shared/types"
 import csvParser from "csv-parser"
@@ -365,12 +366,16 @@ const exportPersons = (directory: string, fileFormat: FileFormat): string => {
   }
 }
 
-const bulkExportPersons = (directory: string, ids: number[], fileFormat: FileFormat): string => {
+const bulkExportPersons = async (
+  directory: string,
+  ids: number[],
+  fileFormat: FileFormat
+): Promise<string> => {
   try {
     const data: PersonDataSheet[] = searchPersons({ ids })
 
     let filePath: string
-    let content: string
+    let content: string | Buffer
 
     switch (fileFormat) {
       case FileFormat.JSON: {
@@ -385,6 +390,13 @@ const bulkExportPersons = (directory: string, ids: number[], fileFormat: FileFor
         filePath = path.join(directory, csvFileName)
         const csvData = parse(data)
         content = csvData
+        break
+      }
+
+      case FileFormat.WORD: {
+        const wordFileName = `persons_${new Date().getTime()}.docx`
+        filePath = path.join(directory, wordFileName)
+        content = await personDocBuffer(data)
         break
       }
 

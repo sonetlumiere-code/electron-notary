@@ -73,7 +73,8 @@ export type LegalPersonDataSheet = {
 
 export enum FileFormat {
   JSON = "json",
-  CSV = "csv"
+  CSV = "csv",
+  WORD = "word"
 }
 
 export type User = {

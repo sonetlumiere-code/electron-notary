@@ -33,7 +33,7 @@ const BulkExportPersons = <TData,>({ table }: BulkExportPersonsProps<TData>) => 
       table.resetRowSelection()
 
       toast({
-        title: "Exportación realizada.",
+        title: `Exportación a ${fileFormat.toUpperCase()} realizada.`,
         description: `Las filas seleccionadas han sido exportadas al archivo ${res}`,
         duration: 10000
       })
@@ -56,6 +56,9 @@ const BulkExportPersons = <TData,>({ table }: BulkExportPersonsProps<TData>) => 
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => bulkExport(FileFormat.CSV)}>
           <span>Exportar a CSV</span>
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => bulkExport(FileFormat.WORD)}>
+          <span>Exportar a Word</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
