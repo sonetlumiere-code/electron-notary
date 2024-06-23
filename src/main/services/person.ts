@@ -11,10 +11,10 @@ const createPerson = (data: PersonDataSheet): PersonDataSheet => {
     INSERT INTO person_data_sheets (
       name, lastName, gender, nationality, documentType, documentNumber, CUIT_L, birthdate, birthplace,
       maritalStatus, maritalStatusSpouseName, maritalStatusSpouseNumber, maritalStatusMarriageRegime, maritalStatusDivorceNumber, maritalStatusDivorceDate, maritalStatusDivorceCourt,
-      maritalStatusDivorceAutos, maritalStatusDeceasedSpouseName, numberOfChildren, address, city, province, profession, phoneNumber,
+      maritalStatusDivorceAutos, maritalStatusDeceasedSpouseName, numberOfChildren, address, city, profession, phoneNumber,
       mobileNumber, email, isPoliticallyExposed, politicalPosition, originOfFunds, reasonForChoosing, referredBy
     ) VALUES (
-      ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+      ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
     )
   `
 
@@ -49,7 +49,6 @@ const createPerson = (data: PersonDataSheet): PersonDataSheet => {
       data.numberOfChildren,
       data.address,
       data.city,
-      data.province,
       data.profession,
       data.phoneNumber,
       data.mobileNumber,
@@ -107,7 +106,7 @@ const updatePerson = (data: PersonDataSheet) => {
       name = ?, lastName = ?, gender = ?, nationality = ?, documentType = ?, documentNumber = ?,
       CUIT_L = ?, birthdate = ?, birthplace = ?, maritalStatus = ?, maritalStatusSpouseName = ?, maritalStatusSpouseNumber = ?,
       maritalStatusMarriageRegime = ?, maritalStatusDivorceNumber = ?, maritalStatusDivorceDate = ?, maritalStatusDivorceCourt = ?, maritalStatusDivorceAutos = ?,
-      maritalStatusDeceasedSpouseName = ?, numberOfChildren = ?, address = ?, city = ?, province = ?, profession = ?,
+      maritalStatusDeceasedSpouseName = ?, numberOfChildren = ?, address = ?, city = ?, profession = ?,
       phoneNumber = ?, mobileNumber = ?, email = ?, isPoliticallyExposed = ?, politicalPosition = ?,
       originOfFunds = ?, reasonForChoosing = ?, referredBy = ?
     WHERE id = ?
@@ -137,7 +136,6 @@ const updatePerson = (data: PersonDataSheet) => {
       data.numberOfChildren,
       data.address,
       data.city,
-      data.province,
       data.profession,
       data.phoneNumber,
       data.mobileNumber,
@@ -171,10 +169,6 @@ const searchPersons = (
   if (filters.name) {
     query += ` AND name LIKE ?`
     params.push(`%${filters.name}%`)
-  }
-  if (filters.province) {
-    query += ` AND province LIKE ?`
-    params.push(`%${filters.province}%`)
   }
   if (filters.gender) {
     query += ` AND gender LIKE ?`

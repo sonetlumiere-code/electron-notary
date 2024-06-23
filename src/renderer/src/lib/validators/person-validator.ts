@@ -35,7 +35,6 @@ export const zodPersonSchema = z.object({
   numberOfChildren: z.coerce.number().optional(),
   address: z.string().trim().min(1, { message: "Ingresa la dirección." }),
   city: z.string().trim().min(1, { message: "Ingresa la ciudad." }),
-  province: z.string().trim().min(1, { message: "Ingresa la provincia." }),
   profession: z.string().trim().min(1, { message: "Ingresa la profesión." }),
   phoneNumber: z.coerce.number().min(1, { message: "Ingresa el número de teléfono." }),
   mobileNumber: z.coerce.number().min(1, { message: "Ingresa el número de móvil." }),

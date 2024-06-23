@@ -214,11 +214,6 @@ const PersonDetailsPage = () => {
                 </div>
                 <Separator />
                 <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">Provincia</dt>
-                  <dd>{person.province}</dd>
-                </div>
-                <Separator />
-                <div className="flex items-center justify-between">
                   <dt className="text-muted-foreground">Profesión</dt>
                   <dd>{person.profession}</dd>
                 </div>

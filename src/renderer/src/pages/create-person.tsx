@@ -74,7 +74,6 @@ const CreatePersonPage = () => {
       numberOfChildren: 0,
       address: "",
       city: "",
-      province: "",
       profession: "",
       phoneNumber: 0,
       mobileNumber: 0,
@@ -527,20 +526,6 @@ const CreatePersonPage = () => {
                         <Input {...field} type="text" disabled={form.formState.isSubmitting} />
                       </FormControl>
                       <FormDescription>Ingresa la ciudad.</FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="province"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Provincia</FormLabel>
-                      <FormControl>
-                        <Input {...field} type="text" disabled={form.formState.isSubmitting} />
-                      </FormControl>
-                      <FormDescription>Ingresa la provincia.</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}

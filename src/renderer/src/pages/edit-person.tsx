@@ -531,20 +531,6 @@ const EditPersonPage = () => {
                   />
                   <FormField
                     control={form.control}
-                    name="province"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col">
-                        <FormLabel>Provincia</FormLabel>
-                        <FormControl>
-                          <Input {...field} type="text" disabled={form.formState.isSubmitting} />
-                        </FormControl>
-                        <FormDescription>Ingresa la provincia.</FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
                     name="profession"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">

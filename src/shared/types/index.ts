@@ -41,7 +41,6 @@ export interface PersonDataSheet {
   numberOfChildren?: number
   address: string
   city: string
-  province: string
   profession: string
   phoneNumber: number
   mobileNumber: number
