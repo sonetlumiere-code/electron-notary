@@ -21,9 +21,9 @@ const DeletePerson = ({ person }: DeletePersonProps) => {
       description: "Esta acción es irreversible."
     }).then(async () => {
       try {
-        const res = await window.personAPI.deletePerson(person.id as number)
+        const res = await window.personAPI.deletePersons([person.id] as number[])
         if (res) {
-          deletePersons([res])
+          deletePersons(res)
           navigate("/persons-list")
           toast({
             title: "Ficha personal eliminada.",

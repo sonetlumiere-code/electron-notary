@@ -1,3 +1,4 @@
+import legalPersonDocBuffer from "@/lib/docx/legal-person-docx"
 import { FileFormat, LegalPersonDataSheet } from "@shared/types"
 import fs from "fs"
 import { parse } from "json2csv"
@@ -185,32 +186,7 @@ const searchLegalPersons = (
   }
 }
 
-const deleteLegalPerson = (id: number) => {
-  const query = `DELETE FROM legal_person_data_sheets WHERE id = ?`
-
-  try {
-    const stmt = db.prepare(query)
-    stmt.run(id)
-  } catch (err) {
-    console.error("Error deleting data: ", err)
-    throw err
-  }
-}
-
-const deleteLegalPersons = (): void => {
-  const query = `DELETE FROM legal_person_data_sheets`
-
-  try {
-    const stmt = db.prepare(query)
-    stmt.run()
-    console.log("All legal persons have been deleted.")
-  } catch (err) {
-    console.error("Error deleting all legal persons: ", err)
-    throw err
-  }
-}
-
-const bulkDeleteLegalPersons = (ids: number[]) => {
+const deleteLegalPersons = (ids: number[]) => {
   const placeholders = ids.map(() => "?").join(",")
   const query = `DELETE FROM legal_person_data_sheets WHERE id IN (${placeholders})`
 
@@ -219,7 +195,7 @@ const bulkDeleteLegalPersons = (ids: number[]) => {
     stmt.run(...ids)
     return ids
   } catch (err) {
-    console.error("Error bulk deleting data: ", err)
+    console.error("Error deleting data: ", err)
     throw err
   }
 }
@@ -240,57 +216,16 @@ const importLegalPersons = (filePath: string): LegalPersonDataSheet[] => {
   }
 }
 
-const exportLegalPersons = (directory: string, fileFormat: FileFormat): string => {
-  try {
-    const data: LegalPersonDataSheet[] | null = getLegalPersons()
-
-    if (!data) {
-      throw new Error("Failed to get legal persons")
-    }
-
-    let filePath: string
-    let content: string
-
-    switch (fileFormat) {
-      case FileFormat.JSON: {
-        const jsonFileName = `all_legal_persons_${new Date().getTime()}.json`
-        filePath = path.join(directory, jsonFileName)
-        content = JSON.stringify(data, null, 2)
-        break
-      }
-
-      case FileFormat.CSV: {
-        const csvFileName = `all_legal_persons_${new Date().getTime()}.csv`
-        filePath = path.join(directory, csvFileName)
-        const csvData = parse(data)
-        content = csvData
-        break
-      }
-
-      default:
-        throw new Error(
-          `Unsupported file format: ${fileFormat}. Supported formats are 'json' and 'csv'.`
-        )
-    }
-
-    fs.writeFileSync(filePath, content)
-    return filePath
-  } catch (err) {
-    console.error("Error exporting legal persons: ", err)
-    throw err
-  }
-}
-
-const bulkExportLegalPersons = (
+const exportLegalPersons = async (
   directory: string,
   ids: number[],
   fileFormat: FileFormat
-): string => {
+): Promise<string> => {
   try {
     const data: LegalPersonDataSheet[] = searchLegalPersons({ ids })
 
     let filePath: string
-    let content: string
+    let content: string | Buffer
 
     switch (fileFormat) {
       case FileFormat.JSON: {
@@ -308,16 +243,23 @@ const bulkExportLegalPersons = (
         break
       }
 
+      case FileFormat.WORD: {
+        const wordFileName = `legal_persons_${new Date().getTime()}.docx`
+        filePath = path.join(directory, wordFileName)
+        content = await legalPersonDocBuffer(data)
+        break
+      }
+
       default:
         throw new Error(
-          `Unsupported file format: ${fileFormat}. Supported formats are 'json' and 'csv'.`
+          `Unsupported format: ${fileFormat}. Supported formats are 'json' and 'csv'.`
         )
     }
 
     fs.writeFileSync(filePath, content)
     return filePath
   } catch (err) {
-    console.error("Error bulk exporting legal persons: ", err)
+    console.error("Error exporting persons: ", err)
     throw err
   }
 }
@@ -330,10 +272,7 @@ const formatResponse = (row: LegalPersonDataSheet): LegalPersonDataSheet => {
 }
 
 export {
-  bulkDeleteLegalPersons,
-  bulkExportLegalPersons,
   createLegalPerson,
-  deleteLegalPerson,
   deleteLegalPersons,
   exportLegalPersons,
   getLegalPersonById,

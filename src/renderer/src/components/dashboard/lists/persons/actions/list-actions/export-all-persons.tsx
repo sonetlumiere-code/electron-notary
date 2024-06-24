@@ -1,3 +1,4 @@
+import { usePersons } from "@renderer/components/persons-provider"
 import {
   DropdownMenuItem,
   DropdownMenuPortal,
@@ -8,13 +9,18 @@ import {
 import { toast } from "@renderer/components/ui/use-toast"
 import { FileFormat } from "@shared/types"
 
-const ExportPersons = () => {
-  const exportPersons = async (fileFormat: FileFormat) => {
+const ExportAllPersons = () => {
+  const { persons } = usePersons()
+
+  const exportAllPersons = async (fileFormat: FileFormat) => {
     const directory = await window.electronAPI.selectDirectory()
 
     if (directory) {
+      const allPersonsIds = persons.map((person) => person.id)
+
       const res = await window.personAPI.exportPersons({
         directory,
+        ids: allPersonsIds as number[],
         fileFormat
       })
 
@@ -33,10 +39,10 @@ const ExportPersons = () => {
       </DropdownMenuSubTrigger>
       <DropdownMenuPortal>
         <DropdownMenuSubContent>
-          <DropdownMenuItem onClick={() => exportPersons(FileFormat.JSON)}>
+          <DropdownMenuItem onClick={() => exportAllPersons(FileFormat.JSON)}>
             <span>JSON</span>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => exportPersons(FileFormat.CSV)}>
+          <DropdownMenuItem onClick={() => exportAllPersons(FileFormat.CSV)}>
             <span>CSV</span>
           </DropdownMenuItem>
         </DropdownMenuSubContent>
@@ -45,4 +51,4 @@ const ExportPersons = () => {
   )
 }
 
-export default ExportPersons
+export default ExportAllPersons

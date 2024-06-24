@@ -3,24 +3,29 @@ import { usePersons } from "@renderer/components/persons-provider"
 import { toast } from "@renderer/components/ui/use-toast"
 import { Trash2 } from "lucide-react"
 
-const DeletePersons = () => {
-  const { clearPersons } = usePersons()
+const DeleteAllPersons = () => {
+  const { persons, clearPersons } = usePersons()
   const confirm = useConfirmation()
 
-  const onDelete = async () => {
+  const deleteAllPersons = async () => {
     confirm({
       variant: "destructive",
       title: "¿Eliminar todas las fichas personales?",
       description: "Esta acción es irreversible.",
       countDown: 5
     }).then(async () => {
+      const allPersonsIds = persons.map((person) => person.id)
+
       try {
-        await window.personAPI.deletePersons()
-        clearPersons()
-        toast({
-          title: "Fichas personales eliminadas.",
-          description: "Las fichas han sido eliminadas correctamente."
-        })
+        const res = await window.personAPI.deletePersons(allPersonsIds as number[])
+
+        if (res?.length) {
+          clearPersons()
+          toast({
+            title: "Fichas personales eliminadas.",
+            description: "Todas las fichas han sido eliminadas correctamente."
+          })
+        }
       } catch (error) {
         toast({
           variant: "destructive",
@@ -32,11 +37,11 @@ const DeletePersons = () => {
   }
 
   return (
-    <span onClick={onDelete} className="flex">
+    <span onClick={deleteAllPersons} className="flex">
       <Trash2 className="w-4 h-4 text-destructive" />
       <p className="ml-2 text-destructive">Eliminar</p>
     </span>
   )
 }
 
-export default DeletePersons
+export default DeleteAllPersons

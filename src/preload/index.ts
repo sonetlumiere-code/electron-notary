@@ -8,7 +8,7 @@ if (!process.contextIsolated) {
 // Custom APIs for renderer
 const electronAPI = {
   selectDirectory: () => ipcRenderer.invoke("select-directory"),
-  selectFile: (params: { fileFormat: FileFormat }) => ipcRenderer.invoke("select-file", params)
+  selectFile: (data: { fileFormat: FileFormat }) => ipcRenderer.invoke("select-file", data)
 }
 
 const authAPI = {
@@ -22,21 +22,10 @@ const personAPI = {
   searchPersons: (filters: Partial<PersonDataSheet>) =>
     ipcRenderer.invoke("search-persons", filters),
   updatePerson: (person: PersonDataSheet) => ipcRenderer.invoke("update-person", person),
-  deletePerson: (id: number) => ipcRenderer.invoke("delete-person", id),
-  deletePersons: () => ipcRenderer.invoke("delete-persons"),
+  deletePersons: (ids: number[]) => ipcRenderer.invoke("delete-persons", ids),
   importPersons: (filePath: string) => ipcRenderer.invoke("import-persons", filePath),
-  exportPersons: ({ directory, fileFormat }: { directory: string; fileFormat: FileFormat }) =>
-    ipcRenderer.invoke("export-persons", { directory, fileFormat }),
-  bulkExportPersons: ({
-    ids,
-    directory,
-    fileFormat
-  }: {
-    ids: number[]
-    directory: string
-    fileFormat: FileFormat
-  }) => ipcRenderer.invoke("bulk-export-persons", { ids, directory, fileFormat }),
-  bulkDeletePersons: (ids: number[]) => ipcRenderer.invoke("bulk-delete-persons", ids)
+  exportPersons: (data: { directory: string; ids: number[]; fileFormat: FileFormat }) =>
+    ipcRenderer.invoke("export-persons", data)
 }
 
 const legalPersonAPI = {
@@ -48,21 +37,10 @@ const legalPersonAPI = {
     ipcRenderer.invoke("search-legal-persons", filters),
   updateLegalPerson: (legalPerson: LegalPersonDataSheet) =>
     ipcRenderer.invoke("update-legal-person", legalPerson),
-  deleteLegalPerson: (id: number) => ipcRenderer.invoke("delete-legal-person", id),
-  deleteLegalPersons: () => ipcRenderer.invoke("delete-legal-persons"),
+  deleteLegalPersons: (ids: number[]) => ipcRenderer.invoke("delete-legal-persons", ids),
   importLegalPersons: (filePath: string) => ipcRenderer.invoke("import-legal-persons", filePath),
-  exportLegalPersons: ({ directory, fileFormat }: { directory: string; fileFormat: FileFormat }) =>
-    ipcRenderer.invoke("export-legal-persons", { directory, fileFormat }),
-  bulkExportLegalPersons: ({
-    ids,
-    directory,
-    fileFormat
-  }: {
-    ids: number[]
-    directory: string
-    fileFormat: FileFormat
-  }) => ipcRenderer.invoke("bulk-export-legal-persons", { ids, directory, fileFormat }),
-  bulkDeleteLegalPersons: (ids: number[]) => ipcRenderer.invoke("bulk-delete-legal-persons", ids)
+  exportLegalPersons: (data: { directory: string; ids: number[]; fileFormat: FileFormat }) =>
+    ipcRenderer.invoke("export-legal-persons", data)
 }
 
 try {

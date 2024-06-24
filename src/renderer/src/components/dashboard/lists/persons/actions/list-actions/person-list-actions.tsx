@@ -8,8 +8,8 @@ import {
   DropdownMenuTrigger
 } from "@renderer/components/ui/dropdown-menu"
 import { MoreHorizontal } from "lucide-react"
-import DeletePersons from "./delete-persons"
-import ExportPersons from "./export-persons"
+import DeleteAllPersons from "./delete-all-persons"
+import ExportAllPersons from "./export-all-persons"
 import ImportPersons from "./import-persons"
 
 const PersonListActions = () => {
@@ -25,10 +25,10 @@ const PersonListActions = () => {
         <DropdownMenuLabel>Acciones</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <ImportPersons />
-        <ExportPersons />
+        <ExportAllPersons />
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <DeletePersons />
+          <DeleteAllPersons />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

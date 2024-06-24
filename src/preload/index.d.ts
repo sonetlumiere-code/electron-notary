@@ -18,16 +18,13 @@ export interface personAPI {
   getPersonById: (id: number) => Promise<PersonDataSheet | null>
   searchPersons: (filters: Partial<PersonDataSheet>) => Promise<PersonDataSheet[] | null>
   updatePerson: (person: PersonDataSheet) => Promise<PersonDataSheet | null>
-  deletePerson: (id: number) => Promise<number | null>
-  deletePersons: () => Promise<void>
+  deletePersons: (ids: number[]) => Promise<number[] | null>
   importPersons: (filePath: string) => Promise<PersonDataSheet[]>
-  exportPersons: (params: { directory: string; fileFormat: FileFormat }) => Promise<string>
-  bulkExportPersons: (params: {
-    ids: number[]
+  exportPersons: (params: {
     directory: string
+    ids: number[]
     fileFormat: FileFormat
   }) => Promise<string>
-  bulkDeletePersons: (ids: number[]) => Promise<number[] | null>
 }
 
 export interface legalPersonAPI {
@@ -38,16 +35,13 @@ export interface legalPersonAPI {
     filters: Partial<LegalPersonDataSheet>
   ) => Promise<LegalPersonDataSheet[] | null>
   updateLegalPerson: (legalPerson: LegalPersonDataSheet) => Promise<LegalPersonDataSheet | null>
-  deleteLegalPerson: (id: number) => Promise<number | null>
-  deleteLegalPersons: () => Promise<void>
+  deleteLegalPersons: (ids: number[]) => Promise<number[] | null>
   importLegalPersons: (filePath: string) => Promise<LegalPersonDataSheet[]>
-  exportLegalPersons: (params: { directory: string; fileFormat: FileFormat }) => Promise<string>
-  bulkExportLegalPersons: (params: {
-    ids: number[]
+  exportLegalPersons: (params: {
     directory: string
+    ids: number[]
     fileFormat: FileFormat
   }) => Promise<string>
-  bulkDeleteLegalPersons: (ids: number[]) => Promise<number[] | null>
 }
 
 declare global {

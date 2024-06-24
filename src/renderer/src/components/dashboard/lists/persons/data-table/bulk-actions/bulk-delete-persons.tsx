@@ -24,7 +24,7 @@ const BulkDeletePersons = <TData,>({ table }: BulkDeletePersonsProps<TData>) => 
       title: "¿Eliminar fichas personales?",
       description: `${selectedRows.length} documento${selectedRows.length > 1 ? "s" : ""} será${selectedRows.length > 1 ? "n" : ""} eliminado${selectedRows.length > 1 ? "s" : ""}.`
     }).then(async () => {
-      const res = await window.personAPI.bulkDeletePersons(selectedPersonsIds as number[])
+      const res = await window.personAPI.deletePersons(selectedPersonsIds as number[])
 
       if (res?.length) {
         deletePersons(res)

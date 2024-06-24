@@ -252,33 +252,7 @@ const searchPersons = (
   }
 }
 
-const deletePerson = (id: number) => {
-  const query = `DELETE FROM person_data_sheets WHERE id = ?`
-
-  try {
-    const stmt = db.prepare(query)
-    stmt.run(id)
-    return id
-  } catch (err) {
-    console.error("Error deleting data: ", err)
-    throw err
-  }
-}
-
-const deletePersons = () => {
-  const query = `DELETE FROM person_data_sheets`
-
-  try {
-    const stmt = db.prepare(query)
-    stmt.run()
-    console.log("All persons have been deleted.")
-  } catch (err) {
-    console.error("Error deleting all persons: ", err)
-    throw err
-  }
-}
-
-const bulkDeletePersons = (ids: number[]) => {
+const deletePersons = (ids: number[]) => {
   const placeholders = ids.map(() => "?").join(",")
   const query = `DELETE FROM person_data_sheets WHERE id IN (${placeholders})`
 
@@ -287,7 +261,7 @@ const bulkDeletePersons = (ids: number[]) => {
     stmt.run(...ids)
     return ids
   } catch (err) {
-    console.error("Error bulk deleting data: ", err)
+    console.error("Error deleting data: ", err)
     throw err
   }
 }
@@ -334,48 +308,7 @@ const importPersons = async (filePath: string): Promise<PersonDataSheet[]> => {
   }
 }
 
-const exportPersons = (directory: string, fileFormat: FileFormat): string => {
-  try {
-    const data: PersonDataSheet[] | null = getPersons()
-
-    if (!data) {
-      throw new Error("Failed to get persons")
-    }
-
-    let filePath: string
-    let content: string
-
-    switch (fileFormat) {
-      case FileFormat.JSON: {
-        const jsonFileName = `all_persons_${new Date().getTime()}.json`
-        filePath = path.join(directory, jsonFileName)
-        content = JSON.stringify(data, null, 2)
-        break
-      }
-
-      case FileFormat.CSV: {
-        const csvFileName = `all_persons_${new Date().getTime()}.csv`
-        filePath = path.join(directory, csvFileName)
-        const csvData = parse(data)
-        content = csvData
-        break
-      }
-
-      default:
-        throw new Error(
-          `Unsupported format: ${fileFormat}. Supported formats are 'json' and 'csv'.`
-        )
-    }
-
-    fs.writeFileSync(filePath, content)
-    return filePath
-  } catch (err) {
-    console.error("Error exporting persons: ", err)
-    throw err
-  }
-}
-
-const bulkExportPersons = async (
+const exportPersons = async (
   directory: string,
   ids: number[],
   fileFormat: FileFormat
@@ -411,14 +344,14 @@ const bulkExportPersons = async (
 
       default:
         throw new Error(
-          `Unsupported file format: ${fileFormat}. Supported formats are 'json' and 'csv'.`
+          `Unsupported format: ${fileFormat}. Supported formats are 'json' and 'csv'.`
         )
     }
 
     fs.writeFileSync(filePath, content)
     return filePath
   } catch (err) {
-    console.error("Error bulk exporting persons: ", err)
+    console.error("Error exporting persons: ", err)
     throw err
   }
 }
@@ -433,10 +366,7 @@ const formatResponse = (row: PersonDataSheet): PersonDataSheet => {
 }
 
 export {
-  bulkDeletePersons,
-  bulkExportPersons,
   createPerson,
-  deletePerson,
   deletePersons,
   exportPersons,
   getPersonById,

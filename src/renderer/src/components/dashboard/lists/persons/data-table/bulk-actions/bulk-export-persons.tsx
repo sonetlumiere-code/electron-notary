@@ -18,15 +18,15 @@ type BulkExportPersonsProps<TData> = {
 
 const BulkExportPersons = <TData,>({ table }: BulkExportPersonsProps<TData>) => {
   const bulkExport = async (fileFormat: FileFormat) => {
-    const selectedRows = table.getFilteredSelectedRowModel().rows
-    const selectedPersonsIds = selectedRows.map((row) => (row.original as PersonDataSheet).id)
-
     const directory = await window.electronAPI.selectDirectory()
 
     if (directory) {
-      const res = await window.personAPI.bulkExportPersons({
-        ids: selectedPersonsIds as number[],
+      const selectedRows = table.getFilteredSelectedRowModel().rows
+      const selectedPersonsIds = selectedRows.map((row) => (row.original as PersonDataSheet).id)
+
+      const res = await window.personAPI.exportPersons({
         directory,
+        ids: selectedPersonsIds as number[],
         fileFormat
       })
 
