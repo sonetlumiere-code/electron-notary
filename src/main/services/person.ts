@@ -1,4 +1,4 @@
-import personDocBuffer from "@/lib/docx/person-doc-buffer"
+import personDocBuffer from "@/lib/docx/person-docx"
 import db from "@/lib/sqlite/sqlite-config"
 import { FileFormat, PersonDataSheet } from "@shared/types"
 import csvParser from "csv-parser"
