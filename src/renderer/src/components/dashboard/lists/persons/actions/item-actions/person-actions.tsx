@@ -11,15 +11,23 @@ import { PersonDataSheet } from "@shared/types"
 import { Edit, MoreHorizontal, ViewIcon } from "lucide-react"
 import { Link } from "react-router-dom"
 import DeletePerson from "./delete-person"
+import ExportPerson from "./export-person"
 
 type PersonActionsProps = {
   person: PersonDataSheet
   showView?: boolean
   showEdit?: boolean
+  showExport?: boolean
   showDelete?: boolean
 }
 
-const PersonActions = ({ person, showView, showEdit, showDelete }: PersonActionsProps) => {
+const PersonActions = ({
+  person,
+  showView,
+  showEdit,
+  showExport,
+  showDelete
+}: PersonActionsProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -46,6 +54,12 @@ const PersonActions = ({ person, showView, showEdit, showDelete }: PersonActions
               <p className="ml-2">Editar</p>
             </DropdownMenuItem>
           </Link>
+        )}
+        {showExport && (
+          <>
+            <DropdownMenuSeparator />
+            <ExportPerson person={person} />
+          </>
         )}
         {showDelete && (
           <>

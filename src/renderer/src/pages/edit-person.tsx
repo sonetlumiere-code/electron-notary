@@ -169,7 +169,7 @@ const EditPersonPage = () => {
                     <CardTitle>Ficha de persona</CardTitle>
                     <CardDescription>Formulario para editar ficha de persona</CardDescription>
                   </div>
-                  {person && <PersonActions person={person} showView showDelete />}
+                  {person && <PersonActions person={person} showView showExport showDelete />}
                 </div>
               </CardHeader>
               <CardContent>

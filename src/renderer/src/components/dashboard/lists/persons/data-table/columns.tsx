@@ -199,7 +199,7 @@ export const columns: ColumnDef<PersonDataSheet>[] = [
       const rowData = row.original as PersonDataSheet
       return (
         <div className="flex justify-end space-x-1">
-          <PersonActions person={rowData} showView showEdit showDelete />
+          <PersonActions person={rowData} showView showEdit showExport showDelete />
         </div>
       )
     }

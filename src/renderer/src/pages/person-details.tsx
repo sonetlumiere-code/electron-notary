@@ -68,7 +68,7 @@ const PersonDetailsPage = () => {
               <CardTitle>Ficha de persona</CardTitle>
               <CardDescription>Detalle de ficha de persona</CardDescription>
             </div>
-            {person && <PersonActions person={person} showEdit showDelete />}
+            {person && <PersonActions person={person} showEdit showExport showDelete />}
           </div>
         </CardHeader>
         <CardContent>
