@@ -30,14 +30,18 @@ export interface PersonDataSheet {
   birthdate: Date
   birthplace: string
   maritalStatus: MaritalStatus
-  maritalStatusSpouseName?: string
-  maritalStatusSpouseNumber?: number
-  maritalStatusMarriageRegime?: string
-  maritalStatusDivorceNumber?: number
-  maritalStatusDivorceDate?: Date
-  maritalStatusDivorceCourt?: string
-  maritalStatusDivorceAutos?: string
-  maritalStatusDeceasedSpouseName?: string
+  fatherName?: string
+  motherName?: string
+  spouseName?: string
+  marriageNumber?: number
+  marriageRegime?: string
+  divorceNumber?: number
+  divorceSpouseName?: string
+  divorceDate?: Date
+  divorceCourt?: string
+  divorceAutos?: string
+  widowNumber?: number
+  deceasedSpouseName?: string
   numberOfChildren?: number
   address: string
   city: string

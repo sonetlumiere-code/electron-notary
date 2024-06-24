@@ -65,8 +65,44 @@ const EditPersonPage = () => {
     const getPerson = async () => {
       const res: PersonDataSheet | null = await window.personAPI.getPersonById(personId)
       if (res) {
-        form.reset(res)
         setPerson(res)
+        form.reset({
+          ...res,
+          name: res.name ?? "",
+          lastName: res.lastName ?? "",
+          gender: res.gender ?? undefined,
+          nationality: res.nationality ?? "",
+          documentType: res.documentType ?? undefined,
+          documentNumber: res.documentNumber ?? 0,
+          CUIT_L: res.CUIT_L ?? 0,
+          birthdate: res.birthdate ?? undefined,
+          birthplace: res.birthplace ?? "",
+          maritalStatus: res.maritalStatus ?? undefined,
+          fatherName: res.fatherName ?? "",
+          motherName: res.motherName ?? "",
+          spouseName: res.spouseName ?? "",
+          marriageNumber: res.marriageNumber ?? 0,
+          marriageRegime: res.marriageRegime ?? "",
+          divorceNumber: res.divorceNumber ?? 0,
+          divorceSpouseName: res.divorceSpouseName ?? "",
+          divorceDate: res.divorceDate ?? undefined,
+          divorceCourt: res.divorceCourt ?? "",
+          divorceAutos: res.divorceAutos ?? "",
+          widowNumber: res.widowNumber ?? 0,
+          deceasedSpouseName: res.deceasedSpouseName ?? "",
+          numberOfChildren: res.numberOfChildren ?? 0,
+          address: res.address ?? "",
+          city: res.city ?? "",
+          profession: res.profession ?? "",
+          phoneNumber: res.phoneNumber ?? 0,
+          mobileNumber: res.mobileNumber ?? 0,
+          email: res.email ?? "",
+          isPoliticallyExposed: res.isPoliticallyExposed ?? false,
+          politicalPosition: res.politicalPosition ?? "",
+          originOfFunds: res.originOfFunds ?? "",
+          reasonForChoosing: res.reasonForChoosing ?? "",
+          referredBy: res.referredBy ?? ""
+        })
       }
     }
 
@@ -351,7 +387,49 @@ const EditPersonPage = () => {
                   />
                   <FormField
                     control={form.control}
-                    name="maritalStatusSpouseName"
+                    name="fatherName"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Nombre del padre</FormLabel>
+                        <FormControl>
+                          <Input {...field} type="text" disabled={form.formState.isSubmitting} />
+                        </FormControl>
+                        <FormDescription>Ingresa el nombre del padre.</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="motherName"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Nombre de la madre</FormLabel>
+                        <FormControl>
+                          <Input {...field} type="text" disabled={form.formState.isSubmitting} />
+                        </FormControl>
+                        <FormDescription>Ingresa el nombre de la madre.</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="marriageNumber"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Número de Núpcias</FormLabel>
+                        <FormControl>
+                          <Input {...field} type="number" disabled={form.formState.isSubmitting} />
+                        </FormControl>
+                        <FormDescription>Ingresa el número de núpcias.</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="spouseName"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
                         <FormLabel>Nombre del Cónyuge</FormLabel>
@@ -365,21 +443,7 @@ const EditPersonPage = () => {
                   />
                   <FormField
                     control={form.control}
-                    name="maritalStatusSpouseNumber"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col">
-                        <FormLabel>Número del Cónyuge</FormLabel>
-                        <FormControl>
-                          <Input {...field} type="number" disabled={form.formState.isSubmitting} />
-                        </FormControl>
-                        <FormDescription>Ingresa el número del cónyuge.</FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="maritalStatusMarriageRegime"
+                    name="marriageRegime"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
                         <FormLabel>Régimen Matrimonial</FormLabel>
@@ -393,7 +457,7 @@ const EditPersonPage = () => {
                   />
                   <FormField
                     control={form.control}
-                    name="maritalStatusDivorceNumber"
+                    name="divorceNumber"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
                         <FormLabel>Número de Divorcio</FormLabel>
@@ -407,7 +471,7 @@ const EditPersonPage = () => {
                   />
                   <FormField
                     control={form.control}
-                    name="maritalStatusDivorceDate"
+                    name="divorceDate"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
                         <FormLabel>Fecha de divorcio</FormLabel>
@@ -447,7 +511,7 @@ const EditPersonPage = () => {
                   />
                   <FormField
                     control={form.control}
-                    name="maritalStatusDivorceCourt"
+                    name="divorceCourt"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
                         <FormLabel>Juzgado de Divorcio</FormLabel>
@@ -461,7 +525,7 @@ const EditPersonPage = () => {
                   />
                   <FormField
                     control={form.control}
-                    name="maritalStatusDivorceAutos"
+                    name="divorceAutos"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
                         <FormLabel>Autos de Divorcio</FormLabel>
@@ -475,7 +539,7 @@ const EditPersonPage = () => {
                   />
                   <FormField
                     control={form.control}
-                    name="maritalStatusDeceasedSpouseName"
+                    name="deceasedSpouseName"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
                         <FormLabel>Nombre del Cónyuge Fallecido</FormLabel>
@@ -592,7 +656,7 @@ const EditPersonPage = () => {
                       <FormItem className="flex flex-col">
                         <FormLabel>¿Es Persona Políticamente Expuesta?</FormLabel>
                         <Select
-                          value={field.value.toString()}
+                          value={field.value?.toString()}
                           onValueChange={(value) => field.onChange(value === "true")}
                           disabled={form.formState.isSubmitting}
                         >

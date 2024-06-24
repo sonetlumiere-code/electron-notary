@@ -126,74 +126,92 @@ const PersonDetailsPage = () => {
                   <dd>{person.maritalStatus}</dd>
                 </div>
                 <Separator />
-                {person.maritalStatusSpouseName && (
+                {person.fatherName && (
+                  <>
+                    <div className="flex items-center justify-between">
+                      <dt className="text-muted-foreground">Nombre del Padre</dt>
+                      <dd>{person.fatherName}</dd>
+                    </div>
+                    <Separator />
+                  </>
+                )}
+                {person.motherName && (
+                  <>
+                    <div className="flex items-center justify-between">
+                      <dt className="text-muted-foreground">Nombre de la Madre</dt>
+                      <dd>{person.motherName}</dd>
+                    </div>
+                    <Separator />
+                  </>
+                )}
+                {person.spouseName && (
                   <>
                     <div className="flex items-center justify-between">
                       <dt className="text-muted-foreground">Nombre del Cónyuge</dt>
-                      <dd>{person.maritalStatusSpouseName}</dd>
+                      <dd>{person.spouseName}</dd>
                     </div>
                     <Separator />
                   </>
                 )}
-                {person.maritalStatusSpouseNumber && person.maritalStatusSpouseNumber > 0 ? (
+                {person.marriageNumber !== undefined && person?.marriageNumber > 0 && (
                   <>
                     <div className="flex items-center justify-between">
-                      <dt className="text-muted-foreground">Número del Cónyuge</dt>
-                      <dd>{person.maritalStatusSpouseNumber}</dd>
+                      <dt className="text-muted-foreground">Número de Núpcias</dt>
+                      <dd>{person.marriageNumber}</dd>
                     </div>
                     <Separator />
                   </>
-                ) : null}
-                {person.maritalStatusMarriageRegime && (
+                )}
+                {person.marriageRegime && (
                   <>
                     <div className="flex items-center justify-between">
                       <dt className="text-muted-foreground">Régimen Matrimonial</dt>
-                      <dd>{person.maritalStatusMarriageRegime}</dd>
+                      <dd>{person.marriageRegime}</dd>
                     </div>
                     <Separator />
                   </>
                 )}
-                {person.maritalStatusDivorceNumber && person.maritalStatusDivorceNumber > 0 ? (
+                {person.divorceNumber !== undefined && person.divorceNumber > 0 && (
                   <>
                     <div className="flex items-center justify-between">
                       <dt className="text-muted-foreground">Número de Divorcio</dt>
-                      <dd>{person.maritalStatusDivorceNumber}</dd>
+                      <dd>{person.divorceNumber}</dd>
                     </div>
                     <Separator />
                   </>
-                ) : null}
-                {person.maritalStatusDivorceDate && (
+                )}
+                {person.divorceDate && (
                   <>
                     <div className="flex items-center justify-between">
                       <dt className="text-muted-foreground">Fecha de Divorcio</dt>
-                      <dd>{format(person.maritalStatusDivorceDate, "dd/MM/yyyy")}</dd>
+                      <dd>{format(person.divorceDate, "dd/MM/yyyy")}</dd>
                     </div>
                     <Separator />
                   </>
                 )}
-                {person.maritalStatusDivorceCourt && (
+                {person.divorceCourt && (
                   <>
                     <div className="flex items-center justify-between">
                       <dt className="text-muted-foreground">Juzgado de Divorcio</dt>
-                      <dd>{person.maritalStatusDivorceCourt}</dd>
+                      <dd>{person.divorceCourt}</dd>
                     </div>
                     <Separator />
                   </>
                 )}
-                {person.maritalStatusDivorceAutos && (
+                {person.divorceAutos && (
                   <>
                     <div className="flex items-center justify-between">
                       <dt className="text-muted-foreground">Autos del Divorcio</dt>
-                      <dd>{person.maritalStatusDivorceAutos}</dd>
+                      <dd>{person.divorceAutos}</dd>
                     </div>
                     <Separator />
                   </>
                 )}
-                {person.maritalStatusDeceasedSpouseName && (
+                {person.deceasedSpouseName && (
                   <>
                     <div className="flex items-center justify-between">
                       <dt className="text-muted-foreground">Nombre del Cónyuge Fallecido</dt>
-                      <dd>{person.maritalStatusDeceasedSpouseName}</dd>
+                      <dd>{person.deceasedSpouseName}</dd>
                     </div>
                     <Separator />
                   </>

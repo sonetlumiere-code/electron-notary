@@ -63,14 +63,18 @@ const CreatePersonPage = () => {
       birthdate: undefined,
       birthplace: "",
       maritalStatus: undefined,
-      maritalStatusSpouseName: "",
-      maritalStatusSpouseNumber: 0,
-      maritalStatusMarriageRegime: "",
-      maritalStatusDivorceNumber: 0,
-      maritalStatusDivorceDate: undefined,
-      maritalStatusDivorceCourt: "",
-      maritalStatusDivorceAutos: "",
-      maritalStatusDeceasedSpouseName: "",
+      fatherName: "",
+      motherName: "",
+      spouseName: "",
+      marriageNumber: 0,
+      marriageRegime: "",
+      divorceNumber: 0,
+      divorceSpouseName: "",
+      divorceDate: undefined,
+      divorceCourt: "",
+      divorceAutos: "",
+      widowNumber: 0,
+      deceasedSpouseName: "",
       numberOfChildren: 0,
       address: "",
       city: "",
@@ -352,7 +356,49 @@ const CreatePersonPage = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="maritalStatusSpouseName"
+                  name="fatherName"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Nombre del padre</FormLabel>
+                      <FormControl>
+                        <Input {...field} type="text" disabled={form.formState.isSubmitting} />
+                      </FormControl>
+                      <FormDescription>Ingresa el nombre del padre.</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="motherName"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Nombre de la madre</FormLabel>
+                      <FormControl>
+                        <Input {...field} type="text" disabled={form.formState.isSubmitting} />
+                      </FormControl>
+                      <FormDescription>Ingresa el nombre de la madre.</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="marriageNumber"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Número de Núpcias</FormLabel>
+                      <FormControl>
+                        <Input {...field} type="number" disabled={form.formState.isSubmitting} />
+                      </FormControl>
+                      <FormDescription>Ingresa el número de núpcias.</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="spouseName"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Nombre del Cónyuge</FormLabel>
@@ -366,21 +412,7 @@ const CreatePersonPage = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="maritalStatusSpouseNumber"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Número del Cónyuge</FormLabel>
-                      <FormControl>
-                        <Input {...field} type="number" disabled={form.formState.isSubmitting} />
-                      </FormControl>
-                      <FormDescription>Ingresa el número del cónyuge.</FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="maritalStatusMarriageRegime"
+                  name="marriageRegime"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Régimen Matrimonial</FormLabel>
@@ -394,7 +426,7 @@ const CreatePersonPage = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="maritalStatusDivorceNumber"
+                  name="divorceNumber"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Número de Divorcio</FormLabel>
@@ -408,7 +440,7 @@ const CreatePersonPage = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="maritalStatusDivorceDate"
+                  name="divorceDate"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Fecha de divorcio</FormLabel>
@@ -448,7 +480,7 @@ const CreatePersonPage = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="maritalStatusDivorceCourt"
+                  name="divorceCourt"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Juzgado de Divorcio</FormLabel>
@@ -462,7 +494,7 @@ const CreatePersonPage = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="maritalStatusDivorceAutos"
+                  name="divorceAutos"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Autos de Divorcio</FormLabel>
@@ -476,7 +508,7 @@ const CreatePersonPage = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="maritalStatusDeceasedSpouseName"
+                  name="deceasedSpouseName"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Nombre del Cónyuge Fallecido</FormLabel>
@@ -593,7 +625,7 @@ const CreatePersonPage = () => {
                     <FormItem className="flex flex-col">
                       <FormLabel>¿Es Persona Políticamente Expuesta?</FormLabel>
                       <Select
-                        value={field.value.toString()}
+                        value={field.value?.toString()}
                         onValueChange={(value) => field.onChange(value === "true")}
                         disabled={form.formState.isSubmitting}
                       >

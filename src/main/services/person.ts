@@ -10,19 +10,19 @@ const createPerson = (data: PersonDataSheet): PersonDataSheet => {
   const query = `
     INSERT INTO person_data_sheets (
       name, lastName, gender, nationality, documentType, documentNumber, CUIT_L, birthdate, birthplace,
-      maritalStatus, maritalStatusSpouseName, maritalStatusSpouseNumber, maritalStatusMarriageRegime, maritalStatusDivorceNumber, maritalStatusDivorceDate, maritalStatusDivorceCourt,
-      maritalStatusDivorceAutos, maritalStatusDeceasedSpouseName, numberOfChildren, address, city, profession, phoneNumber,
+      maritalStatus, fatherName, motherName, spouseName, marriageNumber, marriageRegime, divorceNumber, divorceSpouseName, divorceDate, divorceCourt,
+      divorceAutos, widowNumber, deceasedSpouseName, numberOfChildren, address, city, profession, phoneNumber,
       mobileNumber, email, isPoliticallyExposed, politicalPosition, originOfFunds, reasonForChoosing, referredBy
     ) VALUES (
-      ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+      ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
     )
   `
 
   if (typeof data.birthdate === "string") {
     data.birthdate = new Date(data.birthdate)
   }
-  if (data.maritalStatusDivorceDate && typeof data.maritalStatusDivorceDate === "string") {
-    data.maritalStatusDivorceDate = new Date(data.maritalStatusDivorceDate)
+  if (data.divorceDate && typeof data.divorceDate === "string") {
+    data.divorceDate = new Date(data.divorceDate)
   }
 
   try {
@@ -38,14 +38,18 @@ const createPerson = (data: PersonDataSheet): PersonDataSheet => {
       data.birthdate.toISOString(),
       data.birthplace,
       data.maritalStatus,
-      data.maritalStatusSpouseName,
-      data.maritalStatusSpouseNumber,
-      data.maritalStatusMarriageRegime,
-      data.maritalStatusDivorceNumber,
-      data.maritalStatusDivorceDate ? data.maritalStatusDivorceDate.toISOString() : null,
-      data.maritalStatusDivorceCourt,
-      data.maritalStatusDivorceAutos,
-      data.maritalStatusDeceasedSpouseName,
+      data.fatherName,
+      data.motherName,
+      data.spouseName,
+      data.marriageNumber,
+      data.marriageRegime,
+      data.divorceNumber,
+      data.divorceSpouseName,
+      data.divorceDate ? data.divorceDate.toISOString() : "",
+      data.divorceCourt,
+      data.divorceAutos,
+      data.widowNumber,
+      data.deceasedSpouseName,
       data.numberOfChildren,
       data.address,
       data.city,
@@ -104,17 +108,24 @@ const updatePerson = (data: PersonDataSheet) => {
   const query = `
     UPDATE person_data_sheets SET
       name = ?, lastName = ?, gender = ?, nationality = ?, documentType = ?, documentNumber = ?,
-      CUIT_L = ?, birthdate = ?, birthplace = ?, maritalStatus = ?, maritalStatusSpouseName = ?, maritalStatusSpouseNumber = ?,
-      maritalStatusMarriageRegime = ?, maritalStatusDivorceNumber = ?, maritalStatusDivorceDate = ?, maritalStatusDivorceCourt = ?, maritalStatusDivorceAutos = ?,
-      maritalStatusDeceasedSpouseName = ?, numberOfChildren = ?, address = ?, city = ?, profession = ?,
+      CUIT_L = ?, birthdate = ?, birthplace = ?, maritalStatus = ?, fatherName = ?, motherName = ?,
+      spouseName = ?, marriageNumber = ?, marriageRegime = ?, divorceNumber = ?, divorceSpouseName = ?, divorceDate = ?, divorceCourt = ?, divorceAutos = ?,
+      widowNumber = ?, deceasedSpouseName = ?, numberOfChildren = ?, address = ?, city = ?, profession = ?,
       phoneNumber = ?, mobileNumber = ?, email = ?, isPoliticallyExposed = ?, politicalPosition = ?,
       originOfFunds = ?, reasonForChoosing = ?, referredBy = ?
     WHERE id = ?
   `
 
+  if (typeof data.birthdate === "string") {
+    data.birthdate = new Date(data.birthdate)
+  }
+  if (data.divorceDate && typeof data.divorceDate === "string") {
+    data.divorceDate = new Date(data.divorceDate)
+  }
+
   try {
     const stmt = db.prepare(query)
-    const info = stmt.run(
+    stmt.run(
       data.name,
       data.lastName,
       data.gender,
@@ -125,14 +136,18 @@ const updatePerson = (data: PersonDataSheet) => {
       data.birthdate.toISOString(),
       data.birthplace,
       data.maritalStatus,
-      data.maritalStatusSpouseName,
-      data.maritalStatusSpouseNumber,
-      data.maritalStatusMarriageRegime,
-      data.maritalStatusDivorceNumber,
-      data.maritalStatusDivorceDate ? data.maritalStatusDivorceDate.toISOString() : null,
-      data.maritalStatusDivorceCourt,
-      data.maritalStatusDivorceAutos,
-      data.maritalStatusDeceasedSpouseName,
+      data.fatherName,
+      data.motherName,
+      data.spouseName,
+      data.marriageNumber,
+      data.marriageRegime,
+      data.divorceNumber,
+      data.divorceSpouseName,
+      data.divorceDate ? data.divorceDate.toISOString() : null,
+      data.divorceCourt,
+      data.divorceAutos,
+      data.widowNumber,
+      data.deceasedSpouseName,
       data.numberOfChildren,
       data.address,
       data.city,
@@ -412,9 +427,7 @@ const formatResponse = (row: PersonDataSheet): PersonDataSheet => {
   return {
     ...row,
     birthdate: new Date(row.birthdate),
-    maritalStatusDivorceDate: row.maritalStatusDivorceDate
-      ? new Date(row.maritalStatusDivorceDate)
-      : undefined,
+    divorceDate: row.divorceDate ? new Date(row.divorceDate) : undefined,
     isPoliticallyExposed: Boolean(row.isPoliticallyExposed)
   }
 }
