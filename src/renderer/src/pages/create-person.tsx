@@ -176,7 +176,7 @@ const CreatePersonPage = () => {
                   name="gender"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
-                      <FormLabel>Género</FormLabel>
+                      <FormLabel>Sexo</FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value?.toString() || "false"}
@@ -195,7 +195,7 @@ const CreatePersonPage = () => {
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormDescription>Selecciona el género.</FormDescription>
+                      <FormDescription>Selecciona el sexo.</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}

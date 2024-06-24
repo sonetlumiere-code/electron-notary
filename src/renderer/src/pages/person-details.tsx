@@ -87,7 +87,7 @@ const PersonDetailsPage = () => {
                 </div>
                 <Separator />
                 <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">Género</dt>
+                  <dt className="text-muted-foreground">Sexo</dt>
                   <dd>{person.gender}</dd>
                 </div>
                 <Separator />

@@ -6,7 +6,7 @@ export const zodPersonSchema = z.object({
   lastName: z.string().trim().min(1, { message: "Ingresa el apellido." }),
   gender: z.nativeEnum(Gender, {
     errorMap: () => ({
-      message: "Selecciona el género."
+      message: "Selecciona el sexo."
     })
   }),
   nationality: z.string().trim().min(1, { message: "Ingresa la nacionalidad." }),

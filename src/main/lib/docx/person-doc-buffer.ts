@@ -1,4 +1,5 @@
 import { PersonDataSheet } from "@shared/types"
+import { format } from "date-fns"
 import { Document, Packer, Paragraph, TabStopPosition, TabStopType, TextRun } from "docx"
 
 const personDocBuffer = async (persons: PersonDataSheet[]): Promise<Buffer> => {
@@ -22,31 +23,31 @@ const personDocBuffer = async (persons: PersonDataSheet[]): Promise<Buffer> => {
       createFormField(`Nacionalidad: ${person.nationality}`),
       createFormField(`${person.documentType}: ${person.documentNumber}`),
       createFormField(`CUIT/L: ${person.CUIT_L}`),
-      createFormField(`Fecha de nacimiento: ${person.birthdate}`),
+      createFormField(`Fecha de nacimiento: ${format(person.birthdate, "dd/MM/yyyy")}`),
       createFormField(`Lugar de nacimiento: ${person.birthplace}`),
       createFormField(`Estado civil: ${person.maritalStatus}`),
-      // createFormField(
-      //   `Soltero: Nombre padre: ${person.} Nombre madre: ${person.nombreMadre}`,
-      //   true
-      // ),
-      // createFormField(
-      //   `Casado: nº nupcias: ${person.numNupcias} nombre cónyuge: ${person.nombreConyuge}`,
-      //   true
-      // ),
-      // createFormField(`Régimen patrimonial del matrimonio: ${person.regimenPatrimonial}`, true),
-      // createFormField(
-      //   `Divorciado: nº nupcias: ${person.numNupciasDiv} nombre del cónyuge: ${person.nombreConyugeDiv}`,
-      //   true
-      // ),
-      // createFormField(
-      //   `Sentencia: Fecha: ${person.fechaSentencia} tribunal/juzgado: ${person.tribunal}`,
-      //   true
-      // ),
-      // createFormField("Autos: " + (person.autos || ""), true),
-      // createFormField(
-      //   `Viudo: nº nupcias: ${person.numNupciasViudo} nombre cónyuge: ${person.nombreConyugeViudo}`,
-      //   true
-      // ),
+      createFormField(
+        `Soltero: Nombre padre: ${person.fatherName} Nombre madre: ${person.motherName}`,
+        true
+      ),
+      createFormField(
+        `Casado: nº nupcias: ${person.marriageNumber} nombre cónyuge: ${person.spouseName}`,
+        true
+      ),
+      createFormField(`Régimen patrimonial del matrimonio: ${person.marriageRegime}`, true),
+      createFormField(
+        `Divorciado: nº nupcias: ${person.divorceNumber} nombre del cónyuge: ${person.divorceSpouseName}`,
+        true
+      ),
+      createFormField(
+        `Sentencia: Fecha: ${person.divorceDate ? format(person.divorceDate, "dd/MM/yyyy") : ""} tribunal/juzgado: ${person.divorceCourt}`,
+        true
+      ),
+      createFormField("Autos: " + (person.divorceAutos || ""), true),
+      createFormField(
+        `Viudo: nº nupcias: ${person.widowNumber} nombre cónyuge: ${person.deceasedSpouseName}`,
+        true
+      ),
       createFormField(`Cantidad de Hijos: ${person.numberOfChildren}`),
       createFormField(`Domicilio Real: ${person.address}`),
       createFormField(`Ciudad/Partido/Provincia: ${person.city}`),
