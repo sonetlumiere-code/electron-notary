@@ -104,7 +104,6 @@ const getPersonById = (id: number): PersonDataSheet | null => {
 }
 
 const updatePerson = (data: PersonDataSheet) => {
-  console.log(data)
   const query = `
     UPDATE person_data_sheets SET
       name = ?, lastName = ?, gender = ?, nationality = ?, documentType = ?, documentNumber = ?,

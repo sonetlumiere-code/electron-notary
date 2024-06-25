@@ -1,5 +1,6 @@
 import legalPersonDocBuffer from "@/lib/docx/legal-person-docx"
 import { FileFormat, LegalPersonDataSheet } from "@shared/types"
+import csvParser from "csv-parser"
 import fs from "fs"
 import { parse } from "json2csv"
 import path from "path"
@@ -13,6 +14,10 @@ const createLegalPerson = (data: LegalPersonDataSheet) => {
       proceedingsCopy, balanceCopy, representativeData
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `
+
+  if (typeof data.registrationDate === "string") {
+    data.registrationDate = new Date(data.registrationDate)
+  }
 
   try {
     const stmt = db.prepare(query)
@@ -80,6 +85,10 @@ const updateLegalPerson = (data: LegalPersonDataSheet) => {
       registeredOfficeEmail = ?, statuteCopy = ?, proceedingsCopy = ?, balanceCopy = ?, representativeData = ?
     WHERE id = ?
   `
+
+  if (typeof data.registrationDate === "string") {
+    data.registrationDate = new Date(data.registrationDate)
+  }
 
   try {
     const stmt = db.prepare(query)
@@ -200,16 +209,44 @@ const deleteLegalPersons = (ids: number[]) => {
   }
 }
 
-const importLegalPersons = (filePath: string): LegalPersonDataSheet[] => {
+const importLegalPersons = async (filePath: string): Promise<LegalPersonDataSheet[]> => {
   try {
-    const data = fs.readFileSync(filePath, "utf-8")
-    const legalPersons: LegalPersonDataSheet[] = JSON.parse(data)
+    const ext = path.extname(filePath).toLowerCase()
 
-    legalPersons.forEach((legalPerson) => {
-      createLegalPerson(legalPerson)
+    const data = fs.readFileSync(filePath, "utf-8")
+    let importedLegalPersons: LegalPersonDataSheet[] = []
+
+    if (ext === ".json") {
+      importedLegalPersons = JSON.parse(data)
+    } else if (ext === ".csv") {
+      importedLegalPersons = await new Promise<LegalPersonDataSheet[]>((resolve, reject) => {
+        const results: LegalPersonDataSheet[] = []
+        fs.createReadStream(filePath)
+          .pipe(csvParser())
+          .on("data", (data: LegalPersonDataSheet) => results.push(data))
+          .on("end", () => resolve(results))
+          .on("error", (err) => reject(err))
+      })
+    } else {
+      throw new Error("Unsupported file format")
+    }
+
+    const legalPersonsDB: LegalPersonDataSheet[] | null = getLegalPersons()
+
+    const createdLegalPersons: LegalPersonDataSheet[] = []
+
+    importedLegalPersons.forEach((legalPerson) => {
+      const personExists = legalPersonsDB?.some(
+        (dbLegalPerson) => dbLegalPerson.id === legalPerson.id
+      )
+
+      if (!personExists) {
+        const newPerson = createLegalPerson(legalPerson)
+        createdLegalPersons.push(newPerson)
+      }
     })
 
-    return legalPersons
+    return createdLegalPersons
   } catch (err) {
     console.error("Error importing legal persons: ", err)
     throw err
