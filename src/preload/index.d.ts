@@ -20,7 +20,7 @@ export interface personAPI {
   updatePerson: (person: PersonDataSheet) => Promise<PersonDataSheet | null>
   deletePersons: (ids: number[]) => Promise<number[] | null>
   importPersons: (filePath: string) => Promise<PersonDataSheet[]>
-  exportPersons: (params: {
+  exportPersons: (data: {
     directory: string
     ids: number[]
     fileFormat: FileFormat
@@ -37,7 +37,7 @@ export interface legalPersonAPI {
   updateLegalPerson: (legalPerson: LegalPersonDataSheet) => Promise<LegalPersonDataSheet | null>
   deleteLegalPersons: (ids: number[]) => Promise<number[] | null>
   importLegalPersons: (filePath: string) => Promise<LegalPersonDataSheet[]>
-  exportLegalPersons: (params: {
+  exportLegalPersons: (data: {
     directory: string
     ids: number[]
     fileFormat: FileFormat
