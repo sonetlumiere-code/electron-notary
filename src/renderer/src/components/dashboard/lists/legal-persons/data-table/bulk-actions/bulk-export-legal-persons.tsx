@@ -10,7 +10,7 @@ import {
 import { toast } from "@renderer/components/ui/use-toast"
 import { FileFormat, PersonDataSheet } from "@shared/types"
 import { Table } from "@tanstack/react-table"
-import { ArrowRightFromLine } from "lucide-react"
+import { ArrowRightFromLine, Braces, ScrollText, Terminal } from "lucide-react"
 
 type BulkExportLegalPersonsProps<TData> = {
   table: Table<TData>
@@ -52,12 +52,15 @@ const BulkExportLegalPersons = <TData,>({ table }: BulkExportLegalPersonsProps<T
         <DropdownMenuLabel>Exportar</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => bulkExport(FileFormat.JSON)}>
+          <Braces className="w-4 h-4 mr-2" />
           <span>Exportar a JSON</span>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => bulkExport(FileFormat.CSV)}>
+          <Terminal className="w-4 h-4 mr-2" />
           <span>Exportar a CSV</span>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => bulkExport(FileFormat.WORD)}>
+          <ScrollText className="w-4 h-4 mr-2" />
           <span>Exportar a Word</span>
         </DropdownMenuItem>
       </DropdownMenuContent>

@@ -8,6 +8,7 @@ import {
 } from "@renderer/components/ui/dropdown-menu"
 import { toast } from "@renderer/components/ui/use-toast"
 import { FileFormat } from "@shared/types"
+import { Braces, Import, Terminal } from "lucide-react"
 
 const ImportLegalPersons = () => {
   const { addLegalPersons } = useLegalPersons()
@@ -44,14 +45,17 @@ const ImportLegalPersons = () => {
   return (
     <DropdownMenuSub>
       <DropdownMenuSubTrigger>
+        <Import className="w-4 h-4 mr-2" />
         <span>Importar</span>
       </DropdownMenuSubTrigger>
       <DropdownMenuPortal>
         <DropdownMenuSubContent>
           <DropdownMenuItem onClick={() => importLegalPersons(FileFormat.JSON)}>
+            <Braces className="w-4 h-4 mr-2" />
             <span>JSON</span>
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => importLegalPersons(FileFormat.CSV)}>
+            <Terminal className="w-4 h-4 mr-2" />
             <span>CSV</span>
           </DropdownMenuItem>
         </DropdownMenuSubContent>

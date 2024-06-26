@@ -8,6 +8,7 @@ import {
 } from "@renderer/components/ui/dropdown-menu"
 import { toast } from "@renderer/components/ui/use-toast"
 import { FileFormat } from "@shared/types"
+import { ArrowRightFromLine, Braces, Terminal } from "lucide-react"
 
 const ExportAllPersons = () => {
   const { persons } = usePersons()
@@ -35,14 +36,17 @@ const ExportAllPersons = () => {
   return (
     <DropdownMenuSub>
       <DropdownMenuSubTrigger>
+        <ArrowRightFromLine className="w-4 h-4 mr-2" />
         <span>Exportar</span>
       </DropdownMenuSubTrigger>
       <DropdownMenuPortal>
         <DropdownMenuSubContent>
           <DropdownMenuItem onClick={() => exportAllPersons(FileFormat.JSON)}>
+            <Braces className="w-4 h-4 mr-2" />
             <span>JSON</span>
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => exportAllPersons(FileFormat.CSV)}>
+            <Terminal className="w-4 h-4 mr-2" />
             <span>CSV</span>
           </DropdownMenuItem>
         </DropdownMenuSubContent>
