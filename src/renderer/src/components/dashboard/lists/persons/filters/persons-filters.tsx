@@ -8,7 +8,6 @@ const PersonsFilters = () => {
   //       email: "",
   //       ids: ["2", "3"]
   //     })
-  //     setPersons(res)
   //     console.log(res)
   //   }
 

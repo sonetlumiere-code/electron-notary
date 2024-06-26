@@ -127,12 +127,12 @@ const CreatePersonPage = () => {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>Crear ficha</BreadcrumbPage>
+            <BreadcrumbPage>Crear ficha de persona</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
 
-      <PageTitle>Crear ficha</PageTitle>
+      <PageTitle>Crear ficha de persona</PageTitle>
 
       <Card>
         <Form {...form}>

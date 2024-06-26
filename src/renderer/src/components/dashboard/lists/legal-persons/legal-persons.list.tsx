@@ -1,30 +1,54 @@
-import { LegalPersonDataSheet } from "@shared/types"
-import { useEffect, useState } from "react"
+import { useLegalPersons } from "@renderer/components/legal-persons-provider"
+import PageTitle from "@renderer/components/page-title"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator
+} from "@renderer/components/ui/breadcrumb"
+import { buttonVariants } from "@renderer/components/ui/button"
+import { cn } from "@renderer/lib/utils"
+import { CirclePlus } from "lucide-react"
+import { Link } from "react-router-dom"
+import LegalPersonListActions from "./data-table/actions/list-actions/legal-person-list-actions"
+import { LegalPersonsDataTable } from "./data-table/legal-persons-data-table"
 
 const LegalPersonsListPage = () => {
-  const [legalPersons, setLegalPersons] = useState<LegalPersonDataSheet[] | null>(null)
-
-  useEffect(() => {
-    const getLegalPersons = async () => {
-      const res = await window.legalPersonAPI.getLegalPersons()
-      setLegalPersons(res)
-      console.log(res)
-    }
-
-    getLegalPersons()
-  }, [])
+  const { legalPersons } = useLegalPersons()
 
   return (
-    <>
-      <div>Legal Persons List</div>
-      {legalPersons?.map((legalPerson) => (
-        <div key={legalPerson.id} className="flex gap-5">
-          <p>{legalPerson.id}</p>
-          <h1>{legalPerson.CUIT}</h1>
-          <h2>{legalPerson.mainActivity}</h2>
-        </div>
-      ))}
-    </>
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link to="/">Inicio</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Lista de personas jurídicas</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+
+        <LegalPersonListActions />
+      </div>
+
+      <div className="flex justify-between items-center">
+        <PageTitle>Fichas de personas jurídicas</PageTitle>
+
+        <Link to="/create-legal-person" className={cn(buttonVariants({ variant: "default" }))}>
+          <CirclePlus className="w-4 h-4 mr-2" />
+          Crear
+        </Link>
+      </div>
+
+      {legalPersons && <LegalPersonsDataTable data={legalPersons} />}
+    </div>
   )
 }
 

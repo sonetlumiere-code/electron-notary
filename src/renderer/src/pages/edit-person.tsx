@@ -152,12 +152,12 @@ const EditPersonPage = () => {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>Editar ficha</BreadcrumbPage>
+            <BreadcrumbPage>Editar persona</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
 
-      <PageTitle>Editar ficha</PageTitle>
+      <PageTitle>Editar persona</PageTitle>
 
       {person && (
         <Card>
@@ -166,7 +166,7 @@ const EditPersonPage = () => {
               <CardHeader>
                 <div className="flex justify-between">
                   <div className="space-y-2">
-                    <CardTitle>Ficha de persona</CardTitle>
+                    <CardTitle>Persona</CardTitle>
                     <CardDescription>Formulario para editar ficha de persona</CardDescription>
                   </div>
                   {person && <PersonActions person={person} showView showExport showDelete />}

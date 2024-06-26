@@ -54,6 +54,7 @@ const getLegalPersons = (): LegalPersonDataSheet[] | null => {
   try {
     const stmt = db.prepare(query)
     const rows = stmt.all()
+
     return rows.map((row: LegalPersonDataSheet) => formatResponse(row))
   } catch (err) {
     console.error("Error retrieving data: ", err)

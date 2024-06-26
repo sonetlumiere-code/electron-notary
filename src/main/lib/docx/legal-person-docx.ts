@@ -8,7 +8,7 @@ const legalPersonDocBuffer = async (legalPersons: LegalPersonDataSheet[]): Promi
       new Paragraph({
         children: [
           new TextRun({
-            text: "FICHA DE DATOS PERSONALES",
+            text: "FICHA DATOS: PERSONAS JURIDICAS",
             bold: true
           })
         ],

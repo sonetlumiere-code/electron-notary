@@ -6,26 +6,26 @@ import {
   DropdownMenuSubTrigger
 } from "@renderer/components/ui/dropdown-menu"
 import { toast } from "@renderer/components/ui/use-toast"
-import { FileFormat, PersonDataSheet } from "@shared/types"
+import { FileFormat, LegalPersonDataSheet } from "@shared/types"
 
-type ExportPersonProps = {
-  person: PersonDataSheet
+type ExportLegalPersonProps = {
+  legalPerson: LegalPersonDataSheet
 }
 
-const ExportPerson = ({ person }: ExportPersonProps) => {
-  const exportPerson = async (fileFormat: FileFormat) => {
+const ExportLegalPerson = ({ legalPerson }: ExportLegalPersonProps) => {
+  const exportLegalPerson = async (fileFormat: FileFormat) => {
     const directory = await window.electronAPI.selectDirectory()
 
     if (directory) {
-      const res = await window.personAPI.exportPersons({
+      const res = await window.legalPersonAPI.exportLegalPersons({
         directory,
-        ids: [person.id as number],
+        ids: [legalPerson.id as number],
         fileFormat
       })
 
       toast({
         title: `Exportación a ${fileFormat.toUpperCase()} realizada.`,
-        description: `Se ha exportado la ficha personal al archivo ${res}`,
+        description: `Se ha exportado la ficha jurídica al archivo ${res}`,
         duration: 10000
       })
     }
@@ -38,13 +38,13 @@ const ExportPerson = ({ person }: ExportPersonProps) => {
       </DropdownMenuSubTrigger>
       <DropdownMenuPortal>
         <DropdownMenuSubContent>
-          <DropdownMenuItem onClick={() => exportPerson(FileFormat.JSON)}>
+          <DropdownMenuItem onClick={() => exportLegalPerson(FileFormat.JSON)}>
             <span>JSON</span>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => exportPerson(FileFormat.CSV)}>
+          <DropdownMenuItem onClick={() => exportLegalPerson(FileFormat.CSV)}>
             <span>CSV</span>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => exportPerson(FileFormat.WORD)}>
+          <DropdownMenuItem onClick={() => exportLegalPerson(FileFormat.WORD)}>
             <span>Word</span>
           </DropdownMenuItem>
         </DropdownMenuSubContent>
@@ -53,4 +53,4 @@ const ExportPerson = ({ person }: ExportPersonProps) => {
   )
 }
 
-export default ExportPerson
+export default ExportLegalPerson

@@ -54,19 +54,19 @@ const PersonDetailsPage = () => {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>Detalle de ficha</BreadcrumbPage>
+            <BreadcrumbPage>Detalle de persona</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
 
-      <PageTitle>Detalle de ficha</PageTitle>
+      <PageTitle>Detalle de persona</PageTitle>
 
       <Card>
         <CardHeader>
           <div className="flex justify-between">
             <div className="space-y-2">
-              <CardTitle>Ficha de persona</CardTitle>
-              <CardDescription>Detalle de ficha de persona</CardDescription>
+              <CardTitle>Persona</CardTitle>
+              <CardDescription>Ficha de persona</CardDescription>
             </div>
             {person && <PersonActions person={person} showEdit showExport showDelete />}
           </div>
@@ -74,7 +74,6 @@ const PersonDetailsPage = () => {
         <CardContent>
           {person && (
             <div className="grid gap-3">
-              <div className="font-semibold">Información de persona</div>
               <dl className="grid gap-3">
                 <div className="flex items-center justify-between">
                   <dt className="text-muted-foreground">Nombre</dt>

@@ -1,3 +1,4 @@
+import { useLegalPersons } from "@renderer/components/legal-persons-provider"
 import {
   DropdownMenuItem,
   DropdownMenuPortal,
@@ -6,26 +7,26 @@ import {
   DropdownMenuSubTrigger
 } from "@renderer/components/ui/dropdown-menu"
 import { toast } from "@renderer/components/ui/use-toast"
-import { FileFormat, PersonDataSheet } from "@shared/types"
+import { FileFormat } from "@shared/types"
 
-type ExportPersonProps = {
-  person: PersonDataSheet
-}
+const ExportAllLegalPersons = () => {
+  const { legalPersons } = useLegalPersons()
 
-const ExportPerson = ({ person }: ExportPersonProps) => {
-  const exportPerson = async (fileFormat: FileFormat) => {
+  const exportAllLegalPersons = async (fileFormat: FileFormat) => {
     const directory = await window.electronAPI.selectDirectory()
 
     if (directory) {
-      const res = await window.personAPI.exportPersons({
+      const allLegalPersonsIds = legalPersons.map((legalPerson) => legalPerson.id)
+
+      const res = await window.legalPersonAPI.exportLegalPersons({
         directory,
-        ids: [person.id as number],
+        ids: allLegalPersonsIds as number[],
         fileFormat
       })
 
       toast({
         title: `Exportación a ${fileFormat.toUpperCase()} realizada.`,
-        description: `Se ha exportado la ficha personal al archivo ${res}`,
+        description: `Se ha exportado toda la tabla al archivo ${res}`,
         duration: 10000
       })
     }
@@ -38,14 +39,11 @@ const ExportPerson = ({ person }: ExportPersonProps) => {
       </DropdownMenuSubTrigger>
       <DropdownMenuPortal>
         <DropdownMenuSubContent>
-          <DropdownMenuItem onClick={() => exportPerson(FileFormat.JSON)}>
+          <DropdownMenuItem onClick={() => exportAllLegalPersons(FileFormat.JSON)}>
             <span>JSON</span>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => exportPerson(FileFormat.CSV)}>
+          <DropdownMenuItem onClick={() => exportAllLegalPersons(FileFormat.CSV)}>
             <span>CSV</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => exportPerson(FileFormat.WORD)}>
-            <span>Word</span>
           </DropdownMenuItem>
         </DropdownMenuSubContent>
       </DropdownMenuPortal>
@@ -53,4 +51,4 @@ const ExportPerson = ({ person }: ExportPersonProps) => {
   )
 }
 
-export default ExportPerson
+export default ExportAllLegalPersons

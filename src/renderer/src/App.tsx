@@ -1,5 +1,6 @@
 import { AuthProvider } from "./components/auth-provider"
 import { ConfirmationServiceProvider } from "./components/confirmation-provider"
+import { LegalPersonProvider } from "./components/legal-persons-provider"
 import { PersonProvider } from "./components/persons-provider"
 import { ThemeProvider } from "./components/theme-provider"
 import { Toaster } from "./components/ui/toaster"
@@ -10,10 +11,12 @@ function App(): JSX.Element {
     <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
       <AuthProvider>
         <PersonProvider>
-          <ConfirmationServiceProvider>
-            <AppRoutes />
-            <Toaster />
-          </ConfirmationServiceProvider>
+          <LegalPersonProvider>
+            <ConfirmationServiceProvider>
+              <AppRoutes />
+              <Toaster />
+            </ConfirmationServiceProvider>
+          </LegalPersonProvider>
         </PersonProvider>
       </AuthProvider>
     </ThemeProvider>
