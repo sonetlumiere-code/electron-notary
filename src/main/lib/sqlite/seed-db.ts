@@ -1,8 +1,8 @@
 import db from "./sqlite-config"
 
-const seedAdminUser = () => {
-  const username = "admin"
-  const hashedPassword = "$2a$10$FgHuysTUywE7G0iEe4uiAeItjshUX5EZfsVm8QKOOClxxYf/VwqPq"
+const seedAdminUser = async () => {
+  const username = "Delfina"
+  const hashedPassword = "$2a$10$i5X6XVd3nRaQgG9Tgow7FuZO/p5y6ADZZQV2kWwElnXMJNa5NQDDq"
 
   const stmt = db.prepare("SELECT COUNT(*) AS count FROM users WHERE username = ?")
   const row = stmt.get(username)
