@@ -11,7 +11,7 @@ try {
       lastName TEXT NOT NULL,
       gender TEXT CHECK (gender IN ('MASCULINO', 'FEMENINO', 'OTRO')),
       nationality TEXT NOT NULL,
-      documentType TEXT CHECK (documentType IN ('DNI', 'LC', 'LE', 'PASAPORTE', 'OTROS')),
+      documentType TEXT CHECK (documentType IN ('DNI', 'LC', 'LE', 'PASAPORTE', 'OTRO')),
       documentNumber INTEGER NOT NULL,
       CUIT_L INTEGER NOT NULL,
       birthdate TEXT NOT NULL,

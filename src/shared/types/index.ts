@@ -3,7 +3,7 @@ export enum DocumentType {
   LC = "LC",
   LE = "LE",
   PASAPORTE = "PASAPORTE",
-  OTROS = "OTROS"
+  OTRO = "OTRO"
 }
 
 export enum MaritalStatus {
