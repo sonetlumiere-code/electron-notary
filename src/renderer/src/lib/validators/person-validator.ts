@@ -44,7 +44,6 @@ export const zodPersonSchema = z.object({
   isPoliticallyExposed: z.boolean().optional(),
   politicalPosition: z.string().trim().optional(),
   originOfFunds: z.string().trim().optional(),
-  reasonForChoosing: z.string().trim().optional(),
   referredBy: z.string().trim().optional()
 })
 

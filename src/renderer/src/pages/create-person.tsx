@@ -83,7 +83,6 @@ const CreatePersonPage = () => {
       isPoliticallyExposed: false,
       politicalPosition: "",
       originOfFunds: "",
-      reasonForChoosing: "",
       referredBy: ""
     }
   })
@@ -667,20 +666,6 @@ const CreatePersonPage = () => {
                         <Input {...field} type="text" disabled={form.formState.isSubmitting} />
                       </FormControl>
                       <FormDescription>Ingresa el origen de fondos.</FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="reasonForChoosing"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Razón para Elegirnos</FormLabel>
-                      <FormControl>
-                        <Input {...field} type="text" disabled={form.formState.isSubmitting} />
-                      </FormControl>
-                      <FormDescription>Ingresa la razón para elegirnos.</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}

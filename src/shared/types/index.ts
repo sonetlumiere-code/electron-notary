@@ -56,7 +56,6 @@ export interface PersonDataSheet {
   isPoliticallyExposed?: boolean
   politicalPosition?: string
   originOfFunds?: string
-  reasonForChoosing?: string
   referredBy?: string
 }
 

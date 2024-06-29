@@ -37,7 +37,6 @@ try {
       isPoliticallyExposed INTEGER CHECK (isPoliticallyExposed IN (0, 1)),
       politicalPosition TEXT,
       originOfFunds TEXT,
-      reasonForChoosing TEXT NOT NULL,
       referredBy TEXT
     );
 

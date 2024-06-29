@@ -58,7 +58,6 @@ const personDocBuffer = async (persons: PersonDataSheet[]): Promise<Buffer> => {
         true
       ),
       createFormField("Porque eligió nuestra escribanía?"),
-      createFormField(`Lo asesoramos habitualmente: ${person.reasonForChoosing}`, true),
       createFormField(`Alguien nos recomendó? Quien?: ${person.referredBy}`, true),
       new Paragraph({
         children: [

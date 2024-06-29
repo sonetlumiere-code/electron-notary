@@ -12,7 +12,7 @@ const createPerson = (data: PersonDataSheet): PersonDataSheet => {
       name, lastName, gender, nationality, documentType, documentNumber, CUIT_L, birthdate, birthplace,
       maritalStatus, fatherName, motherName, spouseName, marriageNumber, marriageRegime, divorceSpouseName, divorceDate, divorceCourt,
       divorce, widowNumber, numberOfChildren, address, city, profession, phoneNumber,
-      mobileNumber, email, isPoliticallyExposed, politicalPosition, originOfFunds, reasonForChoosing, referredBy
+      mobileNumber, email, isPoliticallyExposed, politicalPosition, originOfFunds, referredBy
     ) VALUES (
       ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
     )
@@ -58,7 +58,6 @@ const createPerson = (data: PersonDataSheet): PersonDataSheet => {
       data.isPoliticallyExposed ? 1 : 0,
       data.politicalPosition,
       data.originOfFunds,
-      data.reasonForChoosing,
       data.referredBy
     )
 
@@ -109,7 +108,7 @@ const updatePerson = (data: PersonDataSheet) => {
       spouseName = ?, marriageNumber = ?, marriageRegime = ?, divorceSpouseName = ?, divorceDate = ?, divorceCourt = ?, divorce = ?,
       widowNumber = ?, numberOfChildren = ?, address = ?, city = ?, profession = ?,
       phoneNumber = ?, mobileNumber = ?, email = ?, isPoliticallyExposed = ?, politicalPosition = ?,
-      originOfFunds = ?, reasonForChoosing = ?, referredBy = ?
+      originOfFunds = ?, referredBy = ?
     WHERE id = ?
   `
 
@@ -153,7 +152,6 @@ const updatePerson = (data: PersonDataSheet) => {
       data.isPoliticallyExposed ? 1 : 0,
       data.politicalPosition,
       data.originOfFunds,
-      data.reasonForChoosing,
       data.referredBy,
       data.id
     )
@@ -227,10 +225,6 @@ const searchPersons = (
   if (filters.originOfFunds) {
     query += ` AND originOfFunds LIKE ?`
     params.push(`%${filters.originOfFunds}%`)
-  }
-  if (filters.reasonForChoosing) {
-    query += ` AND reasonForChoosing LIKE ?`
-    params.push(`%${filters.reasonForChoosing}%`)
   }
   if (filters.referredBy) {
     query += ` AND referredBy LIKE ?`

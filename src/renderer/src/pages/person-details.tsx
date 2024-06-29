@@ -254,15 +254,6 @@ const PersonDetailsPage = () => {
                     </div>
                   </>
                 )}
-                {person.reasonForChoosing && (
-                  <>
-                    <Separator />
-                    <div className="flex items-center justify-between">
-                      <dt className="text-muted-foreground">Motivo de Elección</dt>
-                      <dd>{person.reasonForChoosing}</dd>
-                    </div>
-                  </>
-                )}
                 {person.referredBy && (
                   <>
                     <Separator />
