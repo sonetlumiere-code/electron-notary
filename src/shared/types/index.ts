@@ -2,21 +2,26 @@ export enum DocumentType {
   DNI = "DNI",
   LC = "LC",
   LE = "LE",
-  PASAPORTE = "PASAPORTE",
-  OTRO = "OTRO"
+  PASAPORTE = "Pasaporte",
+  OTRO = "Otro"
 }
 
 export enum MaritalStatus {
-  SOLTERO = "SOLTERO",
-  CASADO = "CASADO",
-  DIVORCIADO = "DIVORCIADO",
-  VIUDO = "VIUDO"
+  SOLTERO = "Soltero",
+  CASADO = "Casado",
+  DIVORCIADO = "Divorciado",
+  VIUDO = "Viudo"
 }
 
 export enum Gender {
-  MASCULINO = "MASCULINO",
-  FEMENINO = "FEMENINO",
-  OTRO = "OTRO"
+  MASCULINO = "Masculino",
+  FEMENINO = "Femenino",
+  OTRO = "Otro"
+}
+
+export enum MaritalRegime {
+  COMUNITY_OF_PROFIT = "Régimen de comunidad de ganancias",
+  SEPARATION_OF_PROPERTY = "Régimen de separación de bienes"
 }
 
 export interface PersonDataSheet {
@@ -35,7 +40,7 @@ export interface PersonDataSheet {
   motherName?: string
   spouseName?: string
   marriageNumber?: number
-  marriageRegime?: string
+  marriageRegime?: MaritalRegime
   divorceNumber?: number
   divorceSpouseName?: string
   divorceDate?: Date

@@ -40,7 +40,7 @@ import {
 import { toast } from "@renderer/components/ui/use-toast"
 import { cn } from "@renderer/lib/utils"
 import { PersonSchema, zodPersonSchema } from "@renderer/lib/validators/person-validator"
-import { DocumentType, Gender, MaritalStatus, PersonDataSheet } from "@shared/types"
+import { DocumentType, Gender, MaritalRegime, MaritalStatus, PersonDataSheet } from "@shared/types"
 import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
@@ -67,7 +67,7 @@ const CreatePersonPage = () => {
       motherName: "",
       spouseName: "",
       marriageNumber: 0,
-      marriageRegime: "",
+      marriageRegime: undefined,
       divorceNumber: 0,
       divorceSpouseName: "",
       divorceDate: undefined,
@@ -183,14 +183,14 @@ const CreatePersonPage = () => {
                         disabled={form.formState.isSubmitting}
                       >
                         <FormControl>
-                          <SelectTrigger className="capitalize">
+                          <SelectTrigger>
                             <SelectValue placeholder="" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
                           {Object.entries(Gender).map(([key, value]) => (
-                            <SelectItem className="capitalize" key={key} value={value}>
-                              {key.toLowerCase()}
+                            <SelectItem key={key} value={value}>
+                              {value}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -226,14 +226,14 @@ const CreatePersonPage = () => {
                         disabled={form.formState.isSubmitting}
                       >
                         <FormControl>
-                          <SelectTrigger className="capitalize">
+                          <SelectTrigger>
                             <SelectValue placeholder="" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
                           {Object.entries(DocumentType).map(([key, value]) => (
-                            <SelectItem className="capitalize" key={key} value={value}>
-                              {key.toLowerCase()}
+                            <SelectItem key={key} value={value}>
+                              {value}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -340,14 +340,14 @@ const CreatePersonPage = () => {
                         disabled={form.formState.isSubmitting}
                       >
                         <FormControl>
-                          <SelectTrigger className="capitalize">
+                          <SelectTrigger>
                             <SelectValue placeholder="" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
                           {Object.entries(MaritalStatus).map(([key, value]) => (
-                            <SelectItem className="capitalize" key={key} value={value}>
-                              {key.toLowerCase()}
+                            <SelectItem key={key} value={value}>
+                              {value}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -418,11 +418,26 @@ const CreatePersonPage = () => {
                   name="marriageRegime"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
-                      <FormLabel>Régimen Matrimonial</FormLabel>
-                      <FormControl>
-                        <Input {...field} type="text" disabled={form.formState.isSubmitting} />
-                      </FormControl>
-                      <FormDescription>Ingresa el régimen matrimonial.</FormDescription>
+                      <FormLabel>Régimen matrimonial</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        disabled={form.formState.isSubmitting}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {Object.entries(MaritalRegime).map(([key, value]) => (
+                            <SelectItem key={key} value={value}>
+                              {value}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormDescription>Selecciona el régimen matrimonial.</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -636,7 +651,7 @@ const CreatePersonPage = () => {
                         disabled={form.formState.isSubmitting}
                       >
                         <FormControl>
-                          <SelectTrigger className="capitalize">
+                          <SelectTrigger>
                             <SelectValue placeholder="" />
                           </SelectTrigger>
                         </FormControl>

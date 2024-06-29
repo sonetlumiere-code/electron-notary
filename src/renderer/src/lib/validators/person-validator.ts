@@ -1,4 +1,4 @@
-import { DocumentType, Gender, MaritalStatus } from "@shared/types"
+import { DocumentType, Gender, MaritalRegime, MaritalStatus } from "@shared/types"
 import { z } from "zod"
 
 export const zodPersonSchema = z.object({
@@ -28,7 +28,7 @@ export const zodPersonSchema = z.object({
   motherName: z.string().trim().optional(),
   spouseName: z.string().trim().optional(),
   marriageNumber: z.coerce.number().optional(),
-  marriageRegime: z.string().trim().optional(),
+  marriageRegime: z.nativeEnum(MaritalRegime).optional(),
   divorceNumber: z.coerce.number().optional(),
   divorceSpouseName: z.string().trim().optional(),
   divorceDate: z.date().optional(),
@@ -40,8 +40,8 @@ export const zodPersonSchema = z.object({
   address: z.string().trim().min(1, { message: "Ingresa la dirección." }),
   city: z.string().trim().min(1, { message: "Ingresa la ciudad." }),
   profession: z.string().trim().min(1, { message: "Ingresa la profesión." }),
-  phoneNumber: z.coerce.number().optional(),
-  mobileNumber: z.coerce.number().optional(),
+  phoneNumber: z.coerce.number(),
+  mobileNumber: z.coerce.number(),
   email: z.string().email({ message: "Ingresa un correo electrónico válido." }),
   isPoliticallyExposed: z.boolean().optional(),
   politicalPosition: z.string().trim().optional(),
