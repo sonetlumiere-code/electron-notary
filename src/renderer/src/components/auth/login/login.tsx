@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useAuth } from "@renderer/components/auth-provider"
 import FormError from "@renderer/components/auth/form-error"
 import { Button } from "@renderer/components/ui/button"
+import { Checkbox } from "@renderer/components/ui/checkbox"
 import {
   Form,
   FormControl,
@@ -26,7 +27,8 @@ const LoginForm = () => {
     resolver: zodResolver(zodAuthSchema),
     defaultValues: {
       username: "",
-      password: ""
+      password: "",
+      rememberSession: false
     }
   })
 
@@ -100,6 +102,19 @@ const LoginForm = () => {
                     </div>
                   </FormControl>
                   <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="rememberSession"
+              render={({ field }) => (
+                <FormItem className="flex items-end space-x-2">
+                  <FormControl>
+                    <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                  </FormControl>
+                  <FormLabel className="m-0">Mantener sesión activa</FormLabel>
                 </FormItem>
               )}
             />

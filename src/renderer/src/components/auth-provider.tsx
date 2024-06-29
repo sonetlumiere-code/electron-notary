@@ -29,7 +29,10 @@ const AuthContext = createContext<AuthProviderState>(initialAuthState)
 export const useAuth = () => useContext(AuthContext)
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<Partial<User> | null>(null)
+  const [user, setUser] = useState<Partial<User> | null>(() => {
+    const storedUser = localStorage.getItem("user")
+    return storedUser ? JSON.parse(storedUser) : null
+  })
 
   const login = async (data: AuthSchema): Promise<AuthResponse> => {
     const validatedFields = zodAuthSchema.safeParse(data)
@@ -38,7 +41,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       return { error: "Campos inválidos." }
     }
 
-    const { username, password } = validatedFields.data
+    const { username, password, rememberSession } = validatedFields.data
 
     const res = await window.authAPI.logIn({ username, password })
 
@@ -48,7 +51,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     if (res.user) {
       setUser(res.user)
-
+      if (rememberSession) {
+        localStorage.setItem("user", JSON.stringify(res.user))
+      }
       return { success: true, user: res.user }
     }
 
@@ -57,6 +62,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const logout = () => {
     setUser(null)
+    localStorage.removeItem("user")
   }
 
   const value: AuthProviderState = {
