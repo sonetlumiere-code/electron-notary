@@ -29,7 +29,6 @@ export const zodPersonSchema = z.object({
   spouseName: z.string().trim().optional(),
   marriageNumber: z.coerce.number().optional(),
   marriageRegime: z.nativeEnum(MaritalRegime).optional(),
-  divorceNumber: z.coerce.number().optional(),
   divorceSpouseName: z.string().trim().optional(),
   divorceDate: z.date().optional(),
   divorceCourt: z.string().trim().optional(),

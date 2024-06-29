@@ -68,7 +68,6 @@ const CreatePersonPage = () => {
       spouseName: "",
       marriageNumber: 0,
       marriageRegime: undefined,
-      divorceNumber: 0,
       divorceSpouseName: "",
       divorceDate: undefined,
       divorceCourt: "",
@@ -438,20 +437,6 @@ const CreatePersonPage = () => {
                         </SelectContent>
                       </Select>
                       <FormDescription>Selecciona el régimen matrimonial.</FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="divorceNumber"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Número de Divorcio</FormLabel>
-                      <FormControl>
-                        <Input {...field} type="number" disabled={form.formState.isSubmitting} />
-                      </FormControl>
-                      <FormDescription>Ingresa el número de divorcio.</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}

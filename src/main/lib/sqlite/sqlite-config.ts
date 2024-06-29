@@ -22,7 +22,6 @@ try {
       spouseName TEXT,
       marriageNumber INTEGER,
       marriageRegime TEXT CHECK (marriageRegime IN ('Régimen de comunidad de ganancias', 'Régimen de separación de bienes')),
-      divorceNumber INTEGER,
       divorceSpouseName TEXT,
       divorceDate TEXT,
       divorceCourt TEXT,

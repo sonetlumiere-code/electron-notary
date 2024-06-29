@@ -170,15 +170,6 @@ const PersonDetailsPage = () => {
                     <Separator />
                   </>
                 )}
-                {person.divorceNumber !== undefined && person.divorceNumber > 0 && (
-                  <>
-                    <div className="flex items-center justify-between">
-                      <dt className="text-muted-foreground">Número de Divorcio</dt>
-                      <dd>{person.divorceNumber}</dd>
-                    </div>
-                    <Separator />
-                  </>
-                )}
                 {person.divorceDate && (
                   <>
                     <div className="flex items-center justify-between">

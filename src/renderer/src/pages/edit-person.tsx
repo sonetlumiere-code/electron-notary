@@ -83,7 +83,6 @@ const EditPersonPage = () => {
           spouseName: res.spouseName ?? "",
           marriageNumber: res.marriageNumber ?? 0,
           marriageRegime: res.marriageRegime ?? undefined,
-          divorceNumber: res.divorceNumber ?? 0,
           divorceSpouseName: res.divorceSpouseName ?? "",
           divorceDate: res.divorceDate ?? undefined,
           divorceCourt: res.divorceCourt ?? "",
@@ -466,20 +465,6 @@ const EditPersonPage = () => {
                           </SelectContent>
                         </Select>
                         <FormDescription>Selecciona el régimen matrimonial.</FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="divorceNumber"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col">
-                        <FormLabel>Número de Divorcio</FormLabel>
-                        <FormControl>
-                          <Input {...field} type="number" disabled={form.formState.isSubmitting} />
-                        </FormControl>
-                        <FormDescription>Ingresa el número de divorcio.</FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
