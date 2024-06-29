@@ -108,8 +108,8 @@ const LegalPersonDetailsPage = () => {
                 </div>
                 <Separator />
                 <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">Número de inscripción</dt>
-                  <dd>{legalPerson.registrationNumber}</dd>
+                  <dt className="text-muted-foreground">Lugar de inscripción</dt>
+                  <dd>{legalPerson.registrationOffice}</dd>
                 </div>
                 <Separator />
                 <div className="flex items-center justify-between">

@@ -10,7 +10,7 @@ const createLegalPerson = (data: LegalPersonDataSheet) => {
   const query = `
     INSERT INTO legal_person_data_sheets (
       businessName, CUIT, legalAddress, mainActivity, instrumentOfConstitution, registrationDate,
-      registrationNumber, registeredOfficePhone, registeredOfficeAddress, registeredOfficeEmail, statuteCopy,
+      registrationOffice, registeredOfficePhone, registeredOfficeAddress, registeredOfficeEmail, statuteCopy,
       proceedingsCopy, balanceCopy, representativeData
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `
@@ -28,7 +28,7 @@ const createLegalPerson = (data: LegalPersonDataSheet) => {
       data.mainActivity,
       data.instrumentOfConstitution,
       data.registrationDate.toISOString(), // Convert Date to string
-      data.registrationNumber,
+      data.registrationOffice,
       data.registeredOfficePhone,
       data.registeredOfficeAddress,
       data.registeredOfficeEmail,
@@ -82,7 +82,7 @@ const updateLegalPerson = (data: LegalPersonDataSheet) => {
   const query = `
     UPDATE legal_person_data_sheets SET
       businessName = ?, CUIT = ?, legalAddress = ?, mainActivity = ?, instrumentOfConstitution = ?,
-      registrationDate = ?, registrationNumber = ?, registeredOfficePhone = ?, registeredOfficeAddress = ?,
+      registrationDate = ?, registrationOffice = ?, registeredOfficePhone = ?, registeredOfficeAddress = ?,
       registeredOfficeEmail = ?, statuteCopy = ?, proceedingsCopy = ?, balanceCopy = ?, representativeData = ?
     WHERE id = ?
   `
@@ -100,7 +100,7 @@ const updateLegalPerson = (data: LegalPersonDataSheet) => {
       data.mainActivity,
       data.instrumentOfConstitution,
       data.registrationDate.toISOString(), // Convert Date to string
-      data.registrationNumber,
+      data.registrationOffice,
       data.registeredOfficePhone,
       data.registeredOfficeAddress,
       data.registeredOfficeEmail,
@@ -153,9 +153,9 @@ const searchLegalPersons = (
     query += ` AND registrationDate = ?`
     params.push(filters.registrationDate.toISOString())
   }
-  if (filters.registrationNumber) {
-    query += ` AND registrationNumber = ?`
-    params.push(filters.registrationNumber)
+  if (filters.registrationOffice) {
+    query += ` AND registrationOffice = ?`
+    params.push(filters.registrationOffice)
   }
   if (filters.registeredOfficePhone) {
     query += ` AND registeredOfficePhone = ?`

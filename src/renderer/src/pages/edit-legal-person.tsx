@@ -31,6 +31,13 @@ import {
 } from "@renderer/components/ui/form"
 import { Input } from "@renderer/components/ui/input"
 import { Popover, PopoverContent, PopoverTrigger } from "@renderer/components/ui/popover"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@renderer/components/ui/select"
 import { ToastAction } from "@renderer/components/ui/toast"
 import { toast } from "@renderer/components/ui/use-toast"
 import { cn } from "@renderer/lib/utils"
@@ -38,7 +45,7 @@ import {
   LegalPersonSchema,
   zodLegalPersonSchema
 } from "@renderer/lib/validators/legal-person-validator"
-import { LegalPersonDataSheet } from "@shared/types"
+import { LegalPersonDataSheet, RegistrationOffice } from "@shared/types"
 import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
 import { useEffect, useState } from "react"
@@ -70,7 +77,7 @@ const EditLegalPersonPage = () => {
           mainActivity: res.mainActivity ?? "",
           instrumentOfConstitution: res.instrumentOfConstitution ?? "",
           registrationDate: res.registrationDate ?? new Date(),
-          registrationNumber: res.registrationNumber ?? 0,
+          registrationOffice: res.registrationOffice ?? undefined,
           registeredOfficePhone: res.registeredOfficePhone ?? 0,
           registeredOfficeAddress: res.registeredOfficeAddress ?? "",
           registeredOfficeEmail: res.registeredOfficeEmail ?? "",
@@ -251,6 +258,9 @@ const EditLegalPersonPage = () => {
                           </PopoverTrigger>
                           <PopoverContent className="w-auto p-0" align="start">
                             <Calendar
+                              captionLayout="dropdown-buttons"
+                              fromYear={1900}
+                              toYear={2024}
                               mode="single"
                               selected={field.value}
                               onSelect={field.onChange}
@@ -266,14 +276,29 @@ const EditLegalPersonPage = () => {
                   />
                   <FormField
                     control={form.control}
-                    name="registrationNumber"
+                    name="registrationOffice"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
-                        <FormLabel>Número de inscripción</FormLabel>
-                        <FormControl>
-                          <Input {...field} type="number" disabled={form.formState.isSubmitting} />
-                        </FormControl>
-                        <FormDescription>Ingresa el número de inscripción.</FormDescription>
+                        <FormLabel>Lugar de inscripción</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value?.toString() || "false"}
+                          disabled={form.formState.isSubmitting}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {Object.entries(RegistrationOffice).map(([key, value]) => (
+                              <SelectItem key={key} value={value}>
+                                {value}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormDescription>Selecciona el lugar de inscripción.</FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}

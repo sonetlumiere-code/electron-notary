@@ -57,7 +57,7 @@ const personDocBuffer = async (persons: PersonDataSheet[]): Promise<Buffer> => {
         `En operaciones onerosas indique origen del dinero: ${person.originOfFunds}`,
         true
       ),
-      createFormField("Porque eligió nuestra escribanía?"),
+      createFormField("Por qué eligió nuestra escribanía?"),
       createFormField(`Alguien nos recomendó? Quien?: ${person.referredBy}`, true),
       new Paragraph({
         children: [

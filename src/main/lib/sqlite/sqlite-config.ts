@@ -49,7 +49,7 @@ try {
       mainActivity TEXT NOT NULL,
       instrumentOfConstitution TEXT NOT NULL,
       registrationDate TEXT NOT NULL,
-      registrationNumber INTEGER NOT NULL,
+      registrationOffice TEXT CHECK (registrationOffice IN ('DPPJ', 'IGJ')),
       registeredOfficePhone INTEGER NOT NULL,
       registeredOfficeAddress TEXT NOT NULL,
       registeredOfficeEmail TEXT NOT NULL,

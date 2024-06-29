@@ -1,3 +1,4 @@
+import { RegistrationOffice } from "@shared/types"
 import { z } from "zod"
 
 export const zodLegalPersonSchema = z.object({
@@ -9,9 +10,7 @@ export const zodLegalPersonSchema = z.object({
     .string()
     .min(1, { message: "Ingresa el instrumento de constitución." }),
   registrationDate: z.date({ message: "Ingresa una fecha de inscripción válida." }),
-  registrationNumber: z.coerce
-    .number()
-    .min(1, { message: "Ingresa un número de inscripción válido." }),
+  registrationOffice: z.nativeEnum(RegistrationOffice),
   registeredOfficePhone: z.coerce
     .number()
     .min(1, { message: "Ingresa un número de teléfono válido." }),

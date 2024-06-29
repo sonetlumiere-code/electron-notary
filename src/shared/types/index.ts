@@ -60,6 +60,11 @@ export interface PersonDataSheet {
   observations?: string
 }
 
+export enum RegistrationOffice {
+  DPPJ = "DPPJ",
+  IGJ = "IGJ"
+}
+
 export type LegalPersonDataSheet = {
   id?: number
   businessName: string
@@ -68,7 +73,7 @@ export type LegalPersonDataSheet = {
   mainActivity: string
   instrumentOfConstitution: string
   registrationDate: Date
-  registrationNumber: number
+  registrationOffice: RegistrationOffice
   registeredOfficePhone: number
   registeredOfficeAddress: string
   registeredOfficeEmail: string
