@@ -188,11 +188,11 @@ const PersonDetailsPage = () => {
                     <Separator />
                   </>
                 )}
-                {person.divorceAutos && (
+                {person.divorce && (
                   <>
                     <div className="flex items-center justify-between">
-                      <dt className="text-muted-foreground">Autos del Divorcio</dt>
-                      <dd>{person.divorceAutos}</dd>
+                      <dt className="text-muted-foreground">Divorcio</dt>
+                      <dd>{person.divorce}</dd>
                     </div>
                     <Separator />
                   </>

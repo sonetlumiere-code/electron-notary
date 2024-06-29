@@ -44,7 +44,7 @@ export interface PersonDataSheet {
   divorceSpouseName?: string
   divorceDate?: Date
   divorceCourt?: string
-  divorceAutos?: string
+  divorce?: string
   widowNumber?: number
   deceasedSpouseName?: string
   numberOfChildren?: number

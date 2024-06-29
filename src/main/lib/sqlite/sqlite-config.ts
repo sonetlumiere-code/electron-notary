@@ -25,7 +25,7 @@ try {
       divorceSpouseName TEXT,
       divorceDate TEXT,
       divorceCourt TEXT,
-      divorceAutos TEXT,
+      divorce TEXT,
       widowNumber INTEGER,
       deceasedSpouseName TEXT,
       numberOfChildren INTEGER,

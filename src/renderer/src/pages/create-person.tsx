@@ -71,7 +71,7 @@ const CreatePersonPage = () => {
       divorceSpouseName: "",
       divorceDate: undefined,
       divorceCourt: "",
-      divorceAutos: "",
+      divorce: "",
       widowNumber: 0,
       deceasedSpouseName: "",
       numberOfChildren: 0,
@@ -500,14 +500,14 @@ const CreatePersonPage = () => {
                 />
                 <FormField
                   control={form.control}
-                  name="divorceAutos"
+                  name="divorce"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
-                      <FormLabel>Autos de Divorcio</FormLabel>
+                      <FormLabel>Divorcio</FormLabel>
                       <FormControl>
                         <Input {...field} type="text" disabled={form.formState.isSubmitting} />
                       </FormControl>
-                      <FormDescription>Ingresa los autos de divorcio.</FormDescription>
+                      <FormDescription>Divorcio.</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}

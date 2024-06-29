@@ -35,15 +35,12 @@ const personDocBuffer = async (persons: PersonDataSheet[]): Promise<Buffer> => {
         true
       ),
       createFormField(`Régimen patrimonial del matrimonio: ${person.marriageRegime}`, true),
-      createFormField(
-        `Divorciado: nº nupcias: ${person.divorceNumber} nombre del cónyuge: ${person.divorceSpouseName}`,
-        true
-      ),
+      createFormField(`Divorciado: Nombre del cónyuge: ${person.divorceSpouseName}`, true),
       createFormField(
         `Sentencia: Fecha: ${person.divorceDate ? format(person.divorceDate, "dd/MM/yyyy") : ""} tribunal/juzgado: ${person.divorceCourt}`,
         true
       ),
-      createFormField("Autos: " + (person.divorceAutos || ""), true),
+      createFormField("Divorcio: " + (person.divorce || ""), true),
       createFormField(
         `Viudo: nº nupcias: ${person.widowNumber} nombre cónyuge: ${person.deceasedSpouseName}`,
         true

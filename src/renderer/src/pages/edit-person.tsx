@@ -86,7 +86,7 @@ const EditPersonPage = () => {
           divorceSpouseName: res.divorceSpouseName ?? "",
           divorceDate: res.divorceDate ?? undefined,
           divorceCourt: res.divorceCourt ?? "",
-          divorceAutos: res.divorceAutos ?? "",
+          divorce: res.divorce ?? "",
           widowNumber: res.widowNumber ?? 0,
           deceasedSpouseName: res.deceasedSpouseName ?? "",
           numberOfChildren: res.numberOfChildren ?? 0,
@@ -525,14 +525,14 @@ const EditPersonPage = () => {
                   />
                   <FormField
                     control={form.control}
-                    name="divorceAutos"
+                    name="divorce"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
-                        <FormLabel>Autos de Divorcio</FormLabel>
+                        <FormLabel>Divorcio</FormLabel>
                         <FormControl>
                           <Input {...field} type="text" disabled={form.formState.isSubmitting} />
                         </FormControl>
-                        <FormDescription>Ingresa los autos de divorcio.</FormDescription>
+                        <FormDescription>Divorcio.</FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}

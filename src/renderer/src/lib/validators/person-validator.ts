@@ -32,7 +32,7 @@ export const zodPersonSchema = z.object({
   divorceSpouseName: z.string().trim().optional(),
   divorceDate: z.date().optional(),
   divorceCourt: z.string().trim().optional(),
-  divorceAutos: z.string().trim().optional(),
+  divorce: z.string().trim().optional(),
   widowNumber: z.number().optional(),
   deceasedSpouseName: z.string().trim().optional(),
   numberOfChildren: z.coerce.number().optional(),
