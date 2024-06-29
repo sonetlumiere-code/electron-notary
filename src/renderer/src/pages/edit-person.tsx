@@ -474,7 +474,7 @@ const EditPersonPage = () => {
                     name="divorceDate"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
-                        <FormLabel>Fecha de divorcio</FormLabel>
+                        <FormLabel>Fecha de sentencia</FormLabel>
                         <Popover>
                           <PopoverTrigger asChild disabled={form.formState.isSubmitting}>
                             <FormControl>
@@ -504,7 +504,7 @@ const EditPersonPage = () => {
                             />
                           </PopoverContent>
                         </Popover>
-                        <FormDescription>Selecciona la fecha de divorcio.</FormDescription>
+                        <FormDescription>Selecciona la fecha de sentencia.</FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}

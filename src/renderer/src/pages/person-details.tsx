@@ -173,7 +173,7 @@ const PersonDetailsPage = () => {
                 {person.divorceDate && (
                   <>
                     <div className="flex items-center justify-between">
-                      <dt className="text-muted-foreground">Fecha de Divorcio</dt>
+                      <dt className="text-muted-foreground">Fecha de Sentencia</dt>
                       <dd>{format(person.divorceDate, "dd/MM/yyyy")}</dd>
                     </div>
                     <Separator />
