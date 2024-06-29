@@ -11,7 +11,7 @@ const createPerson = (data: PersonDataSheet): PersonDataSheet => {
     INSERT INTO person_data_sheets (
       name, lastName, gender, nationality, documentType, documentNumber, CUIT_L, birthdate, birthplace,
       maritalStatus, fatherName, motherName, spouseName, marriageNumber, marriageRegime, divorceSpouseName, divorceDate, divorceCourt,
-      divorce, widowNumber, deceasedSpouseName, numberOfChildren, address, city, profession, phoneNumber,
+      divorce, widowNumber, numberOfChildren, address, city, profession, phoneNumber,
       mobileNumber, email, isPoliticallyExposed, politicalPosition, originOfFunds, reasonForChoosing, referredBy
     ) VALUES (
       ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
@@ -48,7 +48,6 @@ const createPerson = (data: PersonDataSheet): PersonDataSheet => {
       data.divorceCourt,
       data.divorce,
       data.widowNumber,
-      data.deceasedSpouseName,
       data.numberOfChildren,
       data.address,
       data.city,
@@ -108,7 +107,7 @@ const updatePerson = (data: PersonDataSheet) => {
       name = ?, lastName = ?, gender = ?, nationality = ?, documentType = ?, documentNumber = ?,
       CUIT_L = ?, birthdate = ?, birthplace = ?, maritalStatus = ?, fatherName = ?, motherName = ?,
       spouseName = ?, marriageNumber = ?, marriageRegime = ?, divorceSpouseName = ?, divorceDate = ?, divorceCourt = ?, divorce = ?,
-      widowNumber = ?, deceasedSpouseName = ?, numberOfChildren = ?, address = ?, city = ?, profession = ?,
+      widowNumber = ?, numberOfChildren = ?, address = ?, city = ?, profession = ?,
       phoneNumber = ?, mobileNumber = ?, email = ?, isPoliticallyExposed = ?, politicalPosition = ?,
       originOfFunds = ?, reasonForChoosing = ?, referredBy = ?
     WHERE id = ?
@@ -144,7 +143,6 @@ const updatePerson = (data: PersonDataSheet) => {
       data.divorceCourt,
       data.divorce,
       data.widowNumber,
-      data.deceasedSpouseName,
       data.numberOfChildren,
       data.address,
       data.city,

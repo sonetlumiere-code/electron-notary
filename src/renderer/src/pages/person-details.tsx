@@ -197,15 +197,6 @@ const PersonDetailsPage = () => {
                     <Separator />
                   </>
                 )}
-                {person.deceasedSpouseName && (
-                  <>
-                    <div className="flex items-center justify-between">
-                      <dt className="text-muted-foreground">Nombre del Cónyuge Fallecido</dt>
-                      <dd>{person.deceasedSpouseName}</dd>
-                    </div>
-                    <Separator />
-                  </>
-                )}
                 <div className="flex items-center justify-between">
                   <dt className="text-muted-foreground">Número de Hijos</dt>
                   <dd>{person.numberOfChildren ?? "N/A"}</dd>

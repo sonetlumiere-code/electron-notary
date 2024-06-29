@@ -73,7 +73,6 @@ const CreatePersonPage = () => {
       divorceCourt: "",
       divorce: "",
       widowNumber: 0,
-      deceasedSpouseName: "",
       numberOfChildren: 0,
       address: "",
       city: "",
@@ -508,20 +507,6 @@ const CreatePersonPage = () => {
                         <Input {...field} type="text" disabled={form.formState.isSubmitting} />
                       </FormControl>
                       <FormDescription>Divorcio.</FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="deceasedSpouseName"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Nombre del Cónyuge Fallecido</FormLabel>
-                      <FormControl>
-                        <Input {...field} type="text" disabled={form.formState.isSubmitting} />
-                      </FormControl>
-                      <FormDescription>Ingresa el nombre del cónyuge fallecido.</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}

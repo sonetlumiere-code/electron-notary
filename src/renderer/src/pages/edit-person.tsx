@@ -88,7 +88,6 @@ const EditPersonPage = () => {
           divorceCourt: res.divorceCourt ?? "",
           divorce: res.divorce ?? "",
           widowNumber: res.widowNumber ?? 0,
-          deceasedSpouseName: res.deceasedSpouseName ?? "",
           numberOfChildren: res.numberOfChildren ?? 0,
           address: res.address ?? "",
           city: res.city ?? "",
@@ -533,20 +532,6 @@ const EditPersonPage = () => {
                           <Input {...field} type="text" disabled={form.formState.isSubmitting} />
                         </FormControl>
                         <FormDescription>Divorcio.</FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="deceasedSpouseName"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col">
-                        <FormLabel>Nombre del Cónyuge Fallecido</FormLabel>
-                        <FormControl>
-                          <Input {...field} type="text" disabled={form.formState.isSubmitting} />
-                        </FormControl>
-                        <FormDescription>Ingresa el nombre del cónyuge fallecido.</FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}

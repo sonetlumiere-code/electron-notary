@@ -27,7 +27,6 @@ try {
       divorceCourt TEXT,
       divorce TEXT,
       widowNumber INTEGER,
-      deceasedSpouseName TEXT,
       numberOfChildren INTEGER,
       address TEXT NOT NULL,
       city TEXT NOT NULL,

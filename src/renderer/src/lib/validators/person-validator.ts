@@ -34,7 +34,6 @@ export const zodPersonSchema = z.object({
   divorceCourt: z.string().trim().optional(),
   divorce: z.string().trim().optional(),
   widowNumber: z.number().optional(),
-  deceasedSpouseName: z.string().trim().optional(),
   numberOfChildren: z.coerce.number().optional(),
   address: z.string().trim().min(1, { message: "Ingresa la dirección." }),
   city: z.string().trim().min(1, { message: "Ingresa la ciudad." }),
