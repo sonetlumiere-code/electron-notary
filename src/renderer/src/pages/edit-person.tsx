@@ -38,6 +38,7 @@ import {
   SelectTrigger,
   SelectValue
 } from "@renderer/components/ui/select"
+import { Textarea } from "@renderer/components/ui/textarea"
 import { ToastAction } from "@renderer/components/ui/toast"
 import { toast } from "@renderer/components/ui/use-toast"
 import { cn } from "@renderer/lib/utils"
@@ -98,7 +99,8 @@ const EditPersonPage = () => {
           isPoliticallyExposed: res.isPoliticallyExposed ?? false,
           politicalPosition: res.politicalPosition ?? "",
           originOfFunds: res.originOfFunds ?? "",
-          referredBy: res.referredBy ?? ""
+          referredBy: res.referredBy ?? "",
+          observations: res.observations ?? ""
         })
       }
     }
@@ -705,6 +707,20 @@ const EditPersonPage = () => {
                           <Input {...field} type="text" disabled={form.formState.isSubmitting} />
                         </FormControl>
                         <FormDescription>Ingresa la persona que refirió.</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="observations"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Observaciones</FormLabel>
+                        <FormControl>
+                          <Textarea {...field} disabled={form.formState.isSubmitting} />
+                        </FormControl>
+                        <FormDescription>Ingresa las observaciones.</FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}

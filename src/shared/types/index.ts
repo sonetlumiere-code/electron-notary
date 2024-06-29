@@ -57,6 +57,7 @@ export interface PersonDataSheet {
   politicalPosition?: string
   originOfFunds?: string
   referredBy?: string
+  observations?: string
 }
 
 export type LegalPersonDataSheet = {

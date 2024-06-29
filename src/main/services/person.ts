@@ -12,9 +12,9 @@ const createPerson = (data: PersonDataSheet): PersonDataSheet => {
       name, lastName, gender, nationality, documentType, documentNumber, CUIT_L, birthdate, birthplace,
       maritalStatus, fatherName, motherName, spouseName, marriageNumber, marriageRegime, divorceSpouseName, divorceDate, divorceCourt,
       divorce, widowNumber, numberOfChildren, address, city, profession, phoneNumber,
-      mobileNumber, email, isPoliticallyExposed, politicalPosition, originOfFunds, referredBy
+      mobileNumber, email, isPoliticallyExposed, politicalPosition, originOfFunds, referredBy, observations
     ) VALUES (
-      ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+      ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
     )
   `
 
@@ -58,7 +58,8 @@ const createPerson = (data: PersonDataSheet): PersonDataSheet => {
       data.isPoliticallyExposed ? 1 : 0,
       data.politicalPosition,
       data.originOfFunds,
-      data.referredBy
+      data.referredBy,
+      data.observations
     )
 
     return {
@@ -108,7 +109,7 @@ const updatePerson = (data: PersonDataSheet) => {
       spouseName = ?, marriageNumber = ?, marriageRegime = ?, divorceSpouseName = ?, divorceDate = ?, divorceCourt = ?, divorce = ?,
       widowNumber = ?, numberOfChildren = ?, address = ?, city = ?, profession = ?,
       phoneNumber = ?, mobileNumber = ?, email = ?, isPoliticallyExposed = ?, politicalPosition = ?,
-      originOfFunds = ?, referredBy = ?
+      originOfFunds = ?, referredBy = ?, observations = ?
     WHERE id = ?
   `
 
@@ -153,6 +154,7 @@ const updatePerson = (data: PersonDataSheet) => {
       data.politicalPosition,
       data.originOfFunds,
       data.referredBy,
+      data.observations,
       data.id
     )
 

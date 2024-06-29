@@ -263,6 +263,15 @@ const PersonDetailsPage = () => {
                     </div>
                   </>
                 )}
+                {person.observations && (
+                  <>
+                    <Separator />
+                    <div className="flex items-center justify-between">
+                      <dt className="text-muted-foreground">Observations</dt>
+                      <dd>{person.observations}</dd>
+                    </div>
+                  </>
+                )}
               </dl>
             </div>
           )}

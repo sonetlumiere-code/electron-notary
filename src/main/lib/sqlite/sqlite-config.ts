@@ -37,7 +37,8 @@ try {
       isPoliticallyExposed INTEGER CHECK (isPoliticallyExposed IN (0, 1)),
       politicalPosition TEXT,
       originOfFunds TEXT,
-      referredBy TEXT
+      referredBy TEXT,
+      observations TEXT
     );
 
     CREATE TABLE IF NOT EXISTS legal_person_data_sheets (

@@ -37,6 +37,7 @@ import {
   SelectTrigger,
   SelectValue
 } from "@renderer/components/ui/select"
+import { Textarea } from "@renderer/components/ui/textarea"
 import { toast } from "@renderer/components/ui/use-toast"
 import { cn } from "@renderer/lib/utils"
 import { PersonSchema, zodPersonSchema } from "@renderer/lib/validators/person-validator"
@@ -680,6 +681,20 @@ const CreatePersonPage = () => {
                         <Input {...field} type="text" disabled={form.formState.isSubmitting} />
                       </FormControl>
                       <FormDescription>Ingresa la persona que refirió.</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="observations"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Observaciones</FormLabel>
+                      <FormControl>
+                        <Textarea {...field} disabled={form.formState.isSubmitting} />
+                      </FormControl>
+                      <FormDescription>Ingresa las observaciones.</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
