@@ -2,7 +2,8 @@ export enum DocumentType {
   DNI = "DNI",
   LC = "LC",
   LE = "LE",
-  PASAPORTE = "PASAPORTE"
+  PASAPORTE = "PASAPORTE",
+  OTROS = "OTROS"
 }
 
 export enum MaritalStatus {
