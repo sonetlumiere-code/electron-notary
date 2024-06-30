@@ -146,6 +146,16 @@ const LegalPersonDetailsPage = () => {
                   <dt className="text-muted-foreground">Datos del representante</dt>
                   <dd>{legalPerson.representativeData}</dd>
                 </div>
+                <Separator />
+                <div className="flex items-center justify-between">
+                  <dt className="text-muted-foreground">Matrícula</dt>
+                  <dd>{legalPerson.enrollment}</dd>
+                </div>
+                <Separator />
+                <div className="flex items-center justify-between">
+                  <dt className="text-muted-foreground">Legajo</dt>
+                  <dd>{legalPerson.file}</dd>
+                </div>
               </dl>
             </div>
           )}
