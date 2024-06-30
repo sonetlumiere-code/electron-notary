@@ -100,6 +100,7 @@ export type User = {
 export interface Activity {
   id?: number
   date: Date
+  act: string
   observations?: string
   attachedFile?: string
 }

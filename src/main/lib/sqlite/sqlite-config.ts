@@ -61,6 +61,14 @@ try {
       file TEXT NOT NULL
     );
 
+    CREATE TABLE IF NOT EXISTS activity (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      date TEXT NOT NULL,
+      act TEXT NOT NULL,
+      observations TEXT,
+      attachedFile TEXT
+    );
+
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       username TEXT NOT NULL,
