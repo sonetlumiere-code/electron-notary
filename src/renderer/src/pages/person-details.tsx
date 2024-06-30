@@ -16,7 +16,6 @@ import {
   CardHeader,
   CardTitle
 } from "@renderer/components/ui/card"
-import { Separator } from "@renderer/components/ui/separator"
 import { PersonDataSheet } from "@shared/types"
 import { format } from "date-fns"
 import { useEffect, useState } from "react"
@@ -73,206 +72,161 @@ const PersonDetailsPage = () => {
         </CardHeader>
         <CardContent>
           {person && (
-            <div className="grid gap-3">
-              <dl className="grid gap-3">
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">Nombre</dt>
-                  <dd>{person.name}</dd>
-                </div>
-                <Separator />
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">Apellido</dt>
-                  <dd>{person.lastName}</dd>
-                </div>
-                <Separator />
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">Sexo</dt>
-                  <dd>{person.gender}</dd>
-                </div>
-                <Separator />
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">Nacionalidad</dt>
-                  <dd>{person.nationality}</dd>
-                </div>
-                <Separator />
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">Tipo de Documento</dt>
-                  <dd>{person.documentType}</dd>
-                </div>
-                <Separator />
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">Número de Documento</dt>
-                  <dd>{person.documentNumber}</dd>
-                </div>
-                <Separator />
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">CUIT_L</dt>
-                  <dd>{person.CUIT_L}</dd>
-                </div>
-                <Separator />
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">Fecha de Nacimiento</dt>
-                  <dd>{format(person.birthdate, "dd/MM/yyyy")}</dd>
-                </div>
-                <Separator />
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">Lugar de Nacimiento</dt>
-                  <dd>{person.birthplace}</dd>
-                </div>
-                <Separator />
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">Estado Civil</dt>
-                  <dd>{person.maritalStatus}</dd>
-                </div>
-                <Separator />
-                {person.fatherName && (
-                  <>
-                    <div className="flex items-center justify-between">
-                      <dt className="text-muted-foreground">Nombre del Padre</dt>
-                      <dd>{person.fatherName}</dd>
-                    </div>
-                    <Separator />
-                  </>
-                )}
-                {person.motherName && (
-                  <>
-                    <div className="flex items-center justify-between">
-                      <dt className="text-muted-foreground">Nombre de la Madre</dt>
-                      <dd>{person.motherName}</dd>
-                    </div>
-                    <Separator />
-                  </>
-                )}
-                {person.spouseName && (
-                  <>
-                    <div className="flex items-center justify-between">
-                      <dt className="text-muted-foreground">Nombre del Cónyuge</dt>
-                      <dd>{person.spouseName}</dd>
-                    </div>
-                    <Separator />
-                  </>
-                )}
-                {person.marriageNumber !== undefined && person?.marriageNumber > 0 && (
-                  <>
-                    <div className="flex items-center justify-between">
-                      <dt className="text-muted-foreground">Número de Núpcias</dt>
-                      <dd>{person.marriageNumber}</dd>
-                    </div>
-                    <Separator />
-                  </>
-                )}
-                {person.marriageRegime && (
-                  <>
-                    <div className="flex items-center justify-between">
-                      <dt className="text-muted-foreground">Régimen Matrimonial</dt>
-                      <dd>{person.marriageRegime}</dd>
-                    </div>
-                    <Separator />
-                  </>
-                )}
-                {person.divorceDate && (
-                  <>
-                    <div className="flex items-center justify-between">
-                      <dt className="text-muted-foreground">Fecha de Sentencia</dt>
-                      <dd>{format(person.divorceDate, "dd/MM/yyyy")}</dd>
-                    </div>
-                    <Separator />
-                  </>
-                )}
-                {person.divorceCourt && (
-                  <>
-                    <div className="flex items-center justify-between">
-                      <dt className="text-muted-foreground">Juzgado de Divorcio</dt>
-                      <dd>{person.divorceCourt}</dd>
-                    </div>
-                    <Separator />
-                  </>
-                )}
-                {person.divorce && (
-                  <>
-                    <div className="flex items-center justify-between">
-                      <dt className="text-muted-foreground">Divorcio</dt>
-                      <dd>{person.divorce}</dd>
-                    </div>
-                    <Separator />
-                  </>
-                )}
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">Número de Hijos</dt>
-                  <dd>{person.numberOfChildren ?? "N/A"}</dd>
-                </div>
-                <Separator />
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">Dirección</dt>
-                  <dd>{person.address}</dd>
-                </div>
-                <Separator />
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">Ciudad</dt>
-                  <dd>{person.city}</dd>
-                </div>
-                <Separator />
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">Profesión</dt>
-                  <dd>{person.profession}</dd>
-                </div>
-                <Separator />
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">Teléfono</dt>
-                  <dd>{person.phoneNumber}</dd>
-                </div>
-                <Separator />
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">Número de Móvil</dt>
-                  <dd>{person.mobileNumber}</dd>
-                </div>
-                <Separator />
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">Email</dt>
-                  <dd>{person.email}</dd>
-                </div>
-                <Separator />
-                <div className="flex items-center justify-between">
-                  <dt className="text-muted-foreground">Expuesto Políticamente</dt>
-                  <dd>{person.isPoliticallyExposed ? "Sí" : "No"}</dd>
-                </div>
-                {person.politicalPosition && (
-                  <>
-                    <Separator />
-                    <div className="flex items-center justify-between">
-                      <dt className="text-muted-foreground">Cargo Político</dt>
-                      <dd>{person.politicalPosition}</dd>
-                    </div>
-                  </>
-                )}
-                {person.originOfFunds && (
-                  <>
-                    <Separator />
-                    <div className="flex items-center justify-between">
-                      <dt className="text-muted-foreground">Origen de Fondos</dt>
-                      <dd>{person.originOfFunds}</dd>
-                    </div>
-                  </>
-                )}
-                {person.referredBy && (
-                  <>
-                    <Separator />
-                    <div className="flex items-center justify-between">
-                      <dt className="text-muted-foreground">Referido por</dt>
-                      <dd>{person.referredBy}</dd>
-                    </div>
-                  </>
-                )}
-                {person.observations && (
-                  <>
-                    <Separator />
-                    <div className="flex items-center justify-between">
-                      <dt className="text-muted-foreground">Observations</dt>
-                      <dd>{person.observations}</dd>
-                    </div>
-                  </>
-                )}
-              </dl>
+            <div className="relative grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Nombre</p>
+                <p className="text-sm text-muted-foreground">{person.name}</p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Apellido</p>
+                <p className="text-sm text-muted-foreground">{person.lastName}</p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Sexo</p>
+                <p className="text-sm text-muted-foreground">{person.gender}</p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Nacionalidad</p>
+                <p className="text-sm text-muted-foreground">{person.nationality}</p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Tipo de Documento</p>
+                <p className="text-sm text-muted-foreground">{person.documentType}</p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Número de Documento</p>
+                <p className="text-sm text-muted-foreground">{person.documentNumber}</p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">CUIT_L</p>
+                <p className="text-sm text-muted-foreground">{person.CUIT_L}</p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Fecha de Nacimiento</p>
+                <p className="text-sm text-muted-foreground">
+                  {format(person.birthdate, "dd/MM/yyyy")}
+                </p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Lugar de Nacimiento</p>
+                <p className="text-sm text-muted-foreground">{person.birthplace}</p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Estado Civil</p>
+                <p className="text-sm text-muted-foreground">{person.maritalStatus}</p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Nombre del Padre</p>
+                <p className="text-sm text-muted-foreground">
+                  {person.fatherName ? person.fatherName : "-"}
+                </p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Nombre de la Madre</p>
+                <p className="text-sm text-muted-foreground">
+                  {person.motherName ? person.motherName : "-"}
+                </p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Nombre del Cónyuge</p>
+                <p className="text-sm text-muted-foreground">
+                  {person.spouseName ? person.spouseName : "-"}
+                </p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Número de Núpcias</p>
+                <p className="text-sm text-muted-foreground">
+                  {person.marriageNumber !== undefined && person?.marriageNumber > 0
+                    ? person.marriageNumber
+                    : "-"}
+                </p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Régimen Matrimonial</p>
+                <p className="text-sm text-muted-foreground">
+                  {person.marriageRegime ? person.marriageRegime : "-"}
+                </p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Fecha de Sentencia</p>
+                <p className="text-sm text-muted-foreground">
+                  {person.divorceDate ? format(person.divorceDate, "dd/MM/yyyy") : "-"}
+                </p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Juzgado de Divorcio</p>
+                <p className="text-sm text-muted-foreground">
+                  {person.divorceCourt ? person.divorceCourt : "-"}
+                </p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Divorcio</p>
+                <p className="text-sm text-muted-foreground">
+                  {person.divorce ? person.divorce : "-"}
+                </p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Número de Hijos</p>
+                <p className="text-sm text-muted-foreground">{person.numberOfChildren ?? "N/A"}</p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Dirección</p>
+                <p className="text-sm text-muted-foreground">{person.address}</p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Ciudad</p>
+                <p className="text-sm text-muted-foreground">{person.city}</p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Profesión</p>
+                <p className="text-sm text-muted-foreground">{person.profession}</p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Teléfono</p>
+                <p className="text-sm text-muted-foreground">
+                  {person.phoneNumber ? person.phoneNumber : "-"}
+                </p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Número de Móvil</p>
+                <p className="text-sm text-muted-foreground">
+                  {person.mobileNumber ? person.mobileNumber : "-"}
+                </p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Email</p>
+                <p className="text-sm text-muted-foreground">{person.email}</p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Expuesto Políticamente</p>
+                <p className="text-sm text-muted-foreground">
+                  {person.isPoliticallyExposed ? "Sí" : "No"}
+                </p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Cargo Político</p>
+                <p className="text-sm text-muted-foreground">
+                  {person.politicalPosition ? person.politicalPosition : "-"}
+                </p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Origen de Fondos</p>
+                <p className="text-sm text-muted-foreground">
+                  {person.originOfFunds ? person.originOfFunds : "-"}
+                </p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Referido por</p>
+                <p className="text-sm text-muted-foreground">
+                  {person.referredBy ? person.referredBy : "-"}
+                </p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Observaciones</p>
+                <p className="text-sm text-muted-foreground">
+                  {person.observations ? person.observations : "-"}
+                </p>
+              </div>
             </div>
           )}
         </CardContent>
