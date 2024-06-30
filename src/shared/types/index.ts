@@ -65,7 +65,7 @@ export enum RegistrationOffice {
   IGJ = "IGJ"
 }
 
-export type LegalPersonDataSheet = {
+export interface LegalPersonDataSheet {
   id?: number
   businessName: string
   CUIT: number
@@ -95,4 +95,11 @@ export type User = {
   id: number
   username: string
   password: string
+}
+
+export interface Activity {
+  id?: number
+  date: Date
+  observations?: string
+  attachedFile?: string
 }
