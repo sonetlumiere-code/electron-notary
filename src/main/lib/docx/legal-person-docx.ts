@@ -30,6 +30,8 @@ const legalPersonDocBuffer = async (legalPersons: LegalPersonDataSheet[]): Promi
       createFormField(`Copia Actas: ${legalPerson.proceedingsCopy}`),
       createFormField(`Copia Balance: ${legalPerson.balanceCopy}`),
       createFormField(`Datos Representante: ${legalPerson.representativeData}`),
+      createFormField(`Matrícula: ${legalPerson.enrollment}`),
+      createFormField(`Legajo: ${legalPerson.file}`),
       new Paragraph({
         children: [
           new TextRun({

@@ -21,7 +21,9 @@ export const zodLegalPersonSchema = z.object({
   statuteCopy: z.string().min(1, { message: "Ingresa la copia del estatuto." }),
   proceedingsCopy: z.string().min(1, { message: "Ingresa la copia de las actas." }),
   balanceCopy: z.string().min(1, { message: "Ingresa la copia del balance." }),
-  representativeData: z.string().min(1, { message: "Ingresa los datos del representante." })
+  representativeData: z.string().min(1, { message: "Ingresa los datos del representante." }),
+  enrollment: z.string().min(1, { message: "Ingresa la matrícula." }),
+  file: z.string().min(1, { message: "Ingresa el legajo." })
 })
 
 export type LegalPersonSchema = z.infer<typeof zodLegalPersonSchema>

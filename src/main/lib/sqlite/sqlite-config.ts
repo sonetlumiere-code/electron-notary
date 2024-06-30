@@ -56,7 +56,9 @@ try {
       statuteCopy TEXT NOT NULL,
       proceedingsCopy TEXT NOT NULL,
       balanceCopy TEXT NOT NULL,
-      representativeData TEXT NOT NULL
+      representativeData TEXT NOT NULL,
+      enrollment TEXT NOT NULL,
+      file TEXT NOT NULL
     );
 
     CREATE TABLE IF NOT EXISTS users (

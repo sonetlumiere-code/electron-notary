@@ -84,7 +84,9 @@ const EditLegalPersonPage = () => {
           statuteCopy: res.statuteCopy ?? "",
           proceedingsCopy: res.proceedingsCopy ?? "",
           balanceCopy: res.balanceCopy ?? "",
-          representativeData: res.representativeData ?? ""
+          representativeData: res.representativeData ?? "",
+          enrollment: res.enrollment ?? "",
+          file: res.file ?? ""
         })
       }
     }
@@ -397,6 +399,34 @@ const EditLegalPersonPage = () => {
                           <Input {...field} type="text" disabled={form.formState.isSubmitting} />
                         </FormControl>
                         <FormDescription>Ingresa los datos del representante.</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="enrollment"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Matrícula</FormLabel>
+                        <FormControl>
+                          <Input {...field} type="text" disabled={form.formState.isSubmitting} />
+                        </FormControl>
+                        <FormDescription>Ingresa la matrícula.</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="file"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Legajo</FormLabel>
+                        <FormControl>
+                          <Input {...field} type="text" disabled={form.formState.isSubmitting} />
+                        </FormControl>
+                        <FormDescription>Ingresa el legajo.</FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}

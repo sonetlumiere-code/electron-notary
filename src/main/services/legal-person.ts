@@ -11,8 +11,8 @@ const createLegalPerson = (data: LegalPersonDataSheet) => {
     INSERT INTO legal_person_data_sheets (
       businessName, CUIT, legalAddress, mainActivity, instrumentOfConstitution, registrationDate,
       registrationOffice, registeredOfficePhone, registeredOfficeAddress, registeredOfficeEmail, statuteCopy,
-      proceedingsCopy, balanceCopy, representativeData
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      proceedingsCopy, balanceCopy, representativeData, enrollment, file
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `
 
   if (typeof data.registrationDate === "string") {
@@ -35,7 +35,9 @@ const createLegalPerson = (data: LegalPersonDataSheet) => {
       data.statuteCopy,
       data.proceedingsCopy,
       data.balanceCopy,
-      data.representativeData
+      data.representativeData,
+      data.enrollment,
+      data.file
     )
 
     return {
@@ -83,7 +85,7 @@ const updateLegalPerson = (data: LegalPersonDataSheet) => {
     UPDATE legal_person_data_sheets SET
       businessName = ?, CUIT = ?, legalAddress = ?, mainActivity = ?, instrumentOfConstitution = ?,
       registrationDate = ?, registrationOffice = ?, registeredOfficePhone = ?, registeredOfficeAddress = ?,
-      registeredOfficeEmail = ?, statuteCopy = ?, proceedingsCopy = ?, balanceCopy = ?, representativeData = ?
+      registeredOfficeEmail = ?, statuteCopy = ?, proceedingsCopy = ?, balanceCopy = ?, representativeData = ?, enrollment = ?, file = ?
     WHERE id = ?
   `
 
@@ -108,6 +110,8 @@ const updateLegalPerson = (data: LegalPersonDataSheet) => {
       data.proceedingsCopy,
       data.balanceCopy,
       data.representativeData,
+      data.enrollment,
+      data.file,
       data.id
     )
 

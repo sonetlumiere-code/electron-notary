@@ -81,6 +81,8 @@ export type LegalPersonDataSheet = {
   proceedingsCopy: string
   balanceCopy: string
   representativeData: string
+  enrollment: string
+  file: string
 }
 
 export enum FileFormat {

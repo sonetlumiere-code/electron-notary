@@ -6,7 +6,7 @@ const logIn = ({ username, password }: { username: string; password: string }) =
   const user = stmt.get(username)
 
   if (!user) {
-    return { error: "Credenciales incorrectas." }
+    return { error: "Usuario no existe." }
   }
 
   const passwordMatch = bcrypt.compareSync(password, user.password)
