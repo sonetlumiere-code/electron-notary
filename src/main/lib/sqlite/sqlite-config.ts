@@ -66,7 +66,12 @@ try {
       date TEXT NOT NULL,
       act TEXT NOT NULL,
       observations TEXT,
-      attachedFile TEXT
+      attachedFile TEXT,
+      person_id INTEGER,
+      legal_person_id INTEGER,
+      FOREIGN KEY (person_id) REFERENCES person_data_sheets(id),
+      FOREIGN KEY (legal_person_id) REFERENCES legal_person_data_sheets(id)
+      CHECK (person_id IS NOT NULL AND legal_person_id IS NULL OR person_id IS NULL AND legal_person_id IS NOT NULL)
     );
 
     CREATE TABLE IF NOT EXISTS users (

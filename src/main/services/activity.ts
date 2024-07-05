@@ -3,7 +3,8 @@ import { Activity } from "@shared/types"
 
 const createActivity = (data: Activity) => {
   const query = `
-    INSERT INTO activity (date, act, observations, attachedFile) VALUES (?, ?, ?, ?)
+    INSERT INTO activity (date, act, observations, attachedFile, person_id, legal_person_id) 
+    VALUES (?, ?, ?, ?, ?, ?)
   `
 
   if (typeof data.date === "string") {
@@ -12,7 +13,14 @@ const createActivity = (data: Activity) => {
 
   try {
     const stmt = db.prepare(query)
-    const info = stmt.run(data.date.toISOString(), data.act, data.observations, data.attachedFile)
+    const info = stmt.run(
+      data.date.toISOString(),
+      data.act,
+      data.observations,
+      data.attachedFile,
+      data.person_id || null,
+      data.legal_person_id || null
+    )
 
     return {
       ...data,
@@ -56,7 +64,8 @@ const getActivityById = (id: number): Activity | null => {
 
 const updateActivity = (data: Activity) => {
   const query = `
-    UPDATE activity SET date = ?, act = ?, observations = ?, attachedFile = ? WHERE id = ?
+    UPDATE activity SET date = ?, act = ?, observations = ?, attachedFile = ?, person_id = ?, legal_person_id = ? 
+    WHERE id = ?
   `
 
   if (typeof data.date === "string") {
@@ -70,6 +79,8 @@ const updateActivity = (data: Activity) => {
       data.act,
       data.observations,
       data.attachedFile,
+      data.person_id || null,
+      data.legal_person_id || null,
       data.id
     )
 
@@ -104,6 +115,14 @@ const searchActivities = (filters: Partial<Activity> & { ids?: number[] }): Acti
   if (filters.attachedFile) {
     query += ` AND attachedFile LIKE ?`
     params.push(`%${filters.attachedFile}%`)
+  }
+  if (filters.person_id) {
+    query += ` AND person_id = ?`
+    params.push(filters.person_id)
+  }
+  if (filters.legal_person_id) {
+    query += ` AND legal_person_id = ?`
+    params.push(filters.legal_person_id)
   }
 
   try {
