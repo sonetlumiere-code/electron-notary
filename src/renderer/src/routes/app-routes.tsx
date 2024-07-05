@@ -3,8 +3,10 @@ import LoginPage from "@renderer/components/auth/login/login"
 import DashboardLayout from "@renderer/components/dashboard/layout/_layout"
 import LegalPersonsListPage from "@renderer/components/dashboard/lists/legal-persons/legal-persons.list"
 import PersonsListPage from "@renderer/components/dashboard/lists/persons/persons-list"
+import CreateActivityPage from "@renderer/pages/create-activity"
 import CreateLegalPersonPage from "@renderer/pages/create-legal-person"
 import CreatePersonPage from "@renderer/pages/create-person"
+import EditActivityPage from "@renderer/pages/edit-activity"
 import EditLegalPersonPage from "@renderer/pages/edit-legal-person"
 import EditPersonPage from "@renderer/pages/edit-person"
 import HomePage from "@renderer/pages/home"
@@ -58,6 +60,14 @@ const router = createHashRouter([
       {
         path: "/legal-person/:id",
         element: <LegalPersonDetailsPage />
+      },
+      {
+        path: "/create-activity/person/:id",
+        element: <CreateActivityPage />
+      },
+      {
+        path: "/edit-activity/:id",
+        element: <EditActivityPage />
       }
     ]
   },
