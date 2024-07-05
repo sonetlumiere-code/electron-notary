@@ -17,7 +17,7 @@ import { Link } from "react-router-dom"
 const PersonsPage = () => {
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-start">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>

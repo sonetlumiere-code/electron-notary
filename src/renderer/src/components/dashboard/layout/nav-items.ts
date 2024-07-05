@@ -13,12 +13,12 @@ const navItems: NavigationItem[] = [
   {
     id: 2,
     name: "Personas",
-    href: "/persons-list"
+    href: "/persons"
   },
   {
     id: 3,
     name: "Personas jurídicas",
-    href: "/legal-persons-list"
+    href: "/legal-persons"
   }
 ]
 

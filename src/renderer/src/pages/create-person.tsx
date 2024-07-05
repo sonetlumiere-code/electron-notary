@@ -93,7 +93,7 @@ const CreatePersonPage = () => {
       const res: PersonDataSheet | null = await window.personAPI.createPerson(data)
       if (res) {
         addPersons([res])
-        navigate("/persons-list")
+        navigate("/persons")
         toast({
           title: "Nueva ficha creada.",
           description: "La ficha de datos personales ha sido creada correctamente."
@@ -120,7 +120,7 @@ const CreatePersonPage = () => {
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link to="/persons-list">Lista de personas</Link>
+              <Link to="/persons">Lista de personas</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />

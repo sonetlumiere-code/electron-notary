@@ -24,7 +24,7 @@ const DeletePerson = ({ person }: DeletePersonProps) => {
         const res = await window.personAPI.deletePersons([person.id] as number[])
         if (res) {
           deletePersons(res)
-          navigate("/persons-list")
+          navigate("/persons")
           toast({
             title: "Ficha personal eliminada.",
             description: "La ficha ha sido eliminada correctamente."

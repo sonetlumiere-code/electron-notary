@@ -24,7 +24,7 @@ const DeleteLegalPerson = ({ legalPerson }: DeleteLegalPersonProps) => {
         const res = await window.legalPersonAPI.deleteLegalPersons([legalPerson.id] as number[])
         if (res) {
           deleteLegalPersons(res)
-          navigate("/legal-persons-list")
+          navigate("/legal-persons")
           toast({
             title: "Ficha jurídica eliminada.",
             description: "La ficha jurídica ha sido eliminada correctamente."

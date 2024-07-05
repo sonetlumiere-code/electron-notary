@@ -100,7 +100,7 @@ const EditLegalPersonPage = () => {
 
       if (res) {
         updateLegalPerson(legalPersonId, res)
-        navigate("/legal-persons-list")
+        navigate("/legal-persons")
         toast({
           title: "Ficha editada.",
           description: "La ficha de persona jurídica ha sido editada correctamente.",
@@ -132,7 +132,7 @@ const EditLegalPersonPage = () => {
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link to="/legal-persons-list">Lista de personas jurídicas</Link>
+              <Link to="/legal-persons">Lista de personas jurídicas</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />

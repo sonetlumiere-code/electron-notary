@@ -1,5 +1,5 @@
 import LegalPersonListActions from "@renderer/components/dashboard/lists/legal-persons/data-table/actions/list-actions/legal-person-list-actions"
-import LegalPersonsList from "@renderer/components/dashboard/lists/legal-persons/legal-persons.list"
+import LegalPersonsList from "@renderer/components/dashboard/lists/legal-persons/legal-persons-list"
 import PageTitle from "@renderer/components/page-title"
 import {
   Breadcrumb,
@@ -11,12 +11,13 @@ import {
 } from "@renderer/components/ui/breadcrumb"
 import { buttonVariants } from "@renderer/components/ui/button"
 import { cn } from "@renderer/lib/utils"
-import { CirclePlus, Link } from "lucide-react"
+import { CirclePlus } from "lucide-react"
+import { Link } from "react-router-dom"
 
 const LegalPersonsPage = () => {
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-start">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>

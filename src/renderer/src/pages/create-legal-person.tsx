@@ -80,7 +80,7 @@ const CreateLegalPersonPage = () => {
       const res: LegalPersonDataSheet | null = await window.legalPersonAPI.createLegalPerson(data)
       if (res) {
         addLegalPersons([res])
-        navigate("/legal-persons-list")
+        navigate("/legal-persons")
         toast({
           title: "Nueva ficha creada.",
           description: "La ficha de persona jurídica ha sido creada correctamente."
@@ -107,7 +107,7 @@ const CreateLegalPersonPage = () => {
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link to="/legal-persons-list">Lista de personas jurídicas</Link>
+              <Link to="/legal-persons">Lista de personas jurídicas</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />

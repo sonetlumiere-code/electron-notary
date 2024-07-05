@@ -48,7 +48,7 @@ const PersonDetailsPage = () => {
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link to="/persons-list">Lista de personas</Link>
+              <Link to="/persons">Lista de personas</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
