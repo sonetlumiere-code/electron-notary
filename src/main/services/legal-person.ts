@@ -1,10 +1,10 @@
 import legalPersonDocBuffer from "@/lib/docx/legal-person-docx"
+import db from "@/lib/sqlite/sqlite-config"
 import { FileFormat, LegalPersonDataSheet } from "@shared/types"
 import csvParser from "csv-parser"
 import fs from "fs"
 import { parse } from "json2csv"
 import path from "path"
-import db from "../lib/sqlite/sqlite-config"
 
 const createLegalPerson = (data: LegalPersonDataSheet) => {
   const query = `
