@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer } from "electron"
-import { FileFormat, LegalPersonDataSheet, PersonDataSheet } from "../shared/types"
+import { Activity, FileFormat, LegalPersonDataSheet, PersonDataSheet } from "../shared/types"
 
 if (!process.contextIsolated) {
   throw new Error("contextIsolation must be enabled in the BrowserWindow")
@@ -43,11 +43,22 @@ const legalPersonAPI = {
     ipcRenderer.invoke("export-legal-persons", data)
 }
 
+const activityAPI = {
+  createActivity: (activity: Activity) => ipcRenderer.invoke("create-activity", activity),
+  getActivities: () => ipcRenderer.invoke("get-activities"),
+  getActivityById: (id: number) => ipcRenderer.invoke("get-activity-by-id", id),
+  searchActivities: (filters: Partial<Activity> & { ids?: number[] }) =>
+    ipcRenderer.invoke("search-activities", filters),
+  updateActivity: (activity: Activity) => ipcRenderer.invoke("update-activity", activity),
+  deleteActivities: (ids: number[]) => ipcRenderer.invoke("delete-activities", ids)
+}
+
 try {
   contextBridge.exposeInMainWorld("electronAPI", electronAPI)
   contextBridge.exposeInMainWorld("authAPI", authAPI)
   contextBridge.exposeInMainWorld("personAPI", personAPI)
   contextBridge.exposeInMainWorld("legalPersonAPI", legalPersonAPI)
+  contextBridge.exposeInMainWorld("activityAPI", activityAPI)
 } catch (error) {
   console.error(error)
 }

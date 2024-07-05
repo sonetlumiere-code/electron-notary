@@ -44,11 +44,21 @@ export interface legalPersonAPI {
   }) => Promise<string>
 }
 
+export interface activityAPI {
+  createActivity: (activity: Activity) => Promise<Activity | null>
+  getActivities: () => Promise<Activity[] | null>
+  getActivityById: (id: number) => Promise<Activity | null>
+  searchActivities: (filters: Partial<Activity> & { ids?: number[] }) => Promise<Activity[] | null>
+  updateActivity: (activity: Activity) => Promise<Activity | null>
+  deleteActivities: (ids: number[]) => Promise<number[] | null>
+}
+
 declare global {
   interface Window {
     electronAPI: electronAPI
     authAPI: authAPI
     personAPI: personAPI
     legalPersonAPI: legalPersonAPI
+    activityAPI: activityAPI
   }
 }
