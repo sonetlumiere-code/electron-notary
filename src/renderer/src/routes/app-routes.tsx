@@ -1,8 +1,6 @@
 import AuthLayout from "@renderer/components/auth/_layout"
 import LoginPage from "@renderer/components/auth/login/login"
 import DashboardLayout from "@renderer/components/dashboard/layout/_layout"
-import LegalPersonsListPage from "@renderer/components/dashboard/lists/legal-persons/legal-persons.list"
-import PersonsListPage from "@renderer/components/dashboard/lists/persons/persons-list"
 import CreateActivityPage from "@renderer/pages/create-activity"
 import CreateLegalPersonPage from "@renderer/pages/create-legal-person"
 import CreatePersonPage from "@renderer/pages/create-person"
@@ -11,7 +9,9 @@ import EditLegalPersonPage from "@renderer/pages/edit-legal-person"
 import EditPersonPage from "@renderer/pages/edit-person"
 import HomePage from "@renderer/pages/home"
 import LegalPersonDetailsPage from "@renderer/pages/legal-person-details"
+import LegalPersonsPage from "@renderer/pages/legal-persons"
 import PersonDetailsPage from "@renderer/pages/person-details"
+import PersonsPage from "@renderer/pages/persons"
 import { createHashRouter, RouterProvider } from "react-router-dom"
 import PrivateRoute from "./private-route"
 import PublicRoute from "./public-route"
@@ -31,7 +31,7 @@ const router = createHashRouter([
       },
       {
         path: "/persons-list",
-        element: <PersonsListPage />
+        element: <PersonsPage />
       },
       {
         path: "/create-person",
@@ -47,7 +47,7 @@ const router = createHashRouter([
       },
       {
         path: "/legal-persons-list",
-        element: <LegalPersonsListPage />
+        element: <LegalPersonsPage />
       },
       {
         path: "/create-legal-person",
