@@ -16,13 +16,15 @@ import {
   CardHeader,
   CardTitle
 } from "@renderer/components/ui/card"
-import { LegalPersonDataSheet } from "@shared/types"
+import { Activity, LegalPersonDataSheet } from "@shared/types"
 import { format } from "date-fns"
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 
 const LegalPersonDetailsPage = () => {
-  const [legalPerson, setLegalPerson] = useState<LegalPersonDataSheet | null>(null)
+  const [legalPerson, setLegalPerson] = useState<
+    (LegalPersonDataSheet & { activities: Activity[] }) | null
+  >(null)
 
   const { id } = useParams()
   const legalPersonId = Number(id)
@@ -155,6 +157,42 @@ const LegalPersonDetailsPage = () => {
           )}
         </CardContent>
         <CardFooter></CardFooter>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <div className="space-y-2">
+            <CardTitle>Actividades</CardTitle>
+            <CardDescription>Historial de actividades</CardDescription>
+          </div>
+        </CardHeader>
+        <CardContent>
+          {legalPerson?.activities.map((activity) => (
+            <div
+              key={activity.id}
+              className="relative grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+            >
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Fecha</p>
+                <p className="text-sm text-muted-foreground">
+                  {format(activity.date, "dd/MM/yyyy")}
+                </p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Acta</p>
+                <p className="text-sm text-muted-foreground">{activity.act}</p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Observaciones</p>
+                <p className="text-sm text-muted-foreground">{activity.observations}</p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Archivo adjunto</p>
+                <p className="text-sm text-muted-foreground">{activity.attachedFile}</p>
+              </div>
+            </div>
+          ))}
+        </CardContent>
       </Card>
     </div>
   )

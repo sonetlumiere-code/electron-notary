@@ -1,6 +1,6 @@
 import legalPersonDocBuffer from "@/lib/docx/legal-person-docx"
 import db from "@/lib/sqlite/sqlite-config"
-import { FileFormat, LegalPersonDataSheet } from "@shared/types"
+import { Activity, FileFormat, LegalPersonDataSheet } from "@shared/types"
 import csvParser from "csv-parser"
 import fs from "fs"
 import { parse } from "json2csv"
@@ -64,14 +64,27 @@ const getLegalPersons = (): LegalPersonDataSheet[] | null => {
   }
 }
 
-const getLegalPersonById = (id: number): LegalPersonDataSheet | null => {
-  const query = `SELECT * FROM legal_person_data_sheets WHERE id = ?`
+const getLegalPersonById = (
+  id: number
+): (LegalPersonDataSheet & { activities: Activity[] }) | null => {
+  const legalPersonQuery = `SELECT * FROM legal_person_data_sheets WHERE id = ?`
+  const activitiesQuery = `SELECT * FROM activity WHERE legal_person_id = ? ORDER BY date DESC`
 
   try {
-    const stmt = db.prepare(query)
-    const row = stmt.get(id)
-    if (row) {
-      return formatResponse(row)
+    const stmtLegalPerson = db.prepare(legalPersonQuery)
+    const legalPerson = stmtLegalPerson.get(id)
+
+    if (legalPerson) {
+      const stmtActivities = db.prepare(activitiesQuery)
+      const activities = stmtActivities.all(id)
+
+      return {
+        ...formatResponse(legalPerson),
+        activities: activities.map((activity: Activity) => ({
+          ...activity,
+          date: activity.date ? new Date(activity.date) : null
+        }))
+      }
     }
     return null
   } catch (err) {

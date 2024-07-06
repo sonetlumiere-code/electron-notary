@@ -1,6 +1,6 @@
 import personDocBuffer from "@/lib/docx/person-docx"
 import db from "@/lib/sqlite/sqlite-config"
-import { FileFormat, PersonDataSheet } from "@shared/types"
+import { Activity, FileFormat, PersonDataSheet } from "@shared/types"
 import csvParser from "csv-parser"
 import fs from "fs"
 import { parse } from "json2csv"
@@ -85,15 +85,27 @@ const getPersons = (): PersonDataSheet[] | null => {
   }
 }
 
-const getPersonById = (id: number): PersonDataSheet | null => {
-  const query = `SELECT * FROM person_data_sheets WHERE id = ?`
+const getPersonById = (id: number): (PersonDataSheet & { activities: Activity[] }) | null => {
+  const personQuery = `SELECT * FROM person_data_sheets WHERE id = ?`
+  const activitiesQuery = `SELECT * FROM activity WHERE person_id = ? ORDER BY date DESC`
 
   try {
-    const stmt = db.prepare(query)
-    const row = stmt.get(id)
-    if (row) {
-      return formatResponse(row)
+    const stmtPerson = db.prepare(personQuery)
+    const person = stmtPerson.get(id)
+
+    if (person) {
+      const stmtActivities = db.prepare(activitiesQuery)
+      const activities = stmtActivities.all(id)
+
+      return {
+        ...formatResponse(person),
+        activities: activities.map((activity: Activity) => ({
+          ...activity,
+          date: activity.date ? new Date(activity.date) : null
+        }))
+      }
     }
+
     return null
   } catch (err) {
     console.error("Error retrieving data: ", err)
