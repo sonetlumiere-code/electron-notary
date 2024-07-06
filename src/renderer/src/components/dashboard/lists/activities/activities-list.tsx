@@ -1,5 +1,13 @@
+import { useActivities } from "@renderer/components/activities-provider"
+
 const ActivitiesList = () => {
-  return <div>ActivitiesList</div>
+  const { activities } = useActivities()
+
+  return (
+    <div>
+      ActivitiesList <div>{JSON.stringify(activities)}</div>
+    </div>
+  )
 }
 
 export default ActivitiesList
