@@ -19,6 +19,11 @@ const navItems: NavigationItem[] = [
     id: 3,
     name: "Personas jurídicas",
     href: "/legal-persons"
+  },
+  {
+    id: 4,
+    name: "Actividades",
+    href: "/activities"
   }
 ]
 

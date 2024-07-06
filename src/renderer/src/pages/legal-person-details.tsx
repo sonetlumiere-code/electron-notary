@@ -68,7 +68,13 @@ const LegalPersonDetailsPage = () => {
               <CardDescription>Ficha de persona jurídica</CardDescription>
             </div>
             {legalPerson && (
-              <LegalPersonActions legalPerson={legalPerson} showEdit showExport showDelete />
+              <LegalPersonActions
+                legalPerson={legalPerson}
+                showEdit
+                showActivity
+                showExport
+                showDelete
+              />
             )}
           </div>
         </CardHeader>

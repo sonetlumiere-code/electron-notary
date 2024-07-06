@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger
 } from "@renderer/components/ui/dropdown-menu"
 import { LegalPersonDataSheet } from "@shared/types"
-import { Edit, MoreHorizontal, ViewIcon } from "lucide-react"
+import { Edit, MoreHorizontal, SquarePlus, ViewIcon } from "lucide-react"
 import { Link } from "react-router-dom"
 import DeleteLegalPerson from "./delete-legal-person"
 import ExportLegalPerson from "./export-legal-person"
@@ -17,6 +17,7 @@ type LegalPersonActionsProps = {
   legalPerson: LegalPersonDataSheet
   showView?: boolean
   showEdit?: boolean
+  showActivity?: boolean
   showExport?: boolean
   showDelete?: boolean
 }
@@ -25,6 +26,7 @@ const LegalPersonActions = ({
   legalPerson,
   showView,
   showEdit,
+  showActivity,
   showExport,
   showDelete
 }: LegalPersonActionsProps) => {
@@ -52,6 +54,14 @@ const LegalPersonActions = ({
             <DropdownMenuItem>
               <Edit className="w-4 h-4" />
               <p className="ml-2">Editar</p>
+            </DropdownMenuItem>
+          </Link>
+        )}
+        {showActivity && (
+          <Link to={`/create-activity/legal-person/${legalPerson.id}`}>
+            <DropdownMenuItem>
+              <SquarePlus className="w-4 h-4" />
+              <p className="ml-2">Agregar actividad</p>
             </DropdownMenuItem>
           </Link>
         )}

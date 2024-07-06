@@ -108,7 +108,14 @@ export const columns: ColumnDef<LegalPersonDataSheet>[] = [
       const rowData = row.original as LegalPersonDataSheet
       return (
         <div className="flex justify-end space-x-1">
-          <LegalPersonActions legalPerson={rowData} showView showEdit showExport showDelete />
+          <LegalPersonActions
+            legalPerson={rowData}
+            showView
+            showEdit
+            showActivity
+            showExport
+            showDelete
+          />
         </div>
       )
     }

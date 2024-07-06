@@ -157,7 +157,13 @@ const EditLegalPersonPage = () => {
                     </CardDescription>
                   </div>
                   {legalPerson && (
-                    <LegalPersonActions legalPerson={legalPerson} showView showExport showDelete />
+                    <LegalPersonActions
+                      legalPerson={legalPerson}
+                      showView
+                      showActivity
+                      showExport
+                      showDelete
+                    />
                   )}
                 </div>
               </CardHeader>

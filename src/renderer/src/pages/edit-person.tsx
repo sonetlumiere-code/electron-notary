@@ -168,7 +168,9 @@ const EditPersonPage = () => {
                     <CardTitle>Persona</CardTitle>
                     <CardDescription>Formulario para editar ficha de persona</CardDescription>
                   </div>
-                  {person && <PersonActions person={person} showView showExport showDelete />}
+                  {person && (
+                    <PersonActions person={person} showView showActivity showExport showDelete />
+                  )}
                 </div>
               </CardHeader>
               <CardContent>
