@@ -33,7 +33,7 @@ const createActivity = (data: Activity) => {
 }
 
 const getActivities = (): Activity[] | null => {
-  const query = `SELECT * FROM activity`
+  const query = `SELECT * FROM activity ORDER BY date DESC`
 
   try {
     const stmt = db.prepare(query)
