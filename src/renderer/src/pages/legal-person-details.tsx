@@ -195,7 +195,7 @@ const LegalPersonDetailsPage = () => {
                     <div className="flex justify-between items-center">
                       <div
                         key={activity.id}
-                        className="relative grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+                        className="relative w-5/6 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
                       >
                         <div className="grid gap-1 self-start">
                           <p className="text-sm font-medium leading-none">Fecha</p>

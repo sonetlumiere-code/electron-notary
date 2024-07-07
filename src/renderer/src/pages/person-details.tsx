@@ -269,7 +269,7 @@ const PersonDetailsPage = () => {
 
                   <AccordionContent>
                     <div className="flex justify-between items-center">
-                      <div className="relative w-full grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                      <div className="relative w-5/6 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                         <div className="grid gap-1 self-start">
                           <p className="text-sm font-medium leading-none">Fecha</p>
                           <p className="text-sm text-muted-foreground">
