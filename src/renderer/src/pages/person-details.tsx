@@ -263,7 +263,7 @@ const PersonDetailsPage = () => {
             <Accordion type="single" collapsible>
               {person.activities.map((activity) => (
                 <AccordionItem key={activity.id} value={`item-${activity.id}`}>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-center">
                     <AccordionTrigger>
                       {format(new Date(activity.date), "dd/MM/yyyy")}
                     </AccordionTrigger>

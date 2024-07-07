@@ -56,7 +56,12 @@ const EditActivityPage = () => {
       const res: Activity | null = await window.activityAPI.getActivityById(activityId)
       if (res) {
         setActivity(res)
-        form.reset(res)
+        form.reset({
+          date: res.date,
+          act: res.act,
+          observations: res.observations || "",
+          attachedFile: res.attachedFile || ""
+        })
       }
     }
 
@@ -64,10 +69,14 @@ const EditActivityPage = () => {
   }, [])
 
   const editActivity = async (data: ActivitySchema) => {
-    console.log(data)
     try {
-      const res = await window.activityAPI.updateActivity({ id: activityId, ...data })
-      console.log(res)
+      const res = await window.activityAPI.updateActivity({
+        id: activityId,
+        ...data,
+        person_id: activity?.person_id,
+        legal_person_id: activity?.legal_person_id
+      })
+
       if (res) {
         navigate("/activities")
         toast({
@@ -206,7 +215,10 @@ const EditActivityPage = () => {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button type="submit" disabled={form.formState.isSubmitting}>
+                <Button
+                  type="submit"
+                  disabled={form.formState.isSubmitting || !form.formState.isValid}
+                >
                   Editar
                 </Button>
               </CardFooter>
