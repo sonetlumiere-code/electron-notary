@@ -14,6 +14,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator
 } from "@renderer/components/ui/breadcrumb"
+import { Button } from "@renderer/components/ui/button"
 import {
   Card,
   CardContent,
@@ -22,8 +23,17 @@ import {
   CardHeader,
   CardTitle
 } from "@renderer/components/ui/card"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from "@renderer/components/ui/dropdown-menu"
 import { Activity, LegalPersonDataSheet } from "@shared/types"
 import { format } from "date-fns"
+import { Edit, MoreHorizontal } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 
@@ -45,7 +55,7 @@ const LegalPersonDetailsPage = () => {
   }, [])
 
   return (
-    <div className="space-y-6">
+    <div className="relative space-y-6">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -177,9 +187,29 @@ const LegalPersonDetailsPage = () => {
             <Accordion type="single" collapsible>
               {legalPerson.activities.map((activity) => (
                 <AccordionItem key={activity.id} value={`item-${activity.id}`}>
-                  <AccordionTrigger>
-                    {format(new Date(activity.date), "dd/MM/yyyy")}
-                  </AccordionTrigger>
+                  <div className="flex justify-between">
+                    <AccordionTrigger>
+                      {format(new Date(activity.date), "dd/MM/yyyy")}
+                    </AccordionTrigger>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="h-8 w-8 p-0">
+                          <span className="sr-only">Abrir menú</span>
+                          <MoreHorizontal className="h-4 w-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <Link to={`/edit-activity/${activity.id}`}>
+                          <DropdownMenuItem>
+                            <Edit className="w-4 h-4" />
+                            <p className="ml-2">Editar</p>
+                          </DropdownMenuItem>
+                        </Link>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
                   <AccordionContent>
                     <div
                       key={activity.id}
@@ -203,10 +233,10 @@ const LegalPersonDetailsPage = () => {
                           {activity.observations}
                         </p>
                       </div>
-                      <div className="grid gap-1 self-start">
+                      {/* <div className="grid gap-1 self-start">
                         <p className="text-sm font-medium leading-none">Archivo adjunto</p>
                         <p className="text-sm text-muted-foreground">{activity.attachedFile}</p>
-                      </div>
+                      </div> */}
                     </div>
                   </AccordionContent>
                 </AccordionItem>

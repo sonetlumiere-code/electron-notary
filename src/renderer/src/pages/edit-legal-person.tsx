@@ -94,7 +94,7 @@ const EditLegalPersonPage = () => {
     getLegalPerson()
   }, [])
 
-  const editLegalPerson = async (data: LegalPersonDataSheet) => {
+  const editLegalPerson = async (data: LegalPersonSchema) => {
     try {
       const res = await window.legalPersonAPI.updateLegalPerson({ id: legalPersonId, ...data })
 

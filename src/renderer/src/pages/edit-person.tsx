@@ -108,7 +108,7 @@ const EditPersonPage = () => {
     getPerson()
   }, [])
 
-  const editPerson = async (data: PersonDataSheet) => {
+  const editPerson = async (data: PersonSchema) => {
     try {
       const res = await window.personAPI.updatePerson({ id: personId, ...data })
 

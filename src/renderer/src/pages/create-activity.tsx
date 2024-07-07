@@ -178,7 +178,7 @@ const CreateActivityPage = () => {
                   )}
                 />
 
-                <FormField
+                {/* <FormField
                   control={form.control}
                   name="attachedFile"
                   render={({ field }) => (
@@ -191,7 +191,7 @@ const CreateActivityPage = () => {
                       <FormMessage />
                     </FormItem>
                   )}
-                />
+                /> */}
 
                 <FormField
                   control={form.control}
