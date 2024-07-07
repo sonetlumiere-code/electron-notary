@@ -187,56 +187,58 @@ const LegalPersonDetailsPage = () => {
             <Accordion type="single" collapsible>
               {legalPerson.activities.map((activity) => (
                 <AccordionItem key={activity.id} value={`item-${activity.id}`}>
-                  <div className="flex justify-between items-center">
-                    <AccordionTrigger>
-                      {format(new Date(activity.date), "dd/MM/yyyy")}
-                    </AccordionTrigger>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                          <span className="sr-only">Abrir menú</span>
-                          <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <Link to={`/edit-activity/${activity.id}`}>
-                          <DropdownMenuItem>
-                            <Edit className="w-4 h-4" />
-                            <p className="ml-2">Editar</p>
-                          </DropdownMenuItem>
-                        </Link>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </div>
+                  <AccordionTrigger>
+                    {format(new Date(activity.date), "dd/MM/yyyy")}
+                  </AccordionTrigger>
+
                   <AccordionContent>
-                    <div
-                      key={activity.id}
-                      className="relative grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-                    >
-                      <div className="grid gap-1 self-start">
-                        <p className="text-sm font-medium leading-none">Fecha</p>
-                        <p className="text-sm text-muted-foreground">
-                          {format(new Date(activity.date), "dd/MM/yyyy")}
-                        </p>
-                      </div>
-                      <div className="grid gap-1 self-start">
-                        <p className="text-sm font-medium leading-none">Acta</p>
-                        <p className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
-                          {activity.act}
-                        </p>
-                      </div>
-                      <div className="grid gap-1 self-start">
-                        <p className="text-sm font-medium leading-none">Observaciones</p>
-                        <p className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
-                          {activity.observations}
-                        </p>
-                      </div>
-                      {/* <div className="grid gap-1 self-start">
+                    <div className="flex justify-between items-center">
+                      <div
+                        key={activity.id}
+                        className="relative grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+                      >
+                        <div className="grid gap-1 self-start">
+                          <p className="text-sm font-medium leading-none">Fecha</p>
+                          <p className="text-sm text-muted-foreground">
+                            {format(new Date(activity.date), "dd/MM/yyyy")}
+                          </p>
+                        </div>
+                        <div className="grid gap-1 self-start">
+                          <p className="text-sm font-medium leading-none">Acta</p>
+                          <p className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
+                            {activity.act}
+                          </p>
+                        </div>
+                        <div className="grid gap-1 self-start">
+                          <p className="text-sm font-medium leading-none">Observaciones</p>
+                          <p className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
+                            {activity.observations}
+                          </p>
+                        </div>
+                        {/* <div className="grid gap-1 self-start">
                         <p className="text-sm font-medium leading-none">Archivo adjunto</p>
                         <p className="text-sm text-muted-foreground">{activity.attachedFile}</p>
                       </div> */}
+                      </div>
+
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" className="h-8 w-8 p-0">
+                            <span className="sr-only">Abrir menú</span>
+                            <MoreHorizontal className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+                          <DropdownMenuSeparator />
+                          <Link to={`/edit-activity/${activity.id}`}>
+                            <DropdownMenuItem>
+                              <Edit className="w-4 h-4" />
+                              <p className="ml-2">Editar</p>
+                            </DropdownMenuItem>
+                          </Link>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                     </div>
                   </AccordionContent>
                 </AccordionItem>
