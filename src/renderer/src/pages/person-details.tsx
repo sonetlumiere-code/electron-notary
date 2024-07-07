@@ -1,6 +1,12 @@
 import PersonActions from "@renderer/components/dashboard/lists/persons/actions/item-actions/person-actions"
 import PageTitle from "@renderer/components/page-title"
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger
+} from "@renderer/components/ui/accordion"
+import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
@@ -246,31 +252,37 @@ const PersonDetailsPage = () => {
         </CardHeader>
         <CardContent>
           {person?.activities.length ? (
-            person.activities.map((activity) => (
-              <div
-                key={activity.id}
-                className="relative grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-              >
-                <div className="grid gap-1">
-                  <p className="text-sm font-medium leading-none">Fecha</p>
-                  <p className="text-sm text-muted-foreground">
+            <Accordion type="single" collapsible>
+              {person.activities.map((activity) => (
+                <AccordionItem key={activity.id} value={`item-${activity.id}`}>
+                  <AccordionTrigger>
                     {format(new Date(activity.date), "dd/MM/yyyy")}
-                  </p>
-                </div>
-                <div className="grid gap-1">
-                  <p className="text-sm font-medium leading-none">Acta</p>
-                  <p className="text-sm text-muted-foreground">{activity.act}</p>
-                </div>
-                <div className="grid gap-1">
-                  <p className="text-sm font-medium leading-none">Observaciones</p>
-                  <p className="text-sm text-muted-foreground">{activity.observations}</p>
-                </div>
-                <div className="grid gap-1">
-                  <p className="text-sm font-medium leading-none">Archivo adjunto</p>
-                  <p className="text-sm text-muted-foreground">{activity.attachedFile}</p>
-                </div>
-              </div>
-            ))
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div className="relative grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+                      <div className="grid gap-1">
+                        <p className="text-sm font-medium leading-none">Fecha</p>
+                        <p className="text-sm text-muted-foreground">
+                          {format(new Date(activity.date), "dd/MM/yyyy")}
+                        </p>
+                      </div>
+                      <div className="grid gap-1">
+                        <p className="text-sm font-medium leading-none">Acta</p>
+                        <p className="text-sm text-muted-foreground">{activity.act}</p>
+                      </div>
+                      <div className="grid gap-1">
+                        <p className="text-sm font-medium leading-none">Observaciones</p>
+                        <p className="text-sm text-muted-foreground">{activity.observations}</p>
+                      </div>
+                      <div className="grid gap-1">
+                        <p className="text-sm font-medium leading-none">Archivo adjunto</p>
+                        <p className="text-sm text-muted-foreground">{activity.attachedFile}</p>
+                      </div>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           ) : (
             <p className="text-sm font-medium">No hay registros de actividades</p>
           )}
