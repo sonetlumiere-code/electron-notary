@@ -5,6 +5,7 @@ import csvParser from "csv-parser"
 import fs from "fs"
 import { parse } from "json2csv"
 import path from "path"
+import { formatResponse as formatActivityResponse } from "./activity"
 
 const createLegalPerson = (data: LegalPersonDataSheet) => {
   const query = `
@@ -80,10 +81,7 @@ const getLegalPersonById = (
 
       return {
         ...formatResponse(legalPerson),
-        activities: activities.map((activity: Activity) => ({
-          ...activity,
-          date: activity.date ? new Date(activity.date) : null
-        }))
+        activities: activities.map(formatActivityResponse)
       }
     }
     return null

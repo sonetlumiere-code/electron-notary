@@ -159,6 +159,7 @@ const formatResponse = (row: Activity): Activity => {
 export {
   createActivity,
   deleteActivities,
+  formatResponse,
   getActivities,
   getActivityById,
   searchActivities,
