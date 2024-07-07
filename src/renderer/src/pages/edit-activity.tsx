@@ -59,8 +59,8 @@ const EditActivityPage = () => {
         form.reset({
           date: res.date,
           act: res.act,
-          observations: res.observations || "",
-          attachedFile: res.attachedFile || ""
+          observations: res.observations ?? "",
+          attachedFile: res.attachedFile ?? ""
         })
       }
     }
@@ -215,10 +215,7 @@ const EditActivityPage = () => {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button
-                  type="submit"
-                  disabled={form.formState.isSubmitting || !form.formState.isValid}
-                >
+                <Button type="submit" disabled={form.formState.isSubmitting}>
                   Editar
                 </Button>
               </CardFooter>

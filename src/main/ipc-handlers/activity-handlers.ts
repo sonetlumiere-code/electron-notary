@@ -14,5 +14,5 @@ export default function activityIPCHandlers(): void {
   ipcMain.handle("get-activity-by-id", (_event, id) => getActivityById(id))
   ipcMain.handle("search-activities", (_event, filters) => searchActivities(filters))
   ipcMain.handle("update-activity", (_event, data) => updateActivity(data))
-  ipcMain.handle("delete-activity", (_event, ids) => deleteActivities(ids))
+  ipcMain.handle("delete-activities", (_event, ids) => deleteActivities(ids))
 }
