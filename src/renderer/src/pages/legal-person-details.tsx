@@ -185,21 +185,25 @@ const LegalPersonDetailsPage = () => {
                       key={activity.id}
                       className="relative grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
                     >
-                      <div className="grid gap-1">
+                      <div className="grid gap-1 self-start">
                         <p className="text-sm font-medium leading-none">Fecha</p>
                         <p className="text-sm text-muted-foreground">
                           {format(new Date(activity.date), "dd/MM/yyyy")}
                         </p>
                       </div>
-                      <div className="grid gap-1">
+                      <div className="grid gap-1 self-start">
                         <p className="text-sm font-medium leading-none">Acta</p>
-                        <p className="text-sm text-muted-foreground">{activity.act}</p>
+                        <p className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
+                          {activity.act}
+                        </p>
                       </div>
-                      <div className="grid gap-1">
+                      <div className="grid gap-1 self-start">
                         <p className="text-sm font-medium leading-none">Observaciones</p>
-                        <p className="text-sm text-muted-foreground">{activity.observations}</p>
+                        <p className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
+                          {activity.observations}
+                        </p>
                       </div>
-                      <div className="grid gap-1">
+                      <div className="grid gap-1 self-start">
                         <p className="text-sm font-medium leading-none">Archivo adjunto</p>
                         <p className="text-sm text-muted-foreground">{activity.attachedFile}</p>
                       </div>
