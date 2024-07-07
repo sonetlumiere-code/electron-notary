@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useActivities } from "@renderer/components/activities-provider"
 import PageTitle from "@renderer/components/page-title"
 import {
   Breadcrumb,
@@ -45,6 +46,7 @@ const EditActivityPage = () => {
 
   const { id } = useParams()
   const activityId = Number(id)
+  const { updateActivity } = useActivities()
   const navigate = useNavigate()
 
   const form = useForm<ActivitySchema>({
@@ -78,6 +80,7 @@ const EditActivityPage = () => {
       })
 
       if (res) {
+        updateActivity(activityId, res)
         navigate("/activities")
         toast({
           title: "Actividad editada.",
