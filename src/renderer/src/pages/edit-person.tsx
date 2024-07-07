@@ -222,7 +222,7 @@ const EditPersonPage = () => {
                           <SelectContent>
                             {Object.entries(Gender).map(([key, value]) => (
                               <SelectItem key={key} value={value}>
-                                {key.toLowerCase()}
+                                {value}
                               </SelectItem>
                             ))}
                           </SelectContent>
@@ -265,7 +265,7 @@ const EditPersonPage = () => {
                           <SelectContent>
                             {Object.entries(DocumentType).map(([key, value]) => (
                               <SelectItem key={key} value={value}>
-                                {key.toLowerCase()}
+                                {value}
                               </SelectItem>
                             ))}
                           </SelectContent>
