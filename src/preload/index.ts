@@ -8,7 +8,10 @@ if (!process.contextIsolated) {
 // Custom APIs for renderer
 const electronAPI = {
   selectDirectory: () => ipcRenderer.invoke("select-directory"),
-  selectFile: (data: { fileFormat: FileFormat }) => ipcRenderer.invoke("select-file", data)
+  selectFile: (data: { fileFormat: FileFormat }) => ipcRenderer.invoke("select-file", data),
+  saveFile: (filePath: string, fileName: string) =>
+    ipcRenderer.invoke("save-file", filePath, fileName),
+  openFile: (fileName: string) => ipcRenderer.invoke("open-file", fileName)
 }
 
 const authAPI = {

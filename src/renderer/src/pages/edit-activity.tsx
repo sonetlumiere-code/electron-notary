@@ -28,6 +28,7 @@ import {
   FormMessage
 } from "@renderer/components/ui/form"
 import { Input } from "@renderer/components/ui/input"
+import { Label } from "@renderer/components/ui/label"
 import { Textarea } from "@renderer/components/ui/textarea"
 import { toast } from "@renderer/components/ui/use-toast"
 import { ActivitySchema, zodActivitySchema } from "@renderer/lib/validators/activity-validator"
@@ -66,13 +67,43 @@ const EditActivityPage = () => {
   }, [])
 
   const editActivity = async (data: ActivitySchema) => {
+    const dataToSend: Activity = {
+      ...data,
+      id: activityId,
+      person_id: activity?.person_id,
+      legal_person_id: activity?.legal_person_id
+    }
+
+    const file = data.attachedFile ? data.attachedFile[0] : null
+
+    let fileName = ""
+
+    if (file) {
+      try {
+        const result = await window.electronAPI.saveFile(file.path, file.name)
+        if (result.status === "success") {
+          fileName = result.fileName || ""
+        } else {
+          toast({
+            variant: "destructive",
+            title: "Error guardando archivo."
+          })
+          return
+        }
+      } catch (error) {
+        console.error("Error saving file:", error)
+        toast({
+          variant: "destructive",
+          title: "Error guardando archivo."
+        })
+        return
+      }
+    }
+
+    dataToSend.attachedFile = fileName
+
     try {
-      const res = await window.activityAPI.updateActivity({
-        id: activityId,
-        ...data,
-        person_id: activity?.person_id,
-        legal_person_id: activity?.legal_person_id
-      })
+      const res = await window.activityAPI.updateActivity(dataToSend)
 
       if (res) {
         updateActivity(activityId, res)
@@ -164,20 +195,15 @@ const EditActivityPage = () => {
                     )}
                   />
 
-                  {/* <FormField
-                  control={form.control}
-                  name="attachedFile"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Archivo adjunto</FormLabel>
-                      <FormControl>
-                        <Input {...field} type="file" disabled={form.formState.isSubmitting} />
-                      </FormControl>
-                      <FormDescription>Adjunta un archivo.</FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                /> */}
+                  <div className="flex flex-col space-y-2 ">
+                    <Label>Archivo adjunto</Label>
+                    <Input
+                      type="file"
+                      disabled={form.formState.isSubmitting}
+                      {...form.register("attachedFile")}
+                    />
+                    <FormDescription>Selecciona un archivo.</FormDescription>
+                  </div>
 
                   <FormField
                     control={form.control}

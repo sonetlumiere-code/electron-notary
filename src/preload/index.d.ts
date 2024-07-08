@@ -4,6 +4,8 @@ import { LegalPersonDataSheet, PersonDataSheet } from "src/main/types"
 export interface electronAPI {
   selectDirectory: () => Promise<string>
   selectFile: (params: { fileFormat: FileFormat }) => Promise<string>
+  saveFile: (filePath: string, fileName: string) => Promise<{ status: string; fileName?: string }>
+  openFile: (fileName: string) => Promise<{ status: string }>
 }
 
 export interface authAPI {

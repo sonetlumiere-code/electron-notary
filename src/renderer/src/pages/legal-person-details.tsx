@@ -33,6 +33,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@renderer/components/ui/dropdown-menu"
+import { toast } from "@renderer/components/ui/use-toast"
 import { Activity, LegalPersonDataSheet } from "@shared/types"
 import { format } from "date-fns"
 import { toZonedTime } from "date-fns-tz"
@@ -58,6 +59,18 @@ const LegalPersonDetailsPage = () => {
 
     getLegalPerson()
   }, [])
+
+  const openFile = async (fileName: string) => {
+    try {
+      await window.electronAPI.openFile(fileName)
+    } catch (error) {
+      console.error("Error opening file:", error)
+      toast({
+        variant: "destructive",
+        title: "Error abriendo archivo adjunto."
+      })
+    }
+  }
 
   return (
     <div className="relative space-y-6">
@@ -205,7 +218,7 @@ const LegalPersonDetailsPage = () => {
                       <div className="flex justify-between items-center">
                         <div
                           key={activity.id}
-                          className="relative w-5/6 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+                          className="relative w-5/6 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
                         >
                           <div className="grid gap-1 self-start">
                             <p className="text-sm font-medium leading-none">Fecha</p>
@@ -225,10 +238,20 @@ const LegalPersonDetailsPage = () => {
                               {activity.observations}
                             </p>
                           </div>
-                          {/* <div className="grid gap-1 self-start">
-                        <p className="text-sm font-medium leading-none">Archivo adjunto</p>
-                        <p className="text-sm text-muted-foreground">{activity.attachedFile}</p>
-                      </div> */}
+                          <div className="grid gap-1 self-start">
+                            <p className="text-sm font-medium leading-none">Archivo adjunto</p>
+                            {activity.attachedFile ? (
+                              <Button
+                                variant="link"
+                                className="justify-start items-start p-0"
+                                onClick={() => openFile(activity.attachedFile as string)}
+                              >
+                                {activity.attachedFile as string}
+                              </Button>
+                            ) : (
+                              <span>-</span>
+                            )}
+                          </div>
                         </div>
 
                         <DropdownMenu>

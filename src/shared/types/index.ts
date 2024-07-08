@@ -102,7 +102,7 @@ export interface Activity {
   date: Date
   act: string
   observations?: string
-  attachedFile?: string
+  attachedFile?: string | File
   person_id?: number
   legal_person_id?: number
 }

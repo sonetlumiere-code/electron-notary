@@ -8,7 +8,7 @@ export const zodActivitySchema = z.object({
   }),
   act: z.string().min(1, { message: "Ingresa el acto." }),
   observations: z.string().optional(),
-  attachedFile: z.string().optional()
+  attachedFile: z.any()
 })
 
 export type ActivitySchema = z.infer<typeof zodActivitySchema>
