@@ -1,3 +1,4 @@
+import { Badge } from "@renderer/components/ui/badge"
 import { Button } from "@renderer/components/ui/button"
 import { Activity } from "@shared/types"
 import { ColumnDef } from "@tanstack/react-table"
@@ -63,6 +64,30 @@ export const columns: ColumnDef<Activity>[] = [
     },
     cell: ({ row }) => {
       return <div className="ml-4 font-medium">{row.getValue("act")}</div>
+    }
+  },
+  {
+    accessorKey: "person_id",
+    meta: "Ficha",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Ficha
+          <ChevronsUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+    cell: ({ row }) => {
+      const isPerson = row.getValue("person_id")
+      console.log(isPerson)
+      return (
+        <div className="ml-4 font-medium">
+          {isPerson ? <Badge>Persona</Badge> : <Badge>Persona jurídica</Badge>}
+        </div>
+      )
     }
   },
   {
