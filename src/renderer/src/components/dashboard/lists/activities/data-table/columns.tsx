@@ -97,7 +97,7 @@ export const columns: ColumnDef<Activity>[] = [
       const rowData = row.original as Activity
       return (
         <div className="flex justify-end space-x-1">
-          <ActivityActions activity={rowData} showEdit showDelete />
+          <ActivityActions activity={rowData} showView showEdit showDelete />
         </div>
       )
     }

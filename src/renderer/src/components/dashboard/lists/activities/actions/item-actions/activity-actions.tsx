@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger
 } from "@renderer/components/ui/dropdown-menu"
 import { Activity } from "@shared/types"
-import { Edit, MoreHorizontal } from "lucide-react"
+import { Edit, MoreHorizontal, ViewIcon } from "lucide-react"
 import { Link } from "react-router-dom"
 import DeleteActivity from "./delete-activity"
 
@@ -20,6 +20,8 @@ type ActivityActionsProps = {
 }
 
 const ActivityActions = ({ activity, showView, showEdit, showDelete }: ActivityActionsProps) => {
+  const isPerson = activity.person_id
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -31,14 +33,16 @@ const ActivityActions = ({ activity, showView, showEdit, showDelete }: ActivityA
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Acciones</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {/* {showView && (
-          <Link to={`/activity/${activity.id}`}>
+        {showView && (
+          <Link
+            to={`/${isPerson ? "person" : "legalPerson"}/${isPerson ? activity.person_id : activity.legal_person_id}`}
+          >
             <DropdownMenuItem>
               <ViewIcon className="w-4 h-4" />
-              <p className="ml-2">Ver</p>
+              <p className="ml-2">Ver ficha</p>
             </DropdownMenuItem>
           </Link>
-        )} */}
+        )}
         {showEdit && (
           <Link to={`/edit-activity/${activity.id}`}>
             <DropdownMenuItem>
