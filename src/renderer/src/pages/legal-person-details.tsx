@@ -1,3 +1,5 @@
+import { useActivities } from "@renderer/components/activities-provider"
+import DeleteActivity from "@renderer/components/dashboard/lists/activities/actions/item-actions/delete-activity"
 import LegalPersonActions from "@renderer/components/dashboard/lists/legal-persons/data-table/actions/item-actions/legal-person-actions"
 import PageTitle from "@renderer/components/page-title"
 import {
@@ -41,6 +43,8 @@ const LegalPersonDetailsPage = () => {
   const [legalPerson, setLegalPerson] = useState<
     (LegalPersonDataSheet & { activities: Activity[] }) | null
   >(null)
+
+  const { activities } = useActivities()
 
   const { id } = useParams()
   const legalPersonId = Number(id)
@@ -185,64 +189,70 @@ const LegalPersonDetailsPage = () => {
         <CardContent>
           {legalPerson?.activities.length ? (
             <Accordion type="single" collapsible>
-              {legalPerson.activities.map((activity) => (
-                <AccordionItem key={activity.id} value={`item-${activity.id}`}>
-                  <AccordionTrigger>
-                    {format(new Date(activity.date), "dd/MM/yyyy")}
-                  </AccordionTrigger>
+              {activities
+                .filter((activity) => activity.legal_person_id === legalPersonId)
+                .map((activity) => (
+                  <AccordionItem key={activity.id} value={`item-${activity.id}`}>
+                    <AccordionTrigger>
+                      {format(new Date(activity.date), "dd/MM/yyyy")}
+                    </AccordionTrigger>
 
-                  <AccordionContent>
-                    <div className="flex justify-between items-center">
-                      <div
-                        key={activity.id}
-                        className="relative w-5/6 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-                      >
-                        <div className="grid gap-1 self-start">
-                          <p className="text-sm font-medium leading-none">Fecha</p>
-                          <p className="text-sm text-muted-foreground">
-                            {format(new Date(activity.date), "dd/MM/yyyy")}
-                          </p>
-                        </div>
-                        <div className="grid gap-1 self-start">
-                          <p className="text-sm font-medium leading-none">Acto</p>
-                          <p className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
-                            {activity.act}
-                          </p>
-                        </div>
-                        <div className="grid gap-1 self-start">
-                          <p className="text-sm font-medium leading-none">Observaciones</p>
-                          <p className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
-                            {activity.observations}
-                          </p>
-                        </div>
-                        {/* <div className="grid gap-1 self-start">
+                    <AccordionContent>
+                      <div className="flex justify-between items-center">
+                        <div
+                          key={activity.id}
+                          className="relative w-5/6 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+                        >
+                          <div className="grid gap-1 self-start">
+                            <p className="text-sm font-medium leading-none">Fecha</p>
+                            <p className="text-sm text-muted-foreground">
+                              {format(new Date(activity.date), "dd/MM/yyyy")}
+                            </p>
+                          </div>
+                          <div className="grid gap-1 self-start">
+                            <p className="text-sm font-medium leading-none">Acto</p>
+                            <p className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
+                              {activity.act}
+                            </p>
+                          </div>
+                          <div className="grid gap-1 self-start">
+                            <p className="text-sm font-medium leading-none">Observaciones</p>
+                            <p className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
+                              {activity.observations}
+                            </p>
+                          </div>
+                          {/* <div className="grid gap-1 self-start">
                         <p className="text-sm font-medium leading-none">Archivo adjunto</p>
                         <p className="text-sm text-muted-foreground">{activity.attachedFile}</p>
                       </div> */}
-                      </div>
+                        </div>
 
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Abrir menú</span>
-                            <MoreHorizontal className="h-4 w-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-                          <DropdownMenuSeparator />
-                          <Link to={`/edit-activity/${activity.id}`}>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" className="h-8 w-8 p-0">
+                              <span className="sr-only">Abrir menú</span>
+                              <MoreHorizontal className="h-4 w-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            <Link to={`/edit-activity/${activity.id}`}>
+                              <DropdownMenuItem>
+                                <Edit className="w-4 h-4" />
+                                <p className="ml-2">Editar</p>
+                              </DropdownMenuItem>
+                            </Link>
+                            <DropdownMenuSeparator />
                             <DropdownMenuItem>
-                              <Edit className="w-4 h-4" />
-                              <p className="ml-2">Editar</p>
+                              <DeleteActivity activity={activity} />
                             </DropdownMenuItem>
-                          </Link>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
             </Accordion>
           ) : (
             <p className="text-sm font-medium">No hay registros de actividades</p>

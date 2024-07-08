@@ -82,7 +82,6 @@ export const columns: ColumnDef<Activity>[] = [
     },
     cell: ({ row }) => {
       const isPerson = row.getValue("person_id")
-      console.log(isPerson)
       return (
         <div className="ml-4 font-medium">
           {isPerson ? <Badge>Persona</Badge> : <Badge>Persona jurídica</Badge>}

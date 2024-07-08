@@ -24,7 +24,7 @@ const DeleteActivity = ({ activity }: DeleteActivityProps) => {
         const res = await window.activityAPI.deleteActivities([activity.id] as number[])
         if (res) {
           deleteActivities(res)
-          navigate("/activities")
+          // navigate("/activities")
           toast({
             title: "Actividad eliminada.",
             description: "La actividad ha sido eliminada correctamente."
