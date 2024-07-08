@@ -194,7 +194,10 @@ const LegalPersonDetailsPage = () => {
                 .map((activity) => (
                   <AccordionItem key={activity.id} value={`item-${activity.id}`}>
                     <AccordionTrigger>
-                      {format(new Date(activity.date), "dd/MM/yyyy")}
+                      <div className="space-x-5">
+                        <span>{format(new Date(activity.date), "dd/MM/yyyy")}</span>
+                        <span>{activity.act}</span>
+                      </div>
                     </AccordionTrigger>
 
                     <AccordionContent>
