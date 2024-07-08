@@ -35,7 +35,7 @@ const ActivityActions = ({ activity, showView, showEdit, showDelete }: ActivityA
         <DropdownMenuSeparator />
         {showView && (
           <Link
-            to={`/${isPerson ? "person" : "legalPerson"}/${isPerson ? activity.person_id : activity.legal_person_id}`}
+            to={`/${isPerson ? "person" : "legal-person"}/${isPerson ? activity.person_id : activity.legal_person_id}`}
           >
             <DropdownMenuItem>
               <ViewIcon className="w-4 h-4" />

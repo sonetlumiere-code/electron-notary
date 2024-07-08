@@ -35,6 +35,7 @@ import {
 } from "@renderer/components/ui/dropdown-menu"
 import { Activity, LegalPersonDataSheet } from "@shared/types"
 import { format } from "date-fns"
+import { toZonedTime } from "date-fns-tz"
 import { Edit, MoreHorizontal } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
@@ -128,7 +129,7 @@ const LegalPersonDetailsPage = () => {
               <div className="grid gap-1">
                 <p className="text-sm font-medium leading-none">Fecha de inscripción</p>
                 <p className="text-sm text-muted-foreground">
-                  {format(legalPerson.registrationDate, "dd/MM/yyyy")}
+                  {format(toZonedTime(legalPerson.registrationDate, "UTC"), "dd/MM/yyyy")}
                 </p>
               </div>
               <div className="grid gap-1">
@@ -195,7 +196,7 @@ const LegalPersonDetailsPage = () => {
                   <AccordionItem key={activity.id} value={`item-${activity.id}`}>
                     <AccordionTrigger>
                       <div className="space-x-5">
-                        <span>{format(new Date(activity.date), "dd/MM/yyyy")}</span>
+                        <span>{format(toZonedTime(activity.date, "UTC"), "dd/MM/yyyy")}</span>
                         <span>{activity.act}</span>
                       </div>
                     </AccordionTrigger>
@@ -209,7 +210,7 @@ const LegalPersonDetailsPage = () => {
                           <div className="grid gap-1 self-start">
                             <p className="text-sm font-medium leading-none">Fecha</p>
                             <p className="text-sm text-muted-foreground">
-                              {format(new Date(activity.date), "dd/MM/yyyy")}
+                              <span>{format(toZonedTime(activity.date, "UTC"), "dd/MM/yyyy")}</span>
                             </p>
                           </div>
                           <div className="grid gap-1 self-start">

@@ -11,7 +11,6 @@ import {
   BreadcrumbSeparator
 } from "@renderer/components/ui/breadcrumb"
 import { Button } from "@renderer/components/ui/button"
-import { Calendar } from "@renderer/components/ui/calendar"
 import {
   Card,
   CardContent,
@@ -30,7 +29,6 @@ import {
   FormMessage
 } from "@renderer/components/ui/form"
 import { Input } from "@renderer/components/ui/input"
-import { Popover, PopoverContent, PopoverTrigger } from "@renderer/components/ui/popover"
 import {
   Select,
   SelectContent,
@@ -41,11 +39,8 @@ import {
 import { Textarea } from "@renderer/components/ui/textarea"
 import { ToastAction } from "@renderer/components/ui/toast"
 import { toast } from "@renderer/components/ui/use-toast"
-import { cn } from "@renderer/lib/utils"
 import { PersonSchema, zodPersonSchema } from "@renderer/lib/validators/person-validator"
 import { DocumentType, Gender, MaritalRegime, MaritalStatus, PersonDataSheet } from "@shared/types"
-import { format } from "date-fns"
-import { CalendarIcon } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { Link, useNavigate, useParams } from "react-router-dom"
@@ -309,35 +304,18 @@ const EditPersonPage = () => {
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
                         <FormLabel>Fecha de nacimiento</FormLabel>
-                        <Popover>
-                          <PopoverTrigger asChild disabled={form.formState.isSubmitting}>
-                            <FormControl>
-                              <Button
-                                variant={"outline"}
-                                className={cn(
-                                  "pl-3 text-left font-normal hover:border-ring",
-                                  !field.value && "text-muted-foreground"
-                                )}
-                              >
-                                {field.value ? (
-                                  format(field.value, "dd/MM/yyyy")
-                                ) : (
-                                  <span>Selecciona una fecha.</span>
-                                )}
-                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                              </Button>
-                            </FormControl>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0" align="start">
-                            <Calendar
-                              mode="single"
-                              selected={field.value}
-                              onSelect={field.onChange}
-                              disabled={(date) => date > new Date()}
-                              initialFocus
-                            />
-                          </PopoverContent>
-                        </Popover>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            type="date"
+                            value={
+                              field.value instanceof Date
+                                ? field.value.toISOString().split("T")[0]
+                                : field.value
+                            }
+                            disabled={form.formState.isSubmitting}
+                          />
+                        </FormControl>
                         <FormDescription>Selecciona la fecha de ingreso.</FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -477,35 +455,18 @@ const EditPersonPage = () => {
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
                         <FormLabel>Fecha de sentencia</FormLabel>
-                        <Popover>
-                          <PopoverTrigger asChild disabled={form.formState.isSubmitting}>
-                            <FormControl>
-                              <Button
-                                variant={"outline"}
-                                className={cn(
-                                  "pl-3 text-left font-normal hover:border-ring",
-                                  !field.value && "text-muted-foreground"
-                                )}
-                              >
-                                {field.value ? (
-                                  format(field.value, "dd/MM/yyyy")
-                                ) : (
-                                  <span>Selecciona una fecha.</span>
-                                )}
-                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                              </Button>
-                            </FormControl>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-auto p-0" align="start">
-                            <Calendar
-                              mode="single"
-                              selected={field.value}
-                              onSelect={field.onChange}
-                              disabled={(date) => date > new Date()}
-                              initialFocus
-                            />
-                          </PopoverContent>
-                        </Popover>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            type="date"
+                            value={
+                              field.value instanceof Date
+                                ? field.value.toISOString().split("T")[0]
+                                : field.value
+                            }
+                            disabled={form.formState.isSubmitting}
+                          />
+                        </FormControl>
                         <FormDescription>Selecciona la fecha de sentencia.</FormDescription>
                         <FormMessage />
                       </FormItem>

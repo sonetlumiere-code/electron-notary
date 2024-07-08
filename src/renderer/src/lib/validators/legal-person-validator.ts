@@ -9,7 +9,12 @@ export const zodLegalPersonSchema = z.object({
   instrumentOfConstitution: z
     .string()
     .min(1, { message: "Ingresa el instrumento de constitución." }),
-  registrationDate: z.date({ message: "Ingresa una fecha de inscripción válida." }),
+  registrationDate: z.coerce.date({
+    errorMap: (issue, { defaultError }) => ({
+      message:
+        issue.code === "invalid_date" ? "Ingresa una fecha de inscripción válida." : defaultError
+    })
+  }),
   registrationOffice: z.nativeEnum(RegistrationOffice),
   registeredOfficePhone: z.coerce
     .number()

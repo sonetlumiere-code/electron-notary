@@ -17,7 +17,11 @@ export const zodPersonSchema = z.object({
   }),
   documentNumber: z.coerce.number().min(1, { message: "Ingresa el número de documento." }),
   CUIT_L: z.coerce.number().min(1, { message: "Ingresa el CUIT o CUIL." }),
-  birthdate: z.date({ message: "Ingresa la fecha de nacimiento." }),
+  birthdate: z.coerce.date({
+    errorMap: (issue, { defaultError }) => ({
+      message: issue.code === "invalid_date" ? "Ingresa la fecha de nacimiento" : defaultError
+    })
+  }),
   birthplace: z.string().trim().min(1, { message: "Ingresa el lugar de nacimiento." }),
   maritalStatus: z.nativeEnum(MaritalStatus, {
     errorMap: () => ({
@@ -30,7 +34,7 @@ export const zodPersonSchema = z.object({
   marriageNumber: z.coerce.number().optional(),
   marriageRegime: z.nativeEnum(MaritalRegime).optional(),
   divorceSpouseName: z.string().trim().optional(),
-  divorceDate: z.date().optional(),
+  divorceDate: z.coerce.date().optional(),
   divorceCourt: z.string().trim().optional(),
   divorce: z.string().trim().optional(),
   widowNumber: z.number().optional(),
