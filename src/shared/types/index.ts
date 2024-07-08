@@ -106,3 +106,7 @@ export interface Activity {
   person_id?: number
   legal_person_id?: number
 }
+
+export type ElectronFile = File & {
+  path: string
+}

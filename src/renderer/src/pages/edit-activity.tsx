@@ -32,7 +32,7 @@ import { Label } from "@renderer/components/ui/label"
 import { Textarea } from "@renderer/components/ui/textarea"
 import { toast } from "@renderer/components/ui/use-toast"
 import { ActivitySchema, zodActivitySchema } from "@renderer/lib/validators/activity-validator"
-import { Activity } from "@shared/types"
+import { Activity, ElectronFile } from "@shared/types"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { Link, useNavigate, useParams } from "react-router-dom"
@@ -74,15 +74,14 @@ const EditActivityPage = () => {
       legal_person_id: activity?.legal_person_id
     }
 
-    const file = data.attachedFile ? data.attachedFile[0] : null
-
-    let fileName = ""
+    const file =
+      data.attachedFile instanceof FileList ? (data.attachedFile[0] as ElectronFile) : null
 
     if (file) {
       try {
         const result = await window.electronAPI.saveFile(file.path, file.name)
         if (result.status === "success") {
-          fileName = result.fileName || ""
+          dataToSend.attachedFile = result.fileName || ""
         } else {
           toast({
             variant: "destructive",
@@ -100,7 +99,7 @@ const EditActivityPage = () => {
       }
     }
 
-    dataToSend.attachedFile = fileName
+    console.log(dataToSend)
 
     try {
       const res = await window.activityAPI.updateActivity(dataToSend)

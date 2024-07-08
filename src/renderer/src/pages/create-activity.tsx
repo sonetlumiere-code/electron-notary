@@ -32,7 +32,7 @@ import { Label } from "@renderer/components/ui/label"
 import { Textarea } from "@renderer/components/ui/textarea"
 import { toast } from "@renderer/components/ui/use-toast"
 import { ActivitySchema, zodActivitySchema } from "@renderer/lib/validators/activity-validator"
-import { Activity } from "@shared/types"
+import { Activity, ElectronFile } from "@shared/types"
 import { useForm } from "react-hook-form"
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
 
@@ -59,7 +59,8 @@ const CreateActivityPage = () => {
 
     dataToSend[isPerson ? "person_id" : "legal_person_id"] = Number(id)
 
-    const file = data.attachedFile ? data.attachedFile[0] : null
+    const file =
+      data.attachedFile instanceof FileList ? (data.attachedFile[0] as ElectronFile) : null
 
     let fileName = ""
 
