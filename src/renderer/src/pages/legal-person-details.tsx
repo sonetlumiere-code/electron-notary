@@ -1,13 +1,6 @@
-import { useActivities } from "@renderer/components/activities-provider"
-import DeleteActivity from "@renderer/components/dashboard/lists/activities/actions/item-actions/delete-activity"
+import ActivitiesCard from "@renderer/components/activities-card"
 import LegalPersonActions from "@renderer/components/dashboard/lists/legal-persons/data-table/actions/item-actions/legal-person-actions"
 import PageTitle from "@renderer/components/page-title"
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger
-} from "@renderer/components/ui/accordion"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -16,7 +9,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator
 } from "@renderer/components/ui/breadcrumb"
-import { Button } from "@renderer/components/ui/button"
 import {
   Card,
   CardContent,
@@ -25,19 +17,9 @@ import {
   CardHeader,
   CardTitle
 } from "@renderer/components/ui/card"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from "@renderer/components/ui/dropdown-menu"
-import { toast } from "@renderer/components/ui/use-toast"
 import { Activity, LegalPersonDataSheet } from "@shared/types"
 import { format } from "date-fns"
 import { toZonedTime } from "date-fns-tz"
-import { Edit, MoreHorizontal } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 
@@ -45,8 +27,6 @@ const LegalPersonDetailsPage = () => {
   const [legalPerson, setLegalPerson] = useState<
     (LegalPersonDataSheet & { activities: Activity[] }) | null
   >(null)
-
-  const { activities } = useActivities()
 
   const { id } = useParams()
   const legalPersonId = Number(id)
@@ -59,18 +39,6 @@ const LegalPersonDetailsPage = () => {
 
     getLegalPerson()
   }, [])
-
-  const openFile = async (fileName: string) => {
-    try {
-      await window.electronAPI.openFile(fileName)
-    } catch (error) {
-      console.error("Error opening file:", error)
-      toast({
-        variant: "destructive",
-        title: "Error abriendo archivo adjunto."
-      })
-    }
-  }
 
   return (
     <div className="relative space-y-6">
@@ -193,99 +161,7 @@ const LegalPersonDetailsPage = () => {
         <CardFooter></CardFooter>
       </Card>
 
-      <Card>
-        <CardHeader>
-          <div className="space-y-2">
-            <CardTitle>Actividades</CardTitle>
-            <CardDescription>Historial de actividades</CardDescription>
-          </div>
-        </CardHeader>
-        <CardContent>
-          {legalPerson?.activities.length ? (
-            <Accordion type="single" collapsible>
-              {activities
-                .filter((activity) => activity.legal_person_id === legalPersonId)
-                .map((activity) => (
-                  <AccordionItem key={activity.id} value={`item-${activity.id}`}>
-                    <AccordionTrigger>
-                      <div className="space-x-5">
-                        <span>{format(toZonedTime(activity.date, "UTC"), "dd/MM/yyyy")}</span>
-                        <span>{activity.act}</span>
-                      </div>
-                    </AccordionTrigger>
-
-                    <AccordionContent>
-                      <div className="flex justify-between items-center">
-                        <div
-                          key={activity.id}
-                          className="relative w-5/6 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
-                        >
-                          <div className="grid gap-1 self-start">
-                            <p className="text-sm font-medium leading-none">Fecha</p>
-                            <p className="text-sm text-muted-foreground">
-                              <span>{format(toZonedTime(activity.date, "UTC"), "dd/MM/yyyy")}</span>
-                            </p>
-                          </div>
-                          <div className="grid gap-1 self-start">
-                            <p className="text-sm font-medium leading-none">Acto</p>
-                            <p className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
-                              {activity.act}
-                            </p>
-                          </div>
-                          <div className="grid gap-1 self-start">
-                            <p className="text-sm font-medium leading-none">Observaciones</p>
-                            <p className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
-                              {activity.observations}
-                            </p>
-                          </div>
-                          <div className="grid gap-1 self-start">
-                            <p className="text-sm font-medium leading-none">Archivo adjunto</p>
-                            {activity.attachedFile ? (
-                              <Button
-                                variant="link"
-                                className="justify-start items-start p-0"
-                                onClick={() => openFile(activity.attachedFile as string)}
-                              >
-                                {activity.attachedFile as string}
-                              </Button>
-                            ) : (
-                              <span>-</span>
-                            )}
-                          </div>
-                        </div>
-
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="h-8 w-8 p-0">
-                              <span className="sr-only">Abrir menú</span>
-                              <MoreHorizontal className="h-4 w-4" />
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-                            <DropdownMenuSeparator />
-                            <Link to={`/edit-activity/${activity.id}`}>
-                              <DropdownMenuItem>
-                                <Edit className="w-4 h-4" />
-                                <p className="ml-2">Editar</p>
-                              </DropdownMenuItem>
-                            </Link>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem>
-                              <DeleteActivity activity={activity} />
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-            </Accordion>
-          ) : (
-            <p className="text-sm font-medium">No hay registros de actividades</p>
-          )}
-        </CardContent>
-      </Card>
+      <ActivitiesCard isPerson={false} id={legalPersonId} />
     </div>
   )
 }
