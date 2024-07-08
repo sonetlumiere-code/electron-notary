@@ -165,7 +165,7 @@ const EditActivityPage = () => {
                             />
                           </PopoverContent>
                         </Popover>
-                        <FormDescription>Selecciona la fecha de acta.</FormDescription>
+                        <FormDescription>Selecciona la fecha de acto.</FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -176,11 +176,11 @@ const EditActivityPage = () => {
                     name="act"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
-                        <FormLabel>Acta</FormLabel>
+                        <FormLabel>Acto</FormLabel>
                         <FormControl>
                           <Input {...field} type="text" disabled={form.formState.isSubmitting} />
                         </FormControl>
-                        <FormDescription>Ingresa el acta.</FormDescription>
+                        <FormDescription>Ingresa el acto.</FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}

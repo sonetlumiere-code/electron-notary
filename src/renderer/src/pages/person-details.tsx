@@ -277,7 +277,7 @@ const PersonDetailsPage = () => {
                           </p>
                         </div>
                         <div className="grid gap-1 self-start">
-                          <p className="text-sm font-medium leading-none">Acta</p>
+                          <p className="text-sm font-medium leading-none">Acto</p>
                           <p className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
                             {activity.act}
                           </p>
