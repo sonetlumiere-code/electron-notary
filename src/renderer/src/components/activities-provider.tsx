@@ -38,7 +38,7 @@ export const ActivitiesProvider = ({ children }: ActivitiesProviderProps) => {
   }, [])
 
   const addActivities = (newActivities: Activity[]) => {
-    setActivities([...activities, ...newActivities])
+    setActivities([...newActivities, ...activities])
   }
 
   const deleteActivities = (ids: number[]) => {

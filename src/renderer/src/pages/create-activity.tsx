@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useActivities } from "@renderer/components/activities-provider"
 import PageTitle from "@renderer/components/page-title"
 import {
   Breadcrumb,
@@ -43,6 +44,8 @@ const CreateActivityPage = () => {
   const { id } = useParams()
   const location = useLocation()
 
+  const { addActivities } = useActivities()
+
   const isPerson = location.pathname.includes("/create-activity/person")
 
   const navigate = useNavigate()
@@ -68,6 +71,7 @@ const CreateActivityPage = () => {
       const res: Activity | null = await window.activityAPI.createActivity(dataToSend)
 
       if (res) {
+        addActivities([res])
         if (isPerson) {
           navigate(`/person/${id}`)
         } else {

@@ -3,7 +3,6 @@ import { useConfirmation } from "@renderer/components/confirmation-provider"
 import { toast } from "@renderer/components/ui/use-toast"
 import { Activity } from "@shared/types"
 import { Trash2 } from "lucide-react"
-import { useNavigate } from "react-router-dom"
 
 type DeleteActivityProps = {
   activity: Activity
@@ -11,7 +10,7 @@ type DeleteActivityProps = {
 
 const DeleteActivity = ({ activity }: DeleteActivityProps) => {
   const { deleteActivities } = useActivities()
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const confirm = useConfirmation()
 
   const deleteActivity = async () => {
