@@ -146,7 +146,7 @@ const EditLegalPersonPage = () => {
               <CardHeader>
                 <div className="flex justify-between">
                   <div className="space-y-2">
-                    <CardTitle>Persona jurídica</CardTitle>
+                    <CardTitle>{legalPerson.businessName}</CardTitle>
                     <CardDescription>
                       Formulario para editar ficha de persona jurídica
                     </CardDescription>

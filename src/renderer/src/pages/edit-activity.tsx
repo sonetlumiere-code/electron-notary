@@ -149,7 +149,7 @@ const EditActivityPage = () => {
             <form onSubmit={form.handleSubmit(editActivity)}>
               <CardHeader>
                 <div className="space-y-2">
-                  <CardTitle>Actividad</CardTitle>
+                  <CardTitle>Editar Actividad</CardTitle>
                   <CardDescription>Formulario para editar actividad</CardDescription>
                 </div>
               </CardHeader>

@@ -127,19 +127,19 @@ const CreateActivityPage = () => {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>Crear actividad</BreadcrumbPage>
+            <BreadcrumbPage>Agregar actividad</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
 
-      <PageTitle>Crear actividad</PageTitle>
+      <PageTitle>Agregar actividad</PageTitle>
 
       <Card>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(createActivity)}>
             <CardHeader>
               <div className="space-y-2">
-                <CardTitle>Actividad</CardTitle>
+                <CardTitle>Agregar Actividad</CardTitle>
                 <CardDescription>
                   Formulario para crear actividad de {isPerson ? "persona" : "persona jurídica"}{" "}
                   <Link to={`/${isPerson ? "person" : "legal-person"}/${id}`}>{`#${id}`}</Link>
@@ -215,7 +215,7 @@ const CreateActivityPage = () => {
             </CardContent>
             <CardFooter>
               <Button type="submit" disabled={form.formState.isSubmitting}>
-                Crear
+                Agregar
               </Button>
             </CardFooter>
           </form>

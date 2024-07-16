@@ -160,7 +160,9 @@ const EditPersonPage = () => {
               <CardHeader>
                 <div className="flex justify-between">
                   <div className="space-y-2">
-                    <CardTitle>Persona</CardTitle>
+                    <CardTitle>
+                      {person.name} {person.lastName}
+                    </CardTitle>
                     <CardDescription>Formulario para editar ficha de persona</CardDescription>
                   </div>
                   {person && (

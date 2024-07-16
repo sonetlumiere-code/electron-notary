@@ -68,7 +68,7 @@ const LegalPersonDetailsPage = () => {
         <CardHeader>
           <div className="flex justify-between">
             <div className="space-y-2">
-              <CardTitle>Persona jurídica</CardTitle>
+              <CardTitle>{legalPerson?.businessName}</CardTitle>
               <CardDescription>Ficha de persona jurídica</CardDescription>
             </div>
             {legalPerson && (

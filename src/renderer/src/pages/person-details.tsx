@@ -66,7 +66,9 @@ const PersonDetailsPage = () => {
         <CardHeader>
           <div className="flex justify-between">
             <div className="space-y-2">
-              <CardTitle>Persona</CardTitle>
+              <CardTitle>
+                {person?.name} {person?.lastName}
+              </CardTitle>
               <CardDescription>Ficha de persona</CardDescription>
             </div>
             {person && (
