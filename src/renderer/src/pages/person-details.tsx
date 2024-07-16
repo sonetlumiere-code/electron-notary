@@ -166,7 +166,7 @@ const PersonDetailsPage = () => {
                 </p>
               </div>
               <div className="grid gap-1">
-                <p className="text-sm font-medium leading-none">Divorcio</p>
+                <p className="text-sm font-medium leading-none">Carátula</p>
                 <p className="text-sm text-muted-foreground">
                   {person.divorce ? person.divorce : "-"}
                 </p>

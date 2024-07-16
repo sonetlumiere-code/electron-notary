@@ -40,7 +40,7 @@ const personDocBuffer = async (persons: PersonDataSheet[]): Promise<Buffer> => {
         `Sentencia: Fecha: ${person.divorceDate ? format(person.divorceDate, "dd/MM/yyyy") : ""} tribunal/juzgado: ${person.divorceCourt}`,
         true
       ),
-      createFormField("Divorcio: " + (person.divorce || ""), true),
+      createFormField("Carátula: " + (person.divorce || ""), true),
       createFormField(`Viudo: nº nupcias: ${person.widowNumber}`, true),
       createFormField(`Cantidad de Hijos: ${person.numberOfChildren}`),
       createFormField(`Domicilio Real: ${person.address}`),

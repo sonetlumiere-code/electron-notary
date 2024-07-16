@@ -118,6 +118,14 @@ const LegalPersonDetailsPage = () => {
                 <p className="text-sm text-muted-foreground">{legalPerson.registrationOffice}</p>
               </div>
               <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Matrícula</p>
+                <p className="text-sm text-muted-foreground">{legalPerson.enrollment}</p>
+              </div>
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Legajo</p>
+                <p className="text-sm text-muted-foreground">{legalPerson.file}</p>
+              </div>
+              <div className="grid gap-1">
                 <p className="text-sm font-medium leading-none">Teléfono de la sede social</p>
                 <p className="text-sm text-muted-foreground">{legalPerson.registeredOfficePhone}</p>
               </div>
@@ -146,14 +154,6 @@ const LegalPersonDetailsPage = () => {
               <div className="grid gap-1">
                 <p className="text-sm font-medium leading-none">Datos del representante</p>
                 <p className="text-sm text-muted-foreground">{legalPerson.representativeData}</p>
-              </div>
-              <div className="grid gap-1">
-                <p className="text-sm font-medium leading-none">Matrícula</p>
-                <p className="text-sm text-muted-foreground">{legalPerson.enrollment}</p>
-              </div>
-              <div className="grid gap-1">
-                <p className="text-sm font-medium leading-none">Legajo</p>
-                <p className="text-sm text-muted-foreground">{legalPerson.file}</p>
               </div>
             </div>
           )}

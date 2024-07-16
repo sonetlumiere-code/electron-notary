@@ -491,11 +491,11 @@ const EditPersonPage = () => {
                     name="divorce"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
-                        <FormLabel>Divorcio</FormLabel>
+                        <FormLabel>Carátula</FormLabel>
                         <FormControl>
                           <Input {...field} type="text" disabled={form.formState.isSubmitting} />
                         </FormControl>
-                        <FormDescription>Divorcio.</FormDescription>
+                        <FormDescription>Carátula.</FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}

@@ -16,16 +16,14 @@ export const zodLegalPersonSchema = z.object({
     })
   }),
   registrationOffice: z.nativeEnum(RegistrationOffice),
-  registeredOfficePhone: z.coerce
-    .number()
-    .min(1, { message: "Ingresa un número de teléfono válido." }),
+  registeredOfficePhone: z.coerce.number().optional(),
   registeredOfficeAddress: z
     .string()
     .min(1, { message: "Ingresa el domicilio de la sede social." }),
   registeredOfficeEmail: z.string().email({ message: "Ingresa un correo electrónico válido." }),
-  statuteCopy: z.string().min(1, { message: "Ingresa la copia del estatuto." }),
-  proceedingsCopy: z.string().min(1, { message: "Ingresa la copia de las actas." }),
-  balanceCopy: z.string().min(1, { message: "Ingresa la copia del balance." }),
+  statuteCopy: z.string().optional(),
+  proceedingsCopy: z.string().optional(),
+  balanceCopy: z.string().optional(),
   representativeData: z.string().min(1, { message: "Ingresa los datos del representante." }),
   enrollment: z.string().min(1, { message: "Ingresa la matrícula." }),
   file: z.string().min(1, { message: "Ingresa el legajo." })

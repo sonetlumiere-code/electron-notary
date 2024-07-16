@@ -288,6 +288,34 @@ const EditLegalPersonPage = () => {
                   />
                   <FormField
                     control={form.control}
+                    name="enrollment"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Matrícula</FormLabel>
+                        <FormControl>
+                          <Input {...field} type="text" disabled={form.formState.isSubmitting} />
+                        </FormControl>
+                        <FormDescription>Ingresa la matrícula.</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="file"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Legajo</FormLabel>
+                        <FormControl>
+                          <Input {...field} type="text" disabled={form.formState.isSubmitting} />
+                        </FormControl>
+                        <FormDescription>Ingresa el legajo.</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
                     name="registeredOfficePhone"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
@@ -380,34 +408,6 @@ const EditLegalPersonPage = () => {
                           <Input {...field} type="text" disabled={form.formState.isSubmitting} />
                         </FormControl>
                         <FormDescription>Ingresa los datos del representante.</FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="enrollment"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col">
-                        <FormLabel>Matrícula</FormLabel>
-                        <FormControl>
-                          <Input {...field} type="text" disabled={form.formState.isSubmitting} />
-                        </FormControl>
-                        <FormDescription>Ingresa la matrícula.</FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="file"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col">
-                        <FormLabel>Legajo</FormLabel>
-                        <FormControl>
-                          <Input {...field} type="text" disabled={form.formState.isSubmitting} />
-                        </FormControl>
-                        <FormDescription>Ingresa el legajo.</FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
