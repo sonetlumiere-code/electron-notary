@@ -57,6 +57,7 @@ const EditActivityPage = () => {
         form.reset({
           date: res.date,
           act: res.act,
+          bill: res.bill,
           observations: res.observations ?? "",
           attachedFile: res.attachedFile ?? ""
         })
@@ -98,8 +99,6 @@ const EditActivityPage = () => {
         return
       }
     }
-
-    console.log(dataToSend)
 
     try {
       const res = await window.activityAPI.updateActivity(dataToSend)
@@ -189,6 +188,21 @@ const EditActivityPage = () => {
                           <Input {...field} type="text" disabled={form.formState.isSubmitting} />
                         </FormControl>
                         <FormDescription>Ingresa el acto.</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="bill"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Factura</FormLabel>
+                        <FormControl>
+                          <Input {...field} type="text" disabled={form.formState.isSubmitting} />
+                        </FormControl>
+                        <FormDescription>Ingresa la factura.</FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}

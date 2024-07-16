@@ -7,6 +7,7 @@ export const zodActivitySchema = z.object({
     })
   }),
   act: z.string().min(1, { message: "Ingresa el acto." }),
+  bill: z.string().optional(),
   observations: z.string().optional(),
   attachedFile: z.any()
 })

@@ -187,6 +187,21 @@ const CreateActivityPage = () => {
                   )}
                 />
 
+                <FormField
+                  control={form.control}
+                  name="bill"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Factura</FormLabel>
+                      <FormControl>
+                        <Input {...field} type="text" disabled={form.formState.isSubmitting} />
+                      </FormControl>
+                      <FormDescription>Ingresa la factura.</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
                 <div className="flex flex-col space-y-2 ">
                   <Label>Archivo adjunto</Label>
                   <Input

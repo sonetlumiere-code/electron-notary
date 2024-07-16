@@ -101,6 +101,7 @@ export interface Activity {
   id?: number
   date: Date
   act: string
+  bill?: string
   observations?: string
   attachedFile?: string | File
   person_id?: number

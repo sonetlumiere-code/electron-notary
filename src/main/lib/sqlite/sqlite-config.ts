@@ -65,6 +65,7 @@ try {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       date TEXT NOT NULL,
       act TEXT NOT NULL,
+      bill TEXT,
       observations TEXT,
       attachedFile TEXT,
       person_id INTEGER,

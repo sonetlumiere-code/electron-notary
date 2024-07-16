@@ -3,8 +3,8 @@ import { Activity } from "@shared/types"
 
 const createActivity = (data: Activity) => {
   const query = `
-    INSERT INTO activity (date, act, observations, attachedFile, person_id, legal_person_id) 
-    VALUES (?, ?, ?, ?, ?, ?)
+    INSERT INTO activity (date, act, bill, observations, attachedFile, person_id, legal_person_id) 
+    VALUES (?, ?, ?, ?, ?, ?, ?)
   `
 
   if (typeof data.date === "string") {
@@ -16,6 +16,7 @@ const createActivity = (data: Activity) => {
     const info = stmt.run(
       data.date.toISOString(),
       data.act,
+      data.bill,
       data.observations,
       data.attachedFile,
       data.person_id || null,
@@ -64,7 +65,7 @@ const getActivityById = (id: number): Activity | null => {
 
 const updateActivity = (data: Activity) => {
   const query = `
-    UPDATE activity SET date = ?, act = ?, observations = ?, attachedFile = ?, person_id = ?, legal_person_id = ? 
+    UPDATE activity SET date = ?, act = ?, bill = ?, observations = ?, attachedFile = ?, person_id = ?, legal_person_id = ? 
     WHERE id = ?
   `
 
@@ -77,6 +78,7 @@ const updateActivity = (data: Activity) => {
     const info = stmt.run(
       data.date.toISOString(),
       data.act,
+      data.bill,
       data.observations,
       data.attachedFile,
       data.person_id || null,
@@ -107,6 +109,10 @@ const searchActivities = (filters: Partial<Activity> & { ids?: number[] }): Acti
   if (filters.act) {
     query += ` AND act LIKE ?`
     params.push(`%${filters.act}%`)
+  }
+  if (filters.bill) {
+    query += ` AND bill LIKE ?`
+    params.push(`%${filters.bill}%`)
   }
   if (filters.observations) {
     query += ` AND observations LIKE ?`
