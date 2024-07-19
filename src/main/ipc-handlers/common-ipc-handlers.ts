@@ -35,22 +35,27 @@ export default function commonIPCHandlers(): void {
     return result.filePaths[0]
   })
 
-  ipcMain.handle("save-file", async (_event, filePath: string, fileName: string) => {
+  ipcMain.handle("save-files", async (_event, files: { filePath: string; fileName: string }[]) => {
     const saveDirectory = path.join(DOCUMENTS_FOLDER)
 
     if (!fs.existsSync(saveDirectory)) {
       fs.mkdirSync(saveDirectory)
     }
 
-    const destinationPath = path.join(saveDirectory, fileName)
+    const results = files.map(({ filePath, fileName }) => {
+      const uniqueFileName = `${Date.now()}-${fileName}`
+      const destinationPath = path.join(saveDirectory, uniqueFileName)
 
-    try {
-      fs.copyFileSync(filePath, destinationPath)
-      return { status: "success", fileName }
-    } catch (error) {
-      console.error("Error copying file:", error)
-      return { status: "failed" }
-    }
+      try {
+        fs.copyFileSync(filePath, destinationPath)
+        return { status: "success", fileName: uniqueFileName }
+      } catch (error) {
+        console.error("Error copying file:", error)
+        return { status: "failed", fileName: uniqueFileName }
+      }
+    })
+
+    return results
   })
 
   ipcMain.handle("open-file", async (_event, fileName: string) => {

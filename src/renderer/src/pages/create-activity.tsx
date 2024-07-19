@@ -28,7 +28,6 @@ import {
   FormMessage
 } from "@renderer/components/ui/form"
 import { Input } from "@renderer/components/ui/input"
-import { Label } from "@renderer/components/ui/label"
 import { Textarea } from "@renderer/components/ui/textarea"
 import { toast } from "@renderer/components/ui/use-toast"
 import { ActivitySchema, zodActivitySchema } from "@renderer/lib/validators/activity-validator"
@@ -50,7 +49,7 @@ const CreateActivityPage = () => {
       date: new Date(),
       act: "",
       observations: "",
-      attachedFile: undefined
+      attachedFiles: undefined
     }
   })
 
@@ -59,34 +58,40 @@ const CreateActivityPage = () => {
 
     dataToSend[isPerson ? "person_id" : "legal_person_id"] = Number(id)
 
-    const file =
-      data.attachedFile instanceof FileList ? (data.attachedFile[0] as ElectronFile) : null
+    const files =
+      data.attachedFiles instanceof FileList
+        ? (Array.from(data.attachedFiles) as ElectronFile[])
+        : []
 
-    let fileName = ""
+    let fileNames: string[] = []
 
-    if (file) {
+    if (files.length > 0) {
       try {
-        const result = await window.electronAPI.saveFile(file.path, file.name)
-        if (result.status === "success") {
-          fileName = result.fileName || ""
-        } else {
+        const results = await window.electronAPI.saveFiles(
+          files.map((file) => ({ filePath: file.path, fileName: file.name }))
+        )
+        const failedFiles = results.filter((result) => result.status !== "success")
+
+        if (failedFiles.length > 0) {
           toast({
             variant: "destructive",
-            title: "Error guardando archivo."
+            title: "Error guardando archivo(s)."
           })
           return
         }
+
+        fileNames = results.map((result) => result.fileName || "")
       } catch (error) {
-        console.error("Error saving file:", error)
+        console.error("Error saving files:", error)
         toast({
           variant: "destructive",
-          title: "Error guardando archivo."
+          title: "Error guardando archivo(s)."
         })
         return
       }
     }
 
-    dataToSend.attachedFile = fileName
+    dataToSend.attachedFiles = fileNames
 
     try {
       const res: Activity | null = await window.activityAPI.createActivity(dataToSend)
@@ -202,15 +207,25 @@ const CreateActivityPage = () => {
                   )}
                 />
 
-                <div className="flex flex-col space-y-2 ">
-                  <Label>Archivo adjunto</Label>
-                  <Input
-                    type="file"
-                    disabled={form.formState.isSubmitting}
-                    {...form.register("attachedFile")}
-                  />
-                  <FormDescription>Selecciona un archivo.</FormDescription>
-                </div>
+                <FormField
+                  control={form.control}
+                  name="attachedFiles"
+                  render={({ field: { value, onChange, ...fieldProps } }) => (
+                    <FormItem>
+                      <FormLabel>Archivo adjunto</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...fieldProps}
+                          type="file"
+                          multiple
+                          onChange={(event) => onChange(event.target.files && event.target.files)}
+                        />
+                      </FormControl>
+                      <FormDescription>Selecciona un archivo.</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
                 <FormField
                   control={form.control}

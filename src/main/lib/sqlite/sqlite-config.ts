@@ -67,7 +67,7 @@ try {
       act TEXT NOT NULL,
       bill TEXT,
       observations TEXT,
-      attachedFile TEXT,
+      attachedFiles TEXT,
       person_id INTEGER,
       legal_person_id INTEGER,
       FOREIGN KEY (person_id) REFERENCES person_data_sheets(id),

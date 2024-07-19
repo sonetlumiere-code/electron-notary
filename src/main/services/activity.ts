@@ -3,13 +3,15 @@ import { Activity } from "@shared/types"
 
 const createActivity = (data: Activity) => {
   const query = `
-    INSERT INTO activity (date, act, bill, observations, attachedFile, person_id, legal_person_id) 
+    INSERT INTO activity (date, act, bill, observations, attachedFiles, person_id, legal_person_id) 
     VALUES (?, ?, ?, ?, ?, ?, ?)
   `
 
   if (typeof data.date === "string") {
     data.date = new Date(data.date)
   }
+
+  const attachedFileJson = JSON.stringify(data.attachedFiles)
 
   try {
     const stmt = db.prepare(query)
@@ -18,7 +20,7 @@ const createActivity = (data: Activity) => {
       data.act,
       data.bill,
       data.observations,
-      data.attachedFile,
+      attachedFileJson,
       data.person_id || null,
       data.legal_person_id || null
     )
@@ -65,7 +67,7 @@ const getActivityById = (id: number): Activity | null => {
 
 const updateActivity = (data: Activity) => {
   const query = `
-    UPDATE activity SET date = ?, act = ?, bill = ?, observations = ?, attachedFile = ?, person_id = ?, legal_person_id = ? 
+    UPDATE activity SET date = ?, act = ?, bill = ?, observations = ?, attachedFiles = ?, person_id = ?, legal_person_id = ? 
     WHERE id = ?
   `
 
@@ -73,14 +75,16 @@ const updateActivity = (data: Activity) => {
     data.date = new Date(data.date)
   }
 
+  const attachedFilesJson = JSON.stringify(data.attachedFiles)
+
   try {
     const stmt = db.prepare(query)
-    const info = stmt.run(
+    stmt.run(
       data.date.toISOString(),
       data.act,
       data.bill,
       data.observations,
-      data.attachedFile,
+      attachedFilesJson,
       data.person_id || null,
       data.legal_person_id || null,
       data.id
@@ -118,9 +122,9 @@ const searchActivities = (filters: Partial<Activity> & { ids?: number[] }): Acti
     query += ` AND observations LIKE ?`
     params.push(`%${filters.observations}%`)
   }
-  if (filters.attachedFile) {
-    query += ` AND attachedFile LIKE ?`
-    params.push(`%${filters.attachedFile}%`)
+  if (filters.attachedFiles) {
+    query += ` AND attachedFiles LIKE ?`
+    params.push(`%${filters.attachedFiles}%`)
   }
   if (filters.person_id) {
     query += ` AND person_id = ?`
@@ -158,7 +162,8 @@ const deleteActivities = (ids: number[]) => {
 const formatResponse = (row: Activity): Activity => {
   return {
     ...row,
-    date: new Date(row.date)
+    date: new Date(row.date),
+    attachedFiles: row.attachedFiles ? JSON.parse(row.attachedFiles as unknown as string) : []
   }
 }
 

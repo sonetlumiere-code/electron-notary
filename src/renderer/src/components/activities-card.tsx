@@ -107,17 +107,20 @@ const ActivitiesCard = ({ isPerson, id }: ActivitiesCardProp) => {
                           </p>
                         </div>
                         <div className="grid gap-1 self-start">
-                          <p className="text-sm font-medium leading-none">Archivo adjunto</p>
-                          {activity.attachedFile ? (
-                            <Button
-                              variant="link"
-                              className="justify-start items-start p-0"
-                              onClick={() => openFile(activity.attachedFile as string)}
-                            >
-                              <span className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
-                                {activity.attachedFile as string}
-                              </span>
-                            </Button>
+                          <p className="text-sm font-medium leading-none">Archivos adjuntos</p>
+                          {activity.attachedFiles && activity.attachedFiles.length > 0 ? (
+                            activity.attachedFiles.map((fileName, index) => (
+                              <Button
+                                key={index}
+                                variant="link"
+                                className="justify-start items-start p-0"
+                                onClick={() => openFile(fileName)}
+                              >
+                                <span className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
+                                  {fileName}
+                                </span>
+                              </Button>
+                            ))
                           ) : (
                             <span className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
                               -
