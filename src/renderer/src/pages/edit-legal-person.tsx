@@ -42,7 +42,7 @@ import {
   LegalPersonSchema,
   zodLegalPersonSchema
 } from "@renderer/lib/validators/legal-person-validator"
-import { LegalPersonDataSheet, RegistrationOffice } from "@shared/types"
+import { ElectronFile, LegalPersonDataSheet, RegistrationOffice } from "@shared/types"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { Link, useNavigate, useParams } from "react-router-dom"
@@ -79,6 +79,7 @@ const EditLegalPersonPage = () => {
           statuteCopy: res.statuteCopy ?? "",
           proceedingsCopy: res.proceedingsCopy ?? "",
           balanceCopy: res.balanceCopy ?? "",
+          attachedFile: res.attachedFile ?? "",
           representativeData: res.representativeData ?? "",
           enrollment: res.enrollment ?? "",
           file: res.file ?? ""
@@ -90,8 +91,47 @@ const EditLegalPersonPage = () => {
   }, [])
 
   const editLegalPerson = async (data: LegalPersonSchema) => {
+    const dataToSend: LegalPersonDataSheet = { ...data }
+
+    const fileInputs = ["statuteCopy", "proceedingsCopy", "balanceCopy", "attachedFile"]
+
+    for (const input of fileInputs) {
+      const files =
+        data[input] instanceof FileList ? (Array.from(data[input]) as ElectronFile[]) : []
+
+      if (files.length > 0) {
+        for (const file of files) {
+          try {
+            const result = await window.electronAPI.saveFiles([
+              { filePath: file.path, fileName: file.name }
+            ])
+
+            if (result[0].status !== "success") {
+              toast({
+                variant: "destructive",
+                title: `Error guardando archivo: ${file.name}`
+              })
+              return
+            }
+
+            dataToSend[input] = result[0].fileName
+          } catch (error) {
+            console.error("Error saving file:", error)
+            toast({
+              variant: "destructive",
+              title: "Error guardando archivo."
+            })
+            return
+          }
+        }
+      }
+    }
+
     try {
-      const res = await window.legalPersonAPI.updateLegalPerson({ id: legalPersonId, ...data })
+      const res: LegalPersonDataSheet | null = await window.legalPersonAPI.updateLegalPerson({
+        id: legalPersonId,
+        ...dataToSend
+      })
 
       if (res) {
         updateLegalPerson(legalPersonId, res)
@@ -358,48 +398,6 @@ const EditLegalPersonPage = () => {
                   />
                   <FormField
                     control={form.control}
-                    name="statuteCopy"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col">
-                        <FormLabel>Copia del estatuto</FormLabel>
-                        <FormControl>
-                          <Input {...field} type="text" disabled={form.formState.isSubmitting} />
-                        </FormControl>
-                        <FormDescription>Ingresa la copia del estatuto.</FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="proceedingsCopy"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col">
-                        <FormLabel>Copia de las actas</FormLabel>
-                        <FormControl>
-                          <Input {...field} type="text" disabled={form.formState.isSubmitting} />
-                        </FormControl>
-                        <FormDescription>Ingresa la copia de las actas.</FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="balanceCopy"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-col">
-                        <FormLabel>Copia del balance</FormLabel>
-                        <FormControl>
-                          <Input {...field} type="text" disabled={form.formState.isSubmitting} />
-                        </FormControl>
-                        <FormDescription>Ingresa la copia del balance.</FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
                     name="representativeData"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
@@ -412,11 +410,83 @@ const EditLegalPersonPage = () => {
                       </FormItem>
                     )}
                   />
+                  <FormField
+                    control={form.control}
+                    name="statuteCopy"
+                    render={({ field: { value, onChange, ...fieldProps } }) => (
+                      <FormItem>
+                        <FormLabel>Estatuto</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...fieldProps}
+                            type="file"
+                            onChange={(event) => onChange(event.target.files && event.target.files)}
+                          />
+                        </FormControl>
+                        <FormDescription>Selecciona un archivo.</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="proceedingsCopy"
+                    render={({ field: { value, onChange, ...fieldProps } }) => (
+                      <FormItem>
+                        <FormLabel>Actas</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...fieldProps}
+                            type="file"
+                            onChange={(event) => onChange(event.target.files && event.target.files)}
+                          />
+                        </FormControl>
+                        <FormDescription>Selecciona un archivo.</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="balanceCopy"
+                    render={({ field: { value, onChange, ...fieldProps } }) => (
+                      <FormItem>
+                        <FormLabel>Balance</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...fieldProps}
+                            type="file"
+                            onChange={(event) => onChange(event.target.files && event.target.files)}
+                          />
+                        </FormControl>
+                        <FormDescription>Selecciona un archivo.</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="attachedFile"
+                    render={({ field: { value, onChange, ...fieldProps } }) => (
+                      <FormItem>
+                        <FormLabel>Otros</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...fieldProps}
+                            type="file"
+                            onChange={(event) => onChange(event.target.files && event.target.files)}
+                          />
+                        </FormControl>
+                        <FormDescription>Selecciona un archivo.</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </div>
               </CardContent>
               <CardFooter>
                 <Button type="submit" disabled={form.formState.isSubmitting}>
-                  Crear
+                  Editar
                 </Button>
               </CardFooter>
             </form>

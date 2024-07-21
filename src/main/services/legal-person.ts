@@ -12,8 +12,8 @@ const createLegalPerson = (data: LegalPersonDataSheet) => {
     INSERT INTO legal_person_data_sheets (
       businessName, CUIT, legalAddress, mainActivity, instrumentOfConstitution, registrationDate,
       registrationOffice, registeredOfficePhone, registeredOfficeAddress, registeredOfficeEmail, statuteCopy,
-      proceedingsCopy, balanceCopy, representativeData, enrollment, file
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      proceedingsCopy, balanceCopy, attachedFile, representativeData, enrollment, file
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `
 
   if (typeof data.registrationDate === "string") {
@@ -36,6 +36,7 @@ const createLegalPerson = (data: LegalPersonDataSheet) => {
       data.statuteCopy,
       data.proceedingsCopy,
       data.balanceCopy,
+      data.attachedFile,
       data.representativeData,
       data.enrollment,
       data.file
@@ -96,9 +97,10 @@ const updateLegalPerson = (data: LegalPersonDataSheet) => {
     UPDATE legal_person_data_sheets SET
       businessName = ?, CUIT = ?, legalAddress = ?, mainActivity = ?, instrumentOfConstitution = ?,
       registrationDate = ?, registrationOffice = ?, registeredOfficePhone = ?, registeredOfficeAddress = ?,
-      registeredOfficeEmail = ?, statuteCopy = ?, proceedingsCopy = ?, balanceCopy = ?, representativeData = ?, enrollment = ?, file = ?
+      registeredOfficeEmail = ?, statuteCopy = ?, proceedingsCopy = ?, balanceCopy = ?, attachedFile = ?, representativeData = ?, enrollment = ?, file = ?
     WHERE id = ?
   `
+  console.log(data)
 
   if (typeof data.registrationDate === "string") {
     data.registrationDate = new Date(data.registrationDate)
@@ -120,6 +122,7 @@ const updateLegalPerson = (data: LegalPersonDataSheet) => {
       data.statuteCopy,
       data.proceedingsCopy,
       data.balanceCopy,
+      data.attachedFile,
       data.representativeData,
       data.enrollment,
       data.file,
@@ -195,6 +198,10 @@ const searchLegalPersons = (
   if (filters.balanceCopy) {
     query += ` AND balanceCopy LIKE ?`
     params.push(`%${filters.balanceCopy}%`)
+  }
+  if (filters.balanceCopy) {
+    query += ` AND attachedFile LIKE ?`
+    params.push(`%${filters.attachedFile}%`)
   }
   if (filters.representativeData) {
     query += ` AND representativeData LIKE ?`
@@ -309,7 +316,12 @@ const exportLegalPersons = async (
         )
     }
 
-    fs.writeFileSync(filePath, content)
+    if (typeof content === "string") {
+      fs.writeFileSync(filePath, content)
+    } else {
+      fs.writeFileSync(filePath, new Uint8Array(content))
+    }
+
     return filePath
   } catch (err) {
     console.error("Error exporting persons: ", err)

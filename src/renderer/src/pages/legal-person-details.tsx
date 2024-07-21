@@ -153,6 +153,10 @@ const LegalPersonDetailsPage = () => {
                 <p className="text-sm font-medium leading-none">Email de la sede social</p>
                 <p className="text-sm text-muted-foreground">{legalPerson.registeredOfficeEmail}</p>
               </div>
+              <div className="grid gap-1 self-start">
+                <p className="text-sm font-medium leading-none">Datos del representante</p>
+                <p className="text-sm text-muted-foreground">{legalPerson.representativeData}</p>
+              </div>
               <div className="grid gap-1">
                 <p className="text-sm font-medium leading-none">Copia del estatuto</p>
                 {legalPerson.statuteCopy ? (
@@ -209,9 +213,24 @@ const LegalPersonDetailsPage = () => {
                   </span>
                 )}
               </div>
+
               <div className="grid gap-1">
-                <p className="text-sm font-medium leading-none">Datos del representante</p>
-                <p className="text-sm text-muted-foreground">{legalPerson.representativeData}</p>
+                <p className="text-sm font-medium leading-none">Otros</p>
+                {legalPerson.attachedFile ? (
+                  <Button
+                    variant="link"
+                    className="justify-start items-start p-0"
+                    onClick={() => openFile(legalPerson.attachedFile as string)}
+                  >
+                    <span className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
+                      {legalPerson.attachedFile}
+                    </span>
+                  </Button>
+                ) : (
+                  <span className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
+                    -
+                  </span>
+                )}
               </div>
             </div>
           )}

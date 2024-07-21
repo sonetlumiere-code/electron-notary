@@ -36,6 +36,7 @@ import {
   SelectValue
 } from "@renderer/components/ui/select"
 import { Textarea } from "@renderer/components/ui/textarea"
+import { ToastAction } from "@renderer/components/ui/toast"
 import { toast } from "@renderer/components/ui/use-toast"
 import { PersonSchema, zodPersonSchema } from "@renderer/lib/validators/person-validator"
 import { DocumentType, Gender, MaritalRegime, MaritalStatus, PersonDataSheet } from "@shared/types"
@@ -91,7 +92,12 @@ const CreatePersonPage = () => {
         navigate("/persons")
         toast({
           title: "Nueva ficha creada.",
-          description: "La ficha de datos personales ha sido creada correctamente."
+          description: "La ficha de datos personales ha sido creada correctamente.",
+          action: (
+            <ToastAction altText="Ver" onClick={() => navigate(`/person/${res.id}`)}>
+              Ver
+            </ToastAction>
+          )
         })
       }
     } catch (error) {

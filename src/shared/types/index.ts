@@ -80,6 +80,7 @@ export interface LegalPersonDataSheet {
   statuteCopy?: string
   proceedingsCopy?: string
   balanceCopy?: string
+  attachedFile?: string
   representativeData: string
   enrollment: string
   file: string

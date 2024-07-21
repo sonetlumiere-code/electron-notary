@@ -349,7 +349,12 @@ const exportPersons = async (
         )
     }
 
-    fs.writeFileSync(filePath, content)
+    if (typeof content === "string") {
+      fs.writeFileSync(filePath, content)
+    } else {
+      fs.writeFileSync(filePath, new Uint8Array(content))
+    }
+
     return filePath
   } catch (err) {
     console.error("Error exporting persons: ", err)

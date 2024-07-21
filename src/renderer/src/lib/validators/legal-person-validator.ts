@@ -26,6 +26,7 @@ export const zodLegalPersonSchema = z.object({
   statuteCopy: z.any(),
   proceedingsCopy: z.any(),
   balanceCopy: z.any(),
+  attachedFile: z.any(),
   representativeData: z.string().min(1, { message: "Ingresa los datos del representante." }),
   enrollment: z.string().min(1, { message: "Ingresa la matrícula." }),
   file: z.string().min(1, { message: "Ingresa el legajo." })

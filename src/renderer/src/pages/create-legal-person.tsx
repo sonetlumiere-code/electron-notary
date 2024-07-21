@@ -35,6 +35,7 @@ import {
   SelectTrigger,
   SelectValue
 } from "@renderer/components/ui/select"
+import { ToastAction } from "@renderer/components/ui/toast"
 import { toast } from "@renderer/components/ui/use-toast"
 import {
   LegalPersonSchema,
@@ -64,6 +65,7 @@ const CreateLegalPersonPage = () => {
       statuteCopy: undefined,
       proceedingsCopy: undefined,
       balanceCopy: undefined,
+      attachedFile: undefined,
       representativeData: "",
       enrollment: "",
       file: ""
@@ -73,7 +75,7 @@ const CreateLegalPersonPage = () => {
   const createLegalPerson = async (data: LegalPersonSchema) => {
     const dataToSend: LegalPersonDataSheet = { ...data }
 
-    const fileInputs = ["statuteCopy", "proceedingsCopy", "balanceCopy"]
+    const fileInputs = ["statuteCopy", "proceedingsCopy", "balanceCopy", "attachedFile"]
 
     for (const input of fileInputs) {
       const files =
@@ -115,7 +117,12 @@ const CreateLegalPersonPage = () => {
         navigate("/legal-persons")
         toast({
           title: "Nueva ficha creada.",
-          description: "La ficha de persona jurídica ha sido creada correctamente."
+          description: "La ficha de persona jurídica ha sido creada correctamente.",
+          action: (
+            <ToastAction altText="Ver" onClick={() => navigate(`/legal-person/${res.id}`)}>
+              Ver
+            </ToastAction>
+          )
         })
       }
     } catch (error) {
@@ -354,21 +361,20 @@ const CreateLegalPersonPage = () => {
                     </FormItem>
                   )}
                 />
-
-                {/* <FormField
+                <FormField
                   control={form.control}
-                  name="statuteCopy"
+                  name="representativeData"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
-                      <FormLabel>Copia del estatuto</FormLabel>
+                      <FormLabel>Datos del representante</FormLabel>
                       <FormControl>
                         <Input {...field} type="text" disabled={form.formState.isSubmitting} />
                       </FormControl>
-                      <FormDescription>Ingresa la copia del estatuto.</FormDescription>
+                      <FormDescription>Ingresa los datos del representante.</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}
-                /> */}
+                />
                 <FormField
                   control={form.control}
                   name="statuteCopy"
@@ -387,21 +393,6 @@ const CreateLegalPersonPage = () => {
                     </FormItem>
                   )}
                 />
-
-                {/* <FormField
-                  control={form.control}
-                  name="proceedingsCopy"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Copia de las actas</FormLabel>
-                      <FormControl>
-                        <Input {...field} type="text" disabled={form.formState.isSubmitting} />
-                      </FormControl>
-                      <FormDescription>Ingresa la copia de las actas.</FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                /> */}
                 <FormField
                   control={form.control}
                   name="proceedingsCopy"
@@ -420,21 +411,6 @@ const CreateLegalPersonPage = () => {
                     </FormItem>
                   )}
                 />
-
-                {/* <FormField
-                  control={form.control}
-                  name="balanceCopy"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Copia del balance</FormLabel>
-                      <FormControl>
-                        <Input {...field} type="text" disabled={form.formState.isSubmitting} />
-                      </FormControl>
-                      <FormDescription>Ingresa la copia del balance.</FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                /> */}
                 <FormField
                   control={form.control}
                   name="balanceCopy"
@@ -453,17 +429,20 @@ const CreateLegalPersonPage = () => {
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
-                  name="representativeData"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Datos del representante</FormLabel>
+                  name="attachedFile"
+                  render={({ field: { value, onChange, ...fieldProps } }) => (
+                    <FormItem>
+                      <FormLabel>Otros</FormLabel>
                       <FormControl>
-                        <Input {...field} type="text" disabled={form.formState.isSubmitting} />
+                        <Input
+                          {...fieldProps}
+                          type="file"
+                          onChange={(event) => onChange(event.target.files && event.target.files)}
+                        />
                       </FormControl>
-                      <FormDescription>Ingresa los datos del representante.</FormDescription>
+                      <FormDescription>Selecciona un archivo.</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}

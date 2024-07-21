@@ -56,6 +56,7 @@ try {
       statuteCopy TEXT,
       proceedingsCopy TEXT,
       balanceCopy TEXT,
+      attachedFile TEXT,
       representativeData TEXT NOT NULL,
       enrollment TEXT NOT NULL,
       file TEXT NOT NULL
