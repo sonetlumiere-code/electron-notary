@@ -40,7 +40,7 @@ import {
   LegalPersonSchema,
   zodLegalPersonSchema
 } from "@renderer/lib/validators/legal-person-validator"
-import { LegalPersonDataSheet, RegistrationOffice } from "@shared/types"
+import { ElectronFile, LegalPersonDataSheet, RegistrationOffice } from "@shared/types"
 import { useForm } from "react-hook-form"
 import { Link, useNavigate } from "react-router-dom"
 
@@ -61,9 +61,9 @@ const CreateLegalPersonPage = () => {
       registeredOfficePhone: 0,
       registeredOfficeAddress: "",
       registeredOfficeEmail: "",
-      statuteCopy: "",
-      proceedingsCopy: "",
-      balanceCopy: "",
+      statuteCopy: undefined,
+      proceedingsCopy: undefined,
+      balanceCopy: undefined,
       representativeData: "",
       enrollment: "",
       file: ""
@@ -71,8 +71,45 @@ const CreateLegalPersonPage = () => {
   })
 
   const createLegalPerson = async (data: LegalPersonSchema) => {
+    const dataToSend: LegalPersonDataSheet = { ...data }
+
+    const fileInputs = ["statuteCopy", "proceedingsCopy", "balanceCopy"]
+
+    for (const input of fileInputs) {
+      const files =
+        data[input] instanceof FileList ? (Array.from(data[input]) as ElectronFile[]) : []
+
+      if (files.length > 0) {
+        for (const file of files) {
+          try {
+            const result = await window.electronAPI.saveFiles([
+              { filePath: file.path, fileName: file.name }
+            ])
+
+            if (result[0].status !== "success") {
+              toast({
+                variant: "destructive",
+                title: `Error guardando archivo: ${file.name}`
+              })
+              return
+            }
+
+            dataToSend[input] = result[0].fileName
+          } catch (error) {
+            console.error("Error saving file:", error)
+            toast({
+              variant: "destructive",
+              title: "Error guardando archivo."
+            })
+            return
+          }
+        }
+      }
+    }
+
     try {
-      const res: LegalPersonDataSheet | null = await window.legalPersonAPI.createLegalPerson(data)
+      const res: LegalPersonDataSheet | null =
+        await window.legalPersonAPI.createLegalPerson(dataToSend)
       if (res) {
         addLegalPersons([res])
         navigate("/legal-persons")
@@ -317,7 +354,8 @@ const CreateLegalPersonPage = () => {
                     </FormItem>
                   )}
                 />
-                <FormField
+
+                {/* <FormField
                   control={form.control}
                   name="statuteCopy"
                   render={({ field }) => (
@@ -330,8 +368,27 @@ const CreateLegalPersonPage = () => {
                       <FormMessage />
                     </FormItem>
                   )}
-                />
+                /> */}
                 <FormField
+                  control={form.control}
+                  name="statuteCopy"
+                  render={({ field: { value, onChange, ...fieldProps } }) => (
+                    <FormItem>
+                      <FormLabel>Estatuto</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...fieldProps}
+                          type="file"
+                          onChange={(event) => onChange(event.target.files && event.target.files)}
+                        />
+                      </FormControl>
+                      <FormDescription>Selecciona un archivo.</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* <FormField
                   control={form.control}
                   name="proceedingsCopy"
                   render={({ field }) => (
@@ -344,8 +401,27 @@ const CreateLegalPersonPage = () => {
                       <FormMessage />
                     </FormItem>
                   )}
-                />
+                /> */}
                 <FormField
+                  control={form.control}
+                  name="proceedingsCopy"
+                  render={({ field: { value, onChange, ...fieldProps } }) => (
+                    <FormItem>
+                      <FormLabel>Actas</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...fieldProps}
+                          type="file"
+                          onChange={(event) => onChange(event.target.files && event.target.files)}
+                        />
+                      </FormControl>
+                      <FormDescription>Selecciona un archivo.</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* <FormField
                   control={form.control}
                   name="balanceCopy"
                   render={({ field }) => (
@@ -358,7 +434,26 @@ const CreateLegalPersonPage = () => {
                       <FormMessage />
                     </FormItem>
                   )}
+                /> */}
+                <FormField
+                  control={form.control}
+                  name="balanceCopy"
+                  render={({ field: { value, onChange, ...fieldProps } }) => (
+                    <FormItem>
+                      <FormLabel>Balance</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...fieldProps}
+                          type="file"
+                          onChange={(event) => onChange(event.target.files && event.target.files)}
+                        />
+                      </FormControl>
+                      <FormDescription>Selecciona un archivo.</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
+
                 <FormField
                   control={form.control}
                   name="representativeData"

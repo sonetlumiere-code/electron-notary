@@ -9,6 +9,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator
 } from "@renderer/components/ui/breadcrumb"
+import { Button } from "@renderer/components/ui/button"
 import {
   Card,
   CardContent,
@@ -17,6 +18,7 @@ import {
   CardHeader,
   CardTitle
 } from "@renderer/components/ui/card"
+import { toast } from "@renderer/components/ui/use-toast"
 import { Activity, LegalPersonDataSheet } from "@shared/types"
 import { format } from "date-fns"
 import { toZonedTime } from "date-fns-tz"
@@ -39,6 +41,18 @@ const LegalPersonDetailsPage = () => {
 
     getLegalPerson()
   }, [])
+
+  const openFile = async (fileName: string) => {
+    try {
+      await window.electronAPI.openFile(fileName)
+    } catch (error) {
+      console.error("Error opening file:", error)
+      toast({
+        variant: "destructive",
+        title: "Error abriendo archivo adjunto."
+      })
+    }
+  }
 
   return (
     <div className="relative space-y-6">
@@ -141,15 +155,59 @@ const LegalPersonDetailsPage = () => {
               </div>
               <div className="grid gap-1">
                 <p className="text-sm font-medium leading-none">Copia del estatuto</p>
-                <p className="text-sm text-muted-foreground">{legalPerson.statuteCopy}</p>
+                {legalPerson.statuteCopy ? (
+                  <Button
+                    variant="link"
+                    className="justify-start items-start p-0"
+                    onClick={() => openFile(legalPerson.statuteCopy as string)}
+                  >
+                    <span className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
+                      {legalPerson.statuteCopy}
+                    </span>
+                  </Button>
+                ) : (
+                  <span className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
+                    -
+                  </span>
+                )}
               </div>
+
               <div className="grid gap-1">
                 <p className="text-sm font-medium leading-none">Copia de las actas</p>
-                <p className="text-sm text-muted-foreground">{legalPerson.proceedingsCopy}</p>
+                {legalPerson.proceedingsCopy ? (
+                  <Button
+                    variant="link"
+                    className="justify-start items-start p-0"
+                    onClick={() => openFile(legalPerson.proceedingsCopy as string)}
+                  >
+                    <span className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
+                      {legalPerson.proceedingsCopy}
+                    </span>
+                  </Button>
+                ) : (
+                  <span className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
+                    -
+                  </span>
+                )}
               </div>
+
               <div className="grid gap-1">
                 <p className="text-sm font-medium leading-none">Copia del balance</p>
-                <p className="text-sm text-muted-foreground">{legalPerson.balanceCopy}</p>
+                {legalPerson.balanceCopy ? (
+                  <Button
+                    variant="link"
+                    className="justify-start items-start p-0"
+                    onClick={() => openFile(legalPerson.balanceCopy as string)}
+                  >
+                    <span className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
+                      {legalPerson.balanceCopy}
+                    </span>
+                  </Button>
+                ) : (
+                  <span className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
+                    -
+                  </span>
+                )}
               </div>
               <div className="grid gap-1">
                 <p className="text-sm font-medium leading-none">Datos del representante</p>

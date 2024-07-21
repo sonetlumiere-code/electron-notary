@@ -227,7 +227,7 @@ const EditActivityPage = () => {
                             onChange={(event) => onChange(event.target.files && event.target.files)}
                           />
                         </FormControl>
-                        <FormDescription>Selecciona un archivo.</FormDescription>
+                        <FormDescription>Selecciona archivos.</FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}

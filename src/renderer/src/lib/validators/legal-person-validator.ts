@@ -15,15 +15,17 @@ export const zodLegalPersonSchema = z.object({
         issue.code === "invalid_date" ? "Ingresa una fecha de inscripción válida." : defaultError
     })
   }),
-  registrationOffice: z.nativeEnum(RegistrationOffice),
+  registrationOffice: z.nativeEnum(RegistrationOffice, {
+    errorMap: () => ({
+      message: "Selecciona el lugar de inscripción."
+    })
+  }),
   registeredOfficePhone: z.coerce.number().optional(),
-  registeredOfficeAddress: z
-    .string()
-    .min(1, { message: "Ingresa el domicilio de la sede social." }),
+  registeredOfficeAddress: z.string().optional(),
   registeredOfficeEmail: z.string().email({ message: "Ingresa un correo electrónico válido." }),
-  statuteCopy: z.string().optional(),
-  proceedingsCopy: z.string().optional(),
-  balanceCopy: z.string().optional(),
+  statuteCopy: z.any(),
+  proceedingsCopy: z.any(),
+  balanceCopy: z.any(),
   representativeData: z.string().min(1, { message: "Ingresa los datos del representante." }),
   enrollment: z.string().min(1, { message: "Ingresa la matrícula." }),
   file: z.string().min(1, { message: "Ingresa el legajo." })

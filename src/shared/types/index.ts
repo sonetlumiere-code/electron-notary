@@ -74,12 +74,12 @@ export interface LegalPersonDataSheet {
   instrumentOfConstitution: string
   registrationDate: Date
   registrationOffice: RegistrationOffice
-  registeredOfficePhone: number
-  registeredOfficeAddress: string
+  registeredOfficePhone?: number
+  registeredOfficeAddress?: string
   registeredOfficeEmail: string
-  statuteCopy: string
-  proceedingsCopy: string
-  balanceCopy: string
+  statuteCopy?: string
+  proceedingsCopy?: string
+  balanceCopy?: string
   representativeData: string
   enrollment: string
   file: string
