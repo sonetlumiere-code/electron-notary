@@ -16,6 +16,10 @@ export const zodPersonSchema = z.object({
     })
   }),
   documentNumber: z.coerce.number().min(1, { message: "Ingresa el número de documento." }),
+  document: z.any(),
+  affidavit: z.any(),
+  judgment: z.any(),
+  attachedFile: z.any(),
   CUIT_L: z.coerce.number().min(1, { message: "Ingresa el CUIT o CUIL." }),
   birthdate: z.coerce.date({
     errorMap: (issue, { defaultError }) => ({

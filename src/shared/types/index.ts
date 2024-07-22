@@ -58,6 +58,10 @@ export interface PersonDataSheet {
   originOfFunds?: string
   referredBy?: string
   observations?: string
+  document?: string
+  affidavit?: string
+  judgment?: string
+  attachedFile?: string
 }
 
 export enum RegistrationOffice {

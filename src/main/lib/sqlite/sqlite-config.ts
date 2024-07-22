@@ -38,7 +38,11 @@ try {
       politicalPosition TEXT,
       originOfFunds TEXT,
       referredBy TEXT,
-      observations TEXT
+      observations TEXT,
+      document TEXT,
+      affidavit TEXT,
+      judgment TEXT,
+      attachedFile TEXT
     );
 
     CREATE TABLE IF NOT EXISTS legal_person_data_sheets (

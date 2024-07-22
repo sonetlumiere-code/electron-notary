@@ -9,6 +9,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator
 } from "@renderer/components/ui/breadcrumb"
+import { Button } from "@renderer/components/ui/button"
 import {
   Card,
   CardContent,
@@ -17,6 +18,7 @@ import {
   CardHeader,
   CardTitle
 } from "@renderer/components/ui/card"
+import { toast } from "@renderer/components/ui/use-toast"
 import { Activity, PersonDataSheet } from "@shared/types"
 import { format } from "date-fns"
 import { toZonedTime } from "date-fns-tz"
@@ -37,6 +39,18 @@ const PersonDetailsPage = () => {
 
     getPerson()
   }, [])
+
+  const openFile = async (fileName: string) => {
+    try {
+      await window.electronAPI.openFile(fileName)
+    } catch (error) {
+      console.error("Error opening file:", error)
+      toast({
+        variant: "destructive",
+        title: "Error abriendo archivo adjunto."
+      })
+    }
+  }
 
   return (
     <div className="relative space-y-6">
@@ -234,6 +248,82 @@ const PersonDetailsPage = () => {
                 <p className="text-sm text-muted-foreground">
                   {person.observations ? person.observations : "-"}
                 </p>
+              </div>
+
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Documento</p>
+                {person.document ? (
+                  <Button
+                    variant="link"
+                    className="justify-start items-start p-0"
+                    onClick={() => openFile(person.document as string)}
+                  >
+                    <span className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
+                      {person.document}
+                    </span>
+                  </Button>
+                ) : (
+                  <span className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
+                    -
+                  </span>
+                )}
+              </div>
+
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Declaración jurada</p>
+                {person.affidavit ? (
+                  <Button
+                    variant="link"
+                    className="justify-start items-start p-0"
+                    onClick={() => openFile(person.affidavit as string)}
+                  >
+                    <span className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
+                      {person.affidavit}
+                    </span>
+                  </Button>
+                ) : (
+                  <span className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
+                    -
+                  </span>
+                )}
+              </div>
+
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Sentencia</p>
+                {person.judgment ? (
+                  <Button
+                    variant="link"
+                    className="justify-start items-start p-0"
+                    onClick={() => openFile(person.judgment as string)}
+                  >
+                    <span className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
+                      {person.judgment}
+                    </span>
+                  </Button>
+                ) : (
+                  <span className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
+                    -
+                  </span>
+                )}
+              </div>
+
+              <div className="grid gap-1">
+                <p className="text-sm font-medium leading-none">Otros</p>
+                {person.attachedFile ? (
+                  <Button
+                    variant="link"
+                    className="justify-start items-start p-0"
+                    onClick={() => openFile(person.attachedFile as string)}
+                  >
+                    <span className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
+                      {person.attachedFile}
+                    </span>
+                  </Button>
+                ) : (
+                  <span className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
+                    -
+                  </span>
+                )}
               </div>
             </div>
           )}

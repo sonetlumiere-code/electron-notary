@@ -40,7 +40,14 @@ import { Textarea } from "@renderer/components/ui/textarea"
 import { ToastAction } from "@renderer/components/ui/toast"
 import { toast } from "@renderer/components/ui/use-toast"
 import { PersonSchema, zodPersonSchema } from "@renderer/lib/validators/person-validator"
-import { DocumentType, Gender, MaritalRegime, MaritalStatus, PersonDataSheet } from "@shared/types"
+import {
+  DocumentType,
+  ElectronFile,
+  Gender,
+  MaritalRegime,
+  MaritalStatus,
+  PersonDataSheet
+} from "@shared/types"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { Link, useNavigate, useParams } from "react-router-dom"
@@ -104,8 +111,44 @@ const EditPersonPage = () => {
   }, [])
 
   const editPerson = async (data: PersonSchema) => {
+    const dataToSend: PersonDataSheet = { ...data }
+
+    const fileInputs = ["document", "affidavit", "judgment", "attachedFile"]
+
+    for (const input of fileInputs) {
+      const files =
+        data[input] instanceof FileList ? (Array.from(data[input]) as ElectronFile[]) : []
+
+      if (files.length > 0) {
+        for (const file of files) {
+          try {
+            const result = await window.electronAPI.saveFiles([
+              { filePath: file.path, fileName: file.name }
+            ])
+
+            if (result[0].status !== "success") {
+              toast({
+                variant: "destructive",
+                title: `Error guardando archivo: ${file.name}`
+              })
+              return
+            }
+
+            dataToSend[input] = result[0].fileName
+          } catch (error) {
+            console.error("Error saving file:", error)
+            toast({
+              variant: "destructive",
+              title: "Error guardando archivo."
+            })
+            return
+          }
+        }
+      }
+    }
+
     try {
-      const res = await window.personAPI.updatePerson({ id: personId, ...data })
+      const res = await window.personAPI.updatePerson({ id: personId, ...dataToSend })
 
       if (res) {
         updatePerson(personId, res)
@@ -686,6 +729,78 @@ const EditPersonPage = () => {
                           <Textarea {...field} disabled={form.formState.isSubmitting} />
                         </FormControl>
                         <FormDescription>Ingresa las observaciones.</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="document"
+                    render={({ field: { value, onChange, ...fieldProps } }) => (
+                      <FormItem>
+                        <FormLabel>Documento</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...fieldProps}
+                            type="file"
+                            onChange={(event) => onChange(event.target.files && event.target.files)}
+                          />
+                        </FormControl>
+                        <FormDescription>Selecciona un archivo.</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="affidavit"
+                    render={({ field: { value, onChange, ...fieldProps } }) => (
+                      <FormItem>
+                        <FormLabel>Declaración jurada</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...fieldProps}
+                            type="file"
+                            onChange={(event) => onChange(event.target.files && event.target.files)}
+                          />
+                        </FormControl>
+                        <FormDescription>Selecciona un archivo.</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="judgment"
+                    render={({ field: { value, onChange, ...fieldProps } }) => (
+                      <FormItem>
+                        <FormLabel>Sentencia</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...fieldProps}
+                            type="file"
+                            onChange={(event) => onChange(event.target.files && event.target.files)}
+                          />
+                        </FormControl>
+                        <FormDescription>Selecciona un archivo.</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="attachedFile"
+                    render={({ field: { value, onChange, ...fieldProps } }) => (
+                      <FormItem>
+                        <FormLabel>Otros</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...fieldProps}
+                            type="file"
+                            onChange={(event) => onChange(event.target.files && event.target.files)}
+                          />
+                        </FormControl>
+                        <FormDescription>Selecciona un archivo.</FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}

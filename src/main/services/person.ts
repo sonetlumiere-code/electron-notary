@@ -13,9 +13,9 @@ const createPerson = (data: PersonDataSheet): PersonDataSheet => {
       name, lastName, gender, nationality, documentType, documentNumber, CUIT_L, birthdate, birthplace,
       maritalStatus, fatherName, motherName, spouseName, marriageNumber, marriageRegime, divorceSpouseName, divorceDate, divorceCourt,
       divorce, widowNumber, numberOfChildren, address, city, profession, phoneNumber,
-      mobileNumber, email, isPoliticallyExposed, politicalPosition, originOfFunds, referredBy, observations
+      mobileNumber, email, isPoliticallyExposed, politicalPosition, originOfFunds, referredBy, observations, document, affidavit, judgment, attachedFile
     ) VALUES (
-      ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+      ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
     )
   `
 
@@ -60,7 +60,11 @@ const createPerson = (data: PersonDataSheet): PersonDataSheet => {
       data.politicalPosition,
       data.originOfFunds,
       data.referredBy,
-      data.observations
+      data.observations,
+      data.document,
+      data.affidavit,
+      data.judgment,
+      data.attachedFile
     )
 
     return {
@@ -119,7 +123,7 @@ const updatePerson = (data: PersonDataSheet) => {
       spouseName = ?, marriageNumber = ?, marriageRegime = ?, divorceSpouseName = ?, divorceDate = ?, divorceCourt = ?, divorce = ?,
       widowNumber = ?, numberOfChildren = ?, address = ?, city = ?, profession = ?,
       phoneNumber = ?, mobileNumber = ?, email = ?, isPoliticallyExposed = ?, politicalPosition = ?,
-      originOfFunds = ?, referredBy = ?, observations = ?
+      originOfFunds = ?, referredBy = ?, observations = ?, document = ?, affidavit = ?, judgment = ?, attachedFile = ?
     WHERE id = ?
   `
 
@@ -165,6 +169,10 @@ const updatePerson = (data: PersonDataSheet) => {
       data.originOfFunds,
       data.referredBy,
       data.observations,
+      data.document,
+      data.affidavit,
+      data.judgment,
+      data.attachedFile,
       data.id
     )
 
