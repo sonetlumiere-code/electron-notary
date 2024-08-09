@@ -13,10 +13,10 @@ const MenuNav = () => {
       <SheetTrigger>
         <Menu className="block lg:hidden h-6 w-6" />
       </SheetTrigger>
-      <SheetContent side="left" className="lg:hidden w-[240px]">
+      <SheetContent side="left" className="bg-primary lg:hidden w-[240px]">
         <nav className="flex flex-col gap-4">
           <div className="p-5 border-b">
-            <Feather />
+            <Feather className="text-primary-foreground" />
           </div>
           <div className="space-y-2">
             {navItems.map((item) => (
@@ -26,7 +26,7 @@ const MenuNav = () => {
                   to={item.href}
                   className={cn(
                     buttonVariants({
-                      variant: location.pathname === item.href ? "secondary" : "ghost"
+                      variant: location.pathname === item.href ? "secondary" : "default"
                     }),
                     "w-full justify-start"
                   )}

@@ -10,7 +10,7 @@ const Nav = () => {
   return (
     <nav className="flex flex-col gap-4 p-4">
       <div className="p-5 border-b">
-        <Feather />
+        <Feather className="text-primary-foreground" />
       </div>
       <div className="space-y-2">
         {navItems.map((item) => (
@@ -19,7 +19,7 @@ const Nav = () => {
             to={item.href}
             className={cn(
               buttonVariants({
-                variant: location.pathname === item.href ? "secondary" : "ghost"
+                variant: location.pathname === item.href ? "secondary" : "default"
               }),
               "w-full justify-start"
             )}
