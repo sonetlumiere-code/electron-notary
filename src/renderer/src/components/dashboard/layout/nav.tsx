@@ -1,6 +1,5 @@
 import { buttonVariants } from "@renderer/components/ui/button"
 import { cn } from "@renderer/lib/utils"
-import { Feather } from "lucide-react"
 import { NavLink, useLocation } from "react-router-dom"
 import navItems from "./nav-items"
 
@@ -8,11 +7,11 @@ const Nav = () => {
   const location = useLocation()
 
   return (
-    <nav className="flex flex-col gap-4 p-4">
-      <div className="p-5 border-b">
-        <Feather className="text-primary-foreground" />
+    <nav className="flex flex-col gap-4">
+      <div className="px-7 pt-8 pb-3 w-2/3 border-l-4 border-orange-500">
+        <img src="src/assets/img/logo_etchart.png" alt="Logo Etchart" />
       </div>
-      <div className="space-y-2">
+      <div className="space-y-2 p-4">
         {navItems.map((item) => (
           <NavLink
             key={item.id}
