@@ -524,11 +524,11 @@ const CreatePersonPage = () => {
                   name="numberOfChildren"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
-                      <FormLabel>Número de Hijos</FormLabel>
+                      <FormLabel>Cantidad de Hijos</FormLabel>
                       <FormControl>
                         <Input {...field} type="number" disabled={form.formState.isSubmitting} />
                       </FormControl>
-                      <FormDescription>Ingresa el número de hijos.</FormDescription>
+                      <FormDescription>Ingresa la cantidad de hijos.</FormDescription>
                       <FormMessage />
                     </FormItem>
                   )}

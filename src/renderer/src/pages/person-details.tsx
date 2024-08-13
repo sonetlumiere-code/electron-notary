@@ -188,7 +188,7 @@ const PersonDetailsPage = () => {
                 </p>
               </div>
               <div className="grid gap-1">
-                <p className="text-sm font-medium leading-none">Número de Hijos</p>
+                <p className="text-sm font-medium leading-none">Cantidad de Hijos</p>
                 <p className="text-sm text-muted-foreground">{person.numberOfChildren ?? "N/A"}</p>
               </div>
               <div className="grid gap-1">
