@@ -17,15 +17,15 @@ const personDocBuffer = async (persons: PersonDataSheet[]): Promise<Buffer> => {
           after: 200
         }
       }),
-      createFormField(`Nombre (completo): ${person.name}`),
-      createFormField(`Apellido: ${person.lastName}`),
-      createFormField(`Sexo: ${person.gender}`),
-      createFormField(`Nacionalidad: ${person.nationality}`),
-      createFormField(`${person.documentType}: ${person.documentNumber}`),
+      createFormField(`Nombre (completo): ${person.name}`, true),
+      createFormField(`Apellido: ${person.lastName}`, true),
+      createFormField(`Sexo: ${person.gender}`, true),
+      createFormField(`Nacionalidad: ${person.nationality}`, true),
+      createFormField(`${person.documentType}: ${person.documentNumber}`, true),
       createFormField(`CUIT/L: ${person.CUIT_L}`),
-      createFormField(`Fecha de nacimiento: ${format(person.birthdate, "dd/MM/yyyy")}`),
-      createFormField(`Lugar de nacimiento: ${person.birthplace}`),
-      createFormField(`Estado civil: ${person.maritalStatus}`),
+      createFormField(`Fecha de nacimiento: ${format(person.birthdate, "dd/MM/yyyy")}`, true),
+      createFormField(`Lugar de nacimiento: ${person.birthplace}`, true),
+      createFormField(`Estado civil: ${person.maritalStatus}`, true),
       createFormField(
         `Soltero: Nombre padre: ${person.fatherName} Nombre madre: ${person.motherName}`,
         true
@@ -42,13 +42,13 @@ const personDocBuffer = async (persons: PersonDataSheet[]): Promise<Buffer> => {
       ),
       createFormField("Carátula: " + (person.divorce || ""), true),
       createFormField(`Viudo: nº nupcias: ${person.widowNumber}`, true),
-      createFormField(`Cantidad de Hijos: ${person.numberOfChildren}`),
-      createFormField(`Domicilio Real: ${person.address}`),
-      createFormField(`Ciudad/Partido/Provincia: ${person.city}`),
-      createFormField(`Profesión/Ocupación: ${person.profession}`),
-      createFormField(`Teléfono fijo: ${person.phoneNumber}`),
-      createFormField(`Teléfono Celular: ${person.mobileNumber}`),
-      createFormField(`E-mail: ${person.email}`),
+      createFormField(`Cantidad de Hijos: ${person.numberOfChildren}`, true),
+      createFormField(`Domicilio Real: ${person.address}`, true),
+      createFormField(`Ciudad/Partido/Provincia: ${person.city}`, true),
+      createFormField(`Profesión/Ocupación: ${person.profession}`, true),
+      createFormField(`Teléfono fijo: ${person.phoneNumber}`, true),
+      createFormField(`Teléfono Celular: ${person.mobileNumber}`, true),
+      createFormField(`E-mail: ${person.email}`, true),
       createFormField(
         `Es Persona expuesta políticamente? ${person.isPoliticallyExposed ? "Si" : "No"} Cargo: ${person.politicalPosition || ""}`,
         true
@@ -57,7 +57,7 @@ const personDocBuffer = async (persons: PersonDataSheet[]): Promise<Buffer> => {
         `En operaciones onerosas indique origen del dinero: ${person.originOfFunds}`,
         true
       ),
-      createFormField("Por qué eligió nuestra escribanía?"),
+      createFormField("Por qué eligió nuestra escribanía?", true),
       createFormField(`Alguien nos recomendó? Quien?: ${person.referredBy}`, true),
       new Paragraph({
         children: [

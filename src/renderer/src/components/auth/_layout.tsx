@@ -1,7 +1,7 @@
 import { cn } from "@renderer/lib/utils"
 import { Outlet } from "react-router-dom"
 import { useTheme } from "../theme-provider"
-import etchartLogo from "/public/logo_etchart.png"
+import etchartLogo from "/logo_etchart.png"
 
 const AuthLayout = () => {
   const { theme } = useTheme()

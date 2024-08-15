@@ -4,7 +4,7 @@ import { cn } from "@renderer/lib/utils"
 import { Menu } from "lucide-react"
 import { NavLink, useLocation } from "react-router-dom"
 import navItems from "./nav-items"
-import etchartLogo from "/public/logo_etchart.png"
+import etchartLogo from "/logo_etchart.png"
 
 const MenuNav = () => {
   const location = useLocation()
