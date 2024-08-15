@@ -4,6 +4,7 @@ import { cn } from "@renderer/lib/utils"
 import { Menu } from "lucide-react"
 import { NavLink, useLocation } from "react-router-dom"
 import navItems from "./nav-items"
+import etchartLogo from "/public/logo_etchart.png"
 
 const MenuNav = () => {
   const location = useLocation()
@@ -16,7 +17,7 @@ const MenuNav = () => {
       <SheetContent side="left" className="bg-primary lg:hidden w-[240px]">
         <nav className="flex flex-col gap-4">
           <div className="px-8 pt-8 pb-3 w-2/3 border-l-4 border-orange-500">
-            <img src="src/assets/img/logo_etchart.png" alt="Logo Etchart" />
+            <img src={etchartLogo} alt="Logo Etchart" />
           </div>
           <div className="space-y-2 p-6">
             {navItems.map((item) => (
