@@ -26,22 +26,19 @@ const personDocBuffer = async (persons: PersonDataSheet[]): Promise<Buffer> => {
       createFormField(`Fecha de nacimiento: ${format(person.birthdate, "dd/MM/yyyy")}`, true),
       createFormField(`Lugar de nacimiento: ${person.birthplace}`, true),
       createFormField(`Estado civil: ${person.maritalStatus}`, true),
-      createFormField(
-        `Soltero: Nombre padre: ${person.fatherName} Nombre madre: ${person.motherName}`,
-        true
-      ),
-      createFormField(
-        `Casado: nº nupcias: ${person.marriageNumber} nombre cónyuge: ${person.spouseName}`,
-        true
-      ),
+      createFormField(`Nombre padre: ${person.fatherName}`),
+      createFormField(`Nombre madre: ${person.motherName}`),
+      createFormField(`Nº nupcias: ${person.marriageNumber}`),
+      createFormField(`Nombre cónyuge: ${person.spouseName}`),
       createFormField(`Régimen patrimonial del matrimonio: ${person.marriageRegime}`, true),
-      createFormField(`Divorciado: Nombre del cónyuge: ${person.divorceSpouseName}`, true),
+      createFormField(`Nombre del cónyuge (divorcio): ${person.divorceSpouseName}`, true),
       createFormField(
-        `Sentencia: Fecha: ${person.divorceDate ? format(person.divorceDate, "dd/MM/yyyy") : ""} tribunal/juzgado: ${person.divorceCourt}`,
+        `Fecha de sentencia de divorcio: ${person.divorceDate ? format(person.divorceDate, "dd/MM/yyyy") : ""}`,
         true
       ),
+      createFormField(`Tribunal/juzgado: ${person.divorceCourt}`),
       createFormField("Carátula: " + (person.divorce || ""), true),
-      createFormField(`Viudo: nº nupcias: ${person.widowNumber}`, true),
+      createFormField(`Viudo Nº nupcias: ${person.widowNumber}`, true),
       createFormField(`Cantidad de Hijos: ${person.numberOfChildren}`, true),
       createFormField(`Domicilio Real: ${person.address}`, true),
       createFormField(`Ciudad/Partido/Provincia: ${person.city}`, true),
@@ -50,9 +47,9 @@ const personDocBuffer = async (persons: PersonDataSheet[]): Promise<Buffer> => {
       createFormField(`Teléfono Celular: ${person.mobileNumber}`, true),
       createFormField(`E-mail: ${person.email}`, true),
       createFormField(
-        `Es Persona expuesta políticamente? ${person.isPoliticallyExposed ? "Si" : "No"} Cargo: ${person.politicalPosition || ""}`,
-        true
+        `Es Persona expuesta políticamente?: ${person.isPoliticallyExposed ? "Si" : "No"}`
       ),
+      createFormField(`Cargo político: ${person.politicalPosition || ""}`, true),
       createFormField(
         `En operaciones onerosas indique origen del dinero: ${person.originOfFunds}`,
         true
