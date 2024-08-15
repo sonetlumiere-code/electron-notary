@@ -49,6 +49,7 @@ const CreateActivityPage = () => {
       date: new Date(),
       act: "",
       observations: "",
+      bill: undefined,
       attachedFiles: undefined
     }
   })
@@ -56,42 +57,43 @@ const CreateActivityPage = () => {
   const createActivity = async (data: ActivitySchema) => {
     const dataToSend: Activity = { ...data }
 
-    dataToSend[isPerson ? "person_id" : "legal_person_id"] = Number(id)
+    const fileInputs = ["bill", "attachedFiles"]
 
-    const files =
-      data.attachedFiles instanceof FileList
-        ? (Array.from(data.attachedFiles) as ElectronFile[])
-        : []
+    for (const input of fileInputs) {
+      const files =
+        data[input] instanceof FileList ? (Array.from(data[input]) as ElectronFile[]) : []
 
-    let fileNames: string[] = []
+      if (files.length > 0) {
+        const fileNames: string[] = []
+        for (const file of files) {
+          try {
+            const result = await window.electronAPI.saveFiles([
+              { filePath: file.path, fileName: file.name }
+            ])
 
-    if (files.length > 0) {
-      try {
-        const results = await window.electronAPI.saveFiles(
-          files.map((file) => ({ filePath: file.path, fileName: file.name }))
-        )
-        const failedFiles = results.filter((result) => result.status !== "success")
+            if (result[0].status !== "success") {
+              toast({
+                variant: "destructive",
+                title: `Error guardando archivo: ${file.name}`
+              })
+              return
+            }
 
-        if (failedFiles.length > 0) {
-          toast({
-            variant: "destructive",
-            title: "Error guardando archivo(s)."
-          })
-          return
+            fileNames.push(result[0].fileName || "")
+          } catch (error) {
+            console.error("Error saving file:", error)
+            toast({
+              variant: "destructive",
+              title: "Error guardando archivo."
+            })
+            return
+          }
         }
-
-        fileNames = results.map((result) => result.fileName || "")
-      } catch (error) {
-        console.error("Error saving files:", error)
-        toast({
-          variant: "destructive",
-          title: "Error guardando archivo(s)."
-        })
-        return
+        dataToSend[input] = fileNames
       }
     }
 
-    dataToSend.attachedFiles = fileNames
+    dataToSend[isPerson ? "person_id" : "legal_person_id"] = Number(id)
 
     try {
       const res: Activity | null = await window.activityAPI.createActivity(dataToSend)
@@ -195,11 +197,15 @@ const CreateActivityPage = () => {
                 <FormField
                   control={form.control}
                   name="bill"
-                  render={({ field }) => (
+                  render={({ field: { value, onChange, ...fieldProps } }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Factura</FormLabel>
                       <FormControl>
-                        <Input {...field} type="text" disabled={form.formState.isSubmitting} />
+                        <Input
+                          {...fieldProps}
+                          type="file"
+                          onChange={(event) => onChange(event.target.files && event.target.files)}
+                        />
                       </FormControl>
                       <FormDescription>Ingresa la factura.</FormDescription>
                       <FormMessage />
@@ -211,8 +217,8 @@ const CreateActivityPage = () => {
                   control={form.control}
                   name="attachedFiles"
                   render={({ field: { value, onChange, ...fieldProps } }) => (
-                    <FormItem>
-                      <FormLabel>Archivo adjunto</FormLabel>
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Archivos adjuntos</FormLabel>
                       <FormControl>
                         <Input
                           {...fieldProps}

@@ -74,34 +74,70 @@ const EditActivityPage = () => {
       legal_person_id: activity?.legal_person_id
     }
 
-    const files =
-      data.attachedFiles instanceof FileList
-        ? (Array.from(data.attachedFiles) as ElectronFile[])
-        : []
+    const fileInputs = ["bill", "attachedFiles"]
 
-    if (files.length > 0) {
-      try {
-        const results = await window.electronAPI.saveFiles(
-          files.map((file) => ({ filePath: file.path, fileName: file.name }))
-        )
-        const failedFiles = results.filter((result) => result.status !== "success")
+    // const files =
+    //   data.attachedFiles instanceof FileList
+    //     ? (Array.from(data.attachedFiles) as ElectronFile[])
+    //     : []
 
-        if (failedFiles.length > 0) {
-          toast({
-            variant: "destructive",
-            title: "Error guardando archivo(s)."
-          })
-          return
+    // if (files.length > 0) {
+    //   try {
+    //     const results = await window.electronAPI.saveFiles(
+    //       files.map((file) => ({ filePath: file.path, fileName: file.name }))
+    //     )
+    //     const failedFiles = results.filter((result) => result.status !== "success")
+
+    //     if (failedFiles.length > 0) {
+    //       toast({
+    //         variant: "destructive",
+    //         title: "Error guardando archivo(s)."
+    //       })
+    //       return
+    //     }
+
+    //     dataToSend.attachedFiles = results.map((result) => result.fileName || "")
+    //   } catch (error) {
+    //     console.error("Error saving files:", error)
+    //     toast({
+    //       variant: "destructive",
+    //       title: "Error guardando archivo(s)."
+    //     })
+    //     return
+    //   }
+    // }
+
+    for (const input of fileInputs) {
+      const files =
+        data[input] instanceof FileList ? (Array.from(data[input]) as ElectronFile[]) : []
+
+      if (files.length > 0) {
+        const fileNames: string[] = []
+        for (const file of files) {
+          try {
+            const result = await window.electronAPI.saveFiles([
+              { filePath: file.path, fileName: file.name }
+            ])
+
+            if (result[0].status !== "success") {
+              toast({
+                variant: "destructive",
+                title: `Error guardando archivo: ${file.name}`
+              })
+              return
+            }
+
+            fileNames.push(result[0].fileName || "")
+          } catch (error) {
+            console.error("Error saving file:", error)
+            toast({
+              variant: "destructive",
+              title: "Error guardando archivo."
+            })
+            return
+          }
         }
-
-        dataToSend.attachedFiles = results.map((result) => result.fileName || "")
-      } catch (error) {
-        console.error("Error saving files:", error)
-        toast({
-          variant: "destructive",
-          title: "Error guardando archivo(s)."
-        })
-        return
+        dataToSend[input] = fileNames
       }
     }
 
@@ -201,11 +237,15 @@ const EditActivityPage = () => {
                   <FormField
                     control={form.control}
                     name="bill"
-                    render={({ field }) => (
+                    render={({ field: { value, onChange, ...fieldProps } }) => (
                       <FormItem className="flex flex-col">
                         <FormLabel>Factura</FormLabel>
                         <FormControl>
-                          <Input {...field} type="text" disabled={form.formState.isSubmitting} />
+                          <Input
+                            {...fieldProps}
+                            type="file"
+                            onChange={(event) => onChange(event.target.files && event.target.files)}
+                          />
                         </FormControl>
                         <FormDescription>Ingresa la factura.</FormDescription>
                         <FormMessage />
@@ -217,8 +257,8 @@ const EditActivityPage = () => {
                     control={form.control}
                     name="attachedFiles"
                     render={({ field: { value, onChange, ...fieldProps } }) => (
-                      <FormItem>
-                        <FormLabel>Archivo adjunto</FormLabel>
+                      <FormItem className="flex flex-col">
+                        <FormLabel>Archivos adjuntos</FormLabel>
                         <FormControl>
                           <Input
                             {...fieldProps}

@@ -379,7 +379,7 @@ const CreateLegalPersonPage = () => {
                   control={form.control}
                   name="statuteCopy"
                   render={({ field: { value, onChange, ...fieldProps } }) => (
-                    <FormItem>
+                    <FormItem className="flex flex-col">
                       <FormLabel>Estatuto</FormLabel>
                       <FormControl>
                         <Input
@@ -397,7 +397,7 @@ const CreateLegalPersonPage = () => {
                   control={form.control}
                   name="proceedingsCopy"
                   render={({ field: { value, onChange, ...fieldProps } }) => (
-                    <FormItem>
+                    <FormItem className="flex flex-col">
                       <FormLabel>Actas</FormLabel>
                       <FormControl>
                         <Input
@@ -415,7 +415,7 @@ const CreateLegalPersonPage = () => {
                   control={form.control}
                   name="balanceCopy"
                   render={({ field: { value, onChange, ...fieldProps } }) => (
-                    <FormItem>
+                    <FormItem className="flex flex-col">
                       <FormLabel>Balance</FormLabel>
                       <FormControl>
                         <Input
@@ -433,7 +433,7 @@ const CreateLegalPersonPage = () => {
                   control={form.control}
                   name="attachedFile"
                   render={({ field: { value, onChange, ...fieldProps } }) => (
-                    <FormItem>
+                    <FormItem className="flex flex-col">
                       <FormLabel>Otros</FormLabel>
                       <FormControl>
                         <Input

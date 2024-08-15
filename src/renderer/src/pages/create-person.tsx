@@ -711,7 +711,7 @@ const CreatePersonPage = () => {
                   control={form.control}
                   name="document"
                   render={({ field: { value, onChange, ...fieldProps } }) => (
-                    <FormItem>
+                    <FormItem className="flex flex-col">
                       <FormLabel>Documento</FormLabel>
                       <FormControl>
                         <Input
@@ -729,7 +729,7 @@ const CreatePersonPage = () => {
                   control={form.control}
                   name="affidavit"
                   render={({ field: { value, onChange, ...fieldProps } }) => (
-                    <FormItem>
+                    <FormItem className="flex flex-col">
                       <FormLabel>Declaración jurada</FormLabel>
                       <FormControl>
                         <Input
@@ -747,7 +747,7 @@ const CreatePersonPage = () => {
                   control={form.control}
                   name="judgment"
                   render={({ field: { value, onChange, ...fieldProps } }) => (
-                    <FormItem>
+                    <FormItem className="flex flex-col">
                       <FormLabel>Sentencia</FormLabel>
                       <FormControl>
                         <Input
@@ -765,7 +765,7 @@ const CreatePersonPage = () => {
                   control={form.control}
                   name="attachedFile"
                   render={({ field: { value, onChange, ...fieldProps } }) => (
-                    <FormItem>
+                    <FormItem className="flex flex-col">
                       <FormLabel>Otros</FormLabel>
                       <FormControl>
                         <Input

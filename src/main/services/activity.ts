@@ -11,16 +11,17 @@ const createActivity = (data: Activity) => {
     data.date = new Date(data.date)
   }
 
-  const attachedFileJson = JSON.stringify(data.attachedFiles)
+  const attachedFilesJson = JSON.stringify(data.attachedFiles)
+  const billJson = JSON.stringify(data.bill)
 
   try {
     const stmt = db.prepare(query)
     const info = stmt.run(
       data.date.toISOString(),
       data.act,
-      data.bill,
+      billJson,
       data.observations,
-      attachedFileJson,
+      attachedFilesJson,
       data.person_id || null,
       data.legal_person_id || null
     )
@@ -76,13 +77,14 @@ const updateActivity = (data: Activity) => {
   }
 
   const attachedFilesJson = JSON.stringify(data.attachedFiles)
+  const billJson = JSON.stringify(data.bill)
 
   try {
     const stmt = db.prepare(query)
     stmt.run(
       data.date.toISOString(),
       data.act,
-      data.bill,
+      billJson,
       data.observations,
       attachedFilesJson,
       data.person_id || null,
@@ -163,7 +165,8 @@ const formatResponse = (row: Activity): Activity => {
   return {
     ...row,
     date: new Date(row.date),
-    attachedFiles: row.attachedFiles ? JSON.parse(row.attachedFiles as unknown as string) : []
+    attachedFiles: row.attachedFiles ? JSON.parse(row.attachedFiles as unknown as string) : [],
+    bill: row.bill ? JSON.parse(row.bill as unknown as string) : []
   }
 }
 

@@ -100,7 +100,6 @@ const updateLegalPerson = (data: LegalPersonDataSheet) => {
       registeredOfficeEmail = ?, statuteCopy = ?, proceedingsCopy = ?, balanceCopy = ?, attachedFile = ?, representativeData = ?, enrollment = ?, file = ?
     WHERE id = ?
   `
-  console.log(data)
 
   if (typeof data.registrationDate === "string") {
     data.registrationDate = new Date(data.registrationDate)
