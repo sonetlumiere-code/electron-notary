@@ -1,13 +1,7 @@
-import {
-  DropdownMenuItem,
-  DropdownMenuPortal,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger
-} from "@renderer/components/ui/dropdown-menu"
+import { DropdownMenuItem } from "@renderer/components/ui/dropdown-menu"
 import { toast } from "@renderer/components/ui/use-toast"
 import { FileFormat, LegalPersonDataSheet } from "@shared/types"
-import { ArrowRightFromLine, Braces, ScrollText, Terminal } from "lucide-react"
+import { ScrollText } from "lucide-react"
 
 type ExportLegalPersonProps = {
   legalPerson: LegalPersonDataSheet
@@ -33,28 +27,32 @@ const ExportLegalPerson = ({ legalPerson }: ExportLegalPersonProps) => {
   }
 
   return (
-    <DropdownMenuSub>
-      <DropdownMenuSubTrigger>
-        <ArrowRightFromLine className="w-4 h-4 mr-2" />
-        <span>Exportar</span>
-      </DropdownMenuSubTrigger>
-      <DropdownMenuPortal>
-        <DropdownMenuSubContent>
-          <DropdownMenuItem onClick={() => exportLegalPerson(FileFormat.JSON)}>
-            <Braces className="w-4 h-4 mr-2" />
-            <span>JSON</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => exportLegalPerson(FileFormat.CSV)}>
-            <Terminal className="w-4 h-4 mr-2" />
-            <span>CSV</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => exportLegalPerson(FileFormat.WORD)}>
-            <ScrollText className="w-4 h-4 mr-2" />
-            <span>Word</span>
-          </DropdownMenuItem>
-        </DropdownMenuSubContent>
-      </DropdownMenuPortal>
-    </DropdownMenuSub>
+    <DropdownMenuItem onClick={() => exportLegalPerson(FileFormat.WORD)}>
+      <ScrollText className="w-4 h-4 mr-2" />
+      <span>Exportar a Word</span>
+    </DropdownMenuItem>
+    // <DropdownMenuSub>
+    //   <DropdownMenuSubTrigger>
+    //     <ArrowRightFromLine className="w-4 h-4 mr-2" />
+    //     <span>Exportar</span>
+    //   </DropdownMenuSubTrigger>
+    //   <DropdownMenuPortal>
+    //     <DropdownMenuSubContent>
+    //       <DropdownMenuItem onClick={() => exportLegalPerson(FileFormat.JSON)}>
+    //         <Braces className="w-4 h-4 mr-2" />
+    //         <span>JSON</span>
+    //       </DropdownMenuItem>
+    //       <DropdownMenuItem onClick={() => exportLegalPerson(FileFormat.CSV)}>
+    //         <Terminal className="w-4 h-4 mr-2" />
+    //         <span>CSV</span>
+    //       </DropdownMenuItem>
+    //       <DropdownMenuItem onClick={() => exportLegalPerson(FileFormat.WORD)}>
+    //         <ScrollText className="w-4 h-4 mr-2" />
+    //         <span>Word</span>
+    //       </DropdownMenuItem>
+    //     </DropdownMenuSubContent>
+    //   </DropdownMenuPortal>
+    // </DropdownMenuSub>
   )
 }
 
