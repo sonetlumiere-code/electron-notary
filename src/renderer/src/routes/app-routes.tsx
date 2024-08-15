@@ -8,7 +8,6 @@ import CreatePersonPage from "@renderer/pages/create-person"
 import EditActivityPage from "@renderer/pages/edit-activity"
 import EditLegalPersonPage from "@renderer/pages/edit-legal-person"
 import EditPersonPage from "@renderer/pages/edit-person"
-import HomePage from "@renderer/pages/home"
 import LegalPersonDetailsPage from "@renderer/pages/legal-person-details"
 import LegalPersonsPage from "@renderer/pages/legal-persons"
 import PersonDetailsPage from "@renderer/pages/person-details"
@@ -26,10 +25,10 @@ const router = createHashRouter([
       </PrivateRoute>
     ),
     children: [
-      {
-        path: "/",
-        element: <HomePage />
-      },
+      // {
+      //   path: "/",
+      //   element: <HomePage />
+      // },
       {
         path: "/persons",
         element: <PersonsPage />

@@ -5,23 +5,23 @@ type NavigationItem = {
 }
 
 const navItems: NavigationItem[] = [
+  // {
+  //   id: 0,
+  //   name: "Inicio",
+  //   href: "/"
+  // },
   {
     id: 1,
-    name: "Inicio",
-    href: "/"
-  },
-  {
-    id: 2,
     name: "Personas",
     href: "/persons"
   },
   {
-    id: 3,
+    id: 2,
     name: "Personas jurídicas",
     href: "/legal-persons"
   },
   {
-    id: 4,
+    id: 3,
     name: "Actividades",
     href: "/activities"
   }
