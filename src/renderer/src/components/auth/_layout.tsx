@@ -1,7 +1,7 @@
 import { cn } from "@renderer/lib/utils"
 import { Outlet } from "react-router-dom"
 import { useTheme } from "../theme-provider"
-import etchartLogo from "/logo_etchart.png"
+import etchartSeal from "/logo_etchart_seal.png"
 
 const AuthLayout = () => {
   const { theme } = useTheme()
@@ -12,10 +12,10 @@ const AuthLayout = () => {
         <div className="flex flex-col space-y-6 text-center">
           <div
             className={cn("px-24 w-full", {
-              invert: theme === "light"
+              invert: theme === "dark"
             })}
           >
-            <img src={etchartLogo} alt="Logo Etchart" />
+            <img src={etchartSeal} alt="Logo Etchart" />
           </div>
 
           {/* <h1 className="text-2xl font-semibold tracking-tight">Ingresar a tu cuenta</h1> */}
