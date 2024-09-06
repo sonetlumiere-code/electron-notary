@@ -1,7 +1,21 @@
 import Database from "better-sqlite3"
+import { app } from "electron"
+import fs from "fs"
+import path from "path"
 import { seedDatabase } from "./seed-db"
 
-const db = new Database("./sqlite.db")
+export const NOTARY_DOCS = path.join(app.getPath("documents"), "notaryDocs")
+
+const dbName = "sqlite.db"
+const embededDB = false
+
+if (!embededDB && !fs.existsSync(NOTARY_DOCS)) {
+  fs.mkdirSync(NOTARY_DOCS, { recursive: true })
+}
+
+const dbPath = embededDB ? dbName : path.join(NOTARY_DOCS, dbName)
+
+const db = new Database(dbPath)
 
 try {
   db.exec(`

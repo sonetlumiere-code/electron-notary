@@ -1,9 +1,8 @@
+import { NOTARY_DOCS } from "@/lib/sqlite/sqlite-config"
 import { FileFormat } from "@shared/types"
-import { app, dialog, ipcMain, shell } from "electron"
+import { dialog, ipcMain, shell } from "electron"
 import fs from "fs"
 import path from "path"
-
-const DOCUMENTS_FOLDER = path.join(app.getPath("documents"), "notaryDocs")
 
 export default function commonIPCHandlers(): void {
   ipcMain.handle("select-directory", async (_event) => {
@@ -36,7 +35,7 @@ export default function commonIPCHandlers(): void {
   })
 
   ipcMain.handle("save-files", async (_event, files: { filePath: string; fileName: string }[]) => {
-    const saveDirectory = path.join(DOCUMENTS_FOLDER)
+    const saveDirectory = path.join(NOTARY_DOCS)
 
     if (!fs.existsSync(saveDirectory)) {
       fs.mkdirSync(saveDirectory)
@@ -59,7 +58,7 @@ export default function commonIPCHandlers(): void {
   })
 
   ipcMain.handle("open-file", async (_event, fileName: string) => {
-    const filePath = path.join(DOCUMENTS_FOLDER, fileName)
+    const filePath = path.join(NOTARY_DOCS, fileName)
     try {
       await shell.openPath(filePath)
       return { status: "success" }
