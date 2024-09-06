@@ -1,6 +1,5 @@
 import ActivitiesCard from "@renderer/components/activities-card"
 import LegalPersonActions from "@renderer/components/dashboard/lists/legal-persons/data-table/actions/item-actions/legal-person-actions"
-import PageTitle from "@renderer/components/page-title"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -76,7 +75,7 @@ const LegalPersonDetailsPage = () => {
         </BreadcrumbList>
       </Breadcrumb>
 
-      <PageTitle>Detalle de persona jurídica</PageTitle>
+      {/* <PageTitle>Detalle de persona jurídica</PageTitle> */}
 
       <Card>
         <CardHeader>
