@@ -55,6 +55,12 @@ export interface activityAPI {
   searchActivities: (filters: Partial<Activity> & { ids?: number[] }) => Promise<Activity[] | null>
   updateActivity: (activity: Activity) => Promise<Activity | null>
   deleteActivities: (ids: number[]) => Promise<number[] | null>
+  importActivities: (filePath: string) => Promise<Activity[]>
+  exportActivities: (data: {
+    directory: string
+    ids: number[]
+    fileFormat: FileFormat
+  }) => Promise<string>
 }
 
 declare global {

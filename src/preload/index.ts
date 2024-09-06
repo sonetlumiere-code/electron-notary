@@ -53,7 +53,10 @@ const activityAPI = {
   searchActivities: (filters: Partial<Activity> & { ids?: number[] }) =>
     ipcRenderer.invoke("search-activities", filters),
   updateActivity: (activity: Activity) => ipcRenderer.invoke("update-activity", activity),
-  deleteActivities: (ids: number[]) => ipcRenderer.invoke("delete-activities", ids)
+  deleteActivities: (ids: number[]) => ipcRenderer.invoke("delete-activities", ids),
+  importActivities: (filePath: string) => ipcRenderer.invoke("import-activities", filePath),
+  exportActivities: (data: { directory: string; ids: number[]; fileFormat: FileFormat }) =>
+    ipcRenderer.invoke("export-activities", data)
 }
 
 try {

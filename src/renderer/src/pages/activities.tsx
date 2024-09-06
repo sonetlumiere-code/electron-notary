@@ -1,3 +1,4 @@
+import ActivitiesListActions from "@renderer/components/dashboard/lists/activities/actions/list-actions/activities-list-actions"
 import ActivitiesList from "@renderer/components/dashboard/lists/activities/activities-list"
 import PageTitle from "@renderer/components/page-title"
 import {
@@ -28,7 +29,7 @@ const ActivitiesPage = () => {
           </BreadcrumbList>
         </Breadcrumb>
 
-        {/* <ActivityListActions /> */}
+        <ActivitiesListActions />
       </div>
 
       <PageTitle>Actividades</PageTitle>
