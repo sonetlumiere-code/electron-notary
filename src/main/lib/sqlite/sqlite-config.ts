@@ -7,13 +7,13 @@ import { seedDatabase } from "./seed-db"
 export const NOTARY_DOCS = path.join(app.getPath("documents"), "notaryDocs")
 
 const dbName = "sqlite.db"
-const embededDB = false
+const embeddedDB = true
 
-if (!embededDB && !fs.existsSync(NOTARY_DOCS)) {
+if (!embeddedDB && !fs.existsSync(NOTARY_DOCS)) {
   fs.mkdirSync(NOTARY_DOCS, { recursive: true })
 }
 
-const dbPath = embededDB ? dbName : path.join(NOTARY_DOCS, dbName)
+const dbPath = embeddedDB ? dbName : path.join(NOTARY_DOCS, dbName)
 
 const db = new Database(dbPath)
 
