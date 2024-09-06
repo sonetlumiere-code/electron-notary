@@ -1,5 +1,9 @@
 import db from "@/lib/sqlite/sqlite-config"
-import { Activity } from "@shared/types"
+import { Activity, FileFormat } from "@shared/types"
+import csvParser from "csv-parser"
+import fs from "fs"
+import { parse } from "json2csv"
+import path from "path"
 
 const createActivity = (data: Activity) => {
   const query = `
@@ -161,6 +165,94 @@ const deleteActivities = (ids: number[]) => {
   }
 }
 
+const importActivities = async (filePath: string): Promise<Activity[]> => {
+  try {
+    const ext = path.extname(filePath).toLowerCase()
+
+    const data = fs.readFileSync(filePath, "utf-8")
+    let importedActivities: Activity[] = []
+
+    if (ext === ".json") {
+      importedActivities = JSON.parse(data)
+    } else if (ext === ".csv") {
+      importedActivities = await new Promise<Activity[]>((resolve, reject) => {
+        const results: Activity[] = []
+        fs.createReadStream(filePath)
+          .pipe(csvParser())
+          .on("data", (data: Activity) => results.push(data))
+          .on("end", () => resolve(results))
+          .on("error", (err) => reject(err))
+      })
+    } else {
+      throw new Error("Unsupported file format")
+    }
+
+    const activitiesDB: Activity[] | null = getActivities()
+
+    const createdActivities: Activity[] = []
+
+    importedActivities.forEach((activity) => {
+      const activityExists = activitiesDB?.some((dbActivity) => dbActivity.id === activity.id)
+
+      if (!activityExists) {
+        const newActivity = createActivity(activity)
+        createdActivities.push(newActivity)
+      }
+    })
+
+    return createdActivities
+  } catch (err) {
+    console.error("Error importing activities: ", err)
+    throw err
+  }
+}
+
+const exportActivities = async (
+  directory: string,
+  ids: number[],
+  fileFormat: FileFormat
+): Promise<string> => {
+  try {
+    const data: Activity[] = searchActivities({ ids })
+
+    let filePath: string
+    let content: string | Buffer
+
+    switch (fileFormat) {
+      case FileFormat.JSON: {
+        const jsonFileName = `activities_${new Date().getTime()}.json`
+        filePath = path.join(directory, jsonFileName)
+        content = JSON.stringify(data, null, 2)
+        break
+      }
+
+      case FileFormat.CSV: {
+        const csvFileName = `activities_${new Date().getTime()}.csv`
+        filePath = path.join(directory, csvFileName)
+        const csvData = parse(data)
+        content = csvData
+        break
+      }
+
+      default:
+        throw new Error(
+          `Unsupported format: ${fileFormat}. Supported formats are 'json' and 'csv'.`
+        )
+    }
+
+    if (typeof content === "string") {
+      fs.writeFileSync(filePath, content)
+    } else {
+      fs.writeFileSync(filePath, new Uint8Array(content))
+    }
+
+    return filePath
+  } catch (err) {
+    console.error("Error exporting activities: ", err)
+    throw err
+  }
+}
+
 const formatResponse = (row: Activity): Activity => {
   return {
     ...row,
@@ -173,9 +265,11 @@ const formatResponse = (row: Activity): Activity => {
 export {
   createActivity,
   deleteActivities,
+  exportActivities,
   formatResponse,
   getActivities,
   getActivityById,
+  importActivities,
   searchActivities,
   updateActivity
 }
