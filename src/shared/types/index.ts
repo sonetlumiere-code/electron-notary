@@ -26,16 +26,16 @@ export enum MaritalRegime {
 
 export interface PersonDataSheet {
   id?: number
-  name: string
-  lastName: string
-  gender: Gender
-  nationality: string
-  documentType: DocumentType
-  documentNumber: number
-  CUIT_L: number
-  birthdate: Date
-  birthplace: string
-  maritalStatus: MaritalStatus
+  name?: string
+  lastName?: string
+  gender?: Gender
+  nationality?: string
+  documentType?: DocumentType
+  documentNumber?: number
+  CUIT_L?: number
+  birthdate?: Date
+  birthplace?: string
+  maritalStatus?: MaritalStatus
   fatherName?: string
   motherName?: string
   spouseName?: string
@@ -47,12 +47,12 @@ export interface PersonDataSheet {
   divorce?: string
   widowNumber?: number
   numberOfChildren?: number
-  address: string
-  city: string
-  profession: string
-  phoneNumber: number
-  mobileNumber: number
-  email: string
+  address?: string
+  city?: string
+  profession?: string
+  phoneNumber?: number
+  mobileNumber?: number
+  email?: string
   isPoliticallyExposed?: boolean
   politicalPosition?: string
   originOfFunds?: string
@@ -71,23 +71,23 @@ export enum RegistrationOffice {
 
 export interface LegalPersonDataSheet {
   id?: number
-  businessName: string
-  CUIT: number
-  legalAddress: string
-  mainActivity: string
-  instrumentOfConstitution: string
-  registrationDate: Date
-  registrationOffice: RegistrationOffice
+  businessName?: string
+  CUIT?: number
+  legalAddress?: string
+  mainActivity?: string
+  instrumentOfConstitution?: string
+  registrationDate?: Date
+  registrationOffice?: RegistrationOffice
   registeredOfficePhone?: number
   registeredOfficeAddress?: string
-  registeredOfficeEmail: string
+  registeredOfficeEmail?: string
   statuteCopy?: string
   proceedingsCopy?: string
   balanceCopy?: string
   attachedFile?: string
-  representativeData: string
-  enrollment: string
-  file: string
+  representativeData?: string
+  enrollment?: string
+  file?: string
 }
 
 export enum FileFormat {
@@ -104,8 +104,8 @@ export type User = {
 
 export interface Activity {
   id?: number
-  date: Date
-  act: string
+  date?: Date
+  act?: string
   bill?: string[]
   observations?: string
   attachedFiles?: string[]
