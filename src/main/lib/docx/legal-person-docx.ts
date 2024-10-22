@@ -24,7 +24,7 @@ const legalPersonDocBuffer = async (legalPersons: LegalPersonDataSheet[]): Promi
       createFormField(
         `Fecha inscripción: ${legalPerson.registrationDate ? legalPerson.registrationDate?.toLocaleDateString() : ""}`
       ),
-      createFormField(`Lugar de inscripción: ${legalPerson.registrationOffice}`),
+      createFormField(`Lugar de inscripción: ${legalPerson.registrationOffice || ""}`),
       createFormField(`Sede social: Teléfono: ${legalPerson.registeredOfficePhone}`),
       createFormField(`Domicilio: ${legalPerson.registeredOfficeAddress}`),
       createFormField(`E-mail: ${legalPerson.registeredOfficeEmail}`),
