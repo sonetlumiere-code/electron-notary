@@ -23,7 +23,10 @@ const personDocBuffer = async (persons: PersonDataSheet[]): Promise<Buffer> => {
       createFormField(`Nacionalidad: ${person.nationality}`, true),
       createFormField(`${person.documentType}: ${person.documentNumber}`, true),
       createFormField(`CUIT/L: ${person.CUIT_L}`),
-      createFormField(`Fecha de nacimiento: ${format(person.birthdate, "dd/MM/yyyy")}`, true),
+      createFormField(
+        `Fecha de nacimiento: ${person.birthdate ? format(person.birthdate, "dd/MM/yyyy") : ""}`,
+        true
+      ),
       createFormField(`Lugar de nacimiento: ${person.birthplace}`, true),
       createFormField(`Estado civil: ${person.maritalStatus}`, true),
       createFormField(`Nombre padre: ${person.fatherName}`),

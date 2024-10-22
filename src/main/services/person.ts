@@ -36,7 +36,7 @@ const createPerson = (data: PersonDataSheet): PersonDataSheet => {
       data.documentType,
       data.documentNumber,
       data.CUIT_L,
-      data.birthdate.toISOString(),
+      data.birthdate ? data.birthdate.toISOString() : null,
       data.birthplace,
       data.maritalStatus,
       data.fatherName,
@@ -144,7 +144,7 @@ const updatePerson = (data: PersonDataSheet) => {
       data.documentType,
       data.documentNumber,
       data.CUIT_L,
-      data.birthdate.toISOString(),
+      data.birthdate ? data.birthdate.toISOString() : null,
       data.birthplace,
       data.maritalStatus,
       data.fatherName,
@@ -373,7 +373,7 @@ const exportPersons = async (
 const formatResponse = (row: PersonDataSheet): PersonDataSheet => {
   return {
     ...row,
-    birthdate: new Date(row.birthdate),
+    birthdate: row.birthdate ? new Date(row.birthdate) : undefined,
     divorceDate: row.divorceDate ? new Date(row.divorceDate) : undefined,
     isPoliticallyExposed: Boolean(row.isPoliticallyExposed)
   }

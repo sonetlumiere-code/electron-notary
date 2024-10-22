@@ -21,7 +21,7 @@ const createActivity = (data: Activity) => {
   try {
     const stmt = db.prepare(query)
     const info = stmt.run(
-      data.date.toISOString(),
+      data.date ? data.date.toISOString() : null,
       data.act,
       billJson,
       data.observations,
@@ -86,7 +86,7 @@ const updateActivity = (data: Activity) => {
   try {
     const stmt = db.prepare(query)
     stmt.run(
-      data.date.toISOString(),
+      data.date?.toISOString(),
       data.act,
       billJson,
       data.observations,
@@ -256,7 +256,7 @@ const exportActivities = async (
 const formatResponse = (row: Activity): Activity => {
   return {
     ...row,
-    date: new Date(row.date),
+    date: row.date ? new Date(row.date) : undefined,
     attachedFiles: row.attachedFiles ? JSON.parse(row.attachedFiles as unknown as string) : [],
     bill: row.bill ? JSON.parse(row.bill as unknown as string) : []
   }

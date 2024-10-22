@@ -28,7 +28,7 @@ const createLegalPerson = (data: LegalPersonDataSheet) => {
       data.legalAddress,
       data.mainActivity,
       data.instrumentOfConstitution,
-      data.registrationDate.toISOString(), // Convert Date to string
+      data.registrationDate ? data.registrationDate.toISOString() : null,
       data.registrationOffice,
       data.registeredOfficePhone,
       data.registeredOfficeAddress,
@@ -113,7 +113,7 @@ const updateLegalPerson = (data: LegalPersonDataSheet) => {
       data.legalAddress,
       data.mainActivity,
       data.instrumentOfConstitution,
-      data.registrationDate.toISOString(), // Convert Date to string
+      data.registrationDate ? data.registrationDate.toISOString() : null,
       data.registrationOffice,
       data.registeredOfficePhone,
       data.registeredOfficeAddress,
@@ -331,7 +331,7 @@ const exportLegalPersons = async (
 const formatResponse = (row: LegalPersonDataSheet): LegalPersonDataSheet => {
   return {
     ...row,
-    registrationDate: new Date(row.registrationDate)
+    registrationDate: row.registrationDate ? new Date(row.registrationDate) : undefined
   }
 }
 

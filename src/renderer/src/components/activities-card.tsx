@@ -75,7 +75,12 @@ const ActivitiesCard = ({ isPerson, id }: ActivitiesCardProp) => {
                 <AccordionItem key={activity.id} value={`item-${activity.id}`}>
                   <AccordionTrigger>
                     <div className="space-x-5">
-                      <span>{format(toZonedTime(activity.date, "UTC"), "dd/MM/yyyy")}</span>
+                      <span>
+                        {activity.date
+                          ? format(toZonedTime(activity.date, "UTC"), "dd/MM/yyyy")
+                          : "N/A"}
+                      </span>
+
                       <span>{activity.act}</span>
                     </div>
                   </AccordionTrigger>
@@ -85,7 +90,11 @@ const ActivitiesCard = ({ isPerson, id }: ActivitiesCardProp) => {
                         <div className="grid gap-1 self-start">
                           <p className="text-sm font-medium leading-none">Fecha</p>
                           <p className="text-sm text-muted-foreground">
-                            <span>{format(toZonedTime(activity.date, "UTC"), "dd/MM/yyyy")}</span>
+                            <span>
+                              {activity.date
+                                ? format(toZonedTime(activity.date, "UTC"), "dd/MM/yyyy")
+                                : "N/A"}
+                            </span>
                           </p>
                         </div>
                         <div className="grid gap-1 self-start">

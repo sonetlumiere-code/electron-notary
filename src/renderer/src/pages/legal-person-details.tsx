@@ -123,7 +123,9 @@ const LegalPersonDetailsPage = () => {
               <div className="grid gap-1">
                 <p className="text-sm font-medium leading-none">Fecha de inscripción</p>
                 <p className="text-sm text-muted-foreground">
-                  {format(toZonedTime(legalPerson.registrationDate, "UTC"), "dd/MM/yyyy")}
+                  {legalPerson.registrationDate
+                    ? format(toZonedTime(legalPerson.registrationDate, "UTC"), "dd/MM/yyyy")
+                    : "N/A"}
                 </p>
               </div>
               <div className="grid gap-1">
