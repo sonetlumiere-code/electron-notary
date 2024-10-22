@@ -2,8 +2,15 @@ import { DocumentType, Gender, MaritalRegime, MaritalStatus } from "@shared/type
 import { z } from "zod"
 
 export const zodPersonSchema = z.object({
-  name: z.string().min(1, { message: "Ingresa el nombre." }).optional(),
-  lastName: z.string().trim().min(1, { message: "Ingresa el apellido." }).optional(),
+  name: z
+    .string()
+    // .min(1, { message: "Ingresa el nombre." })
+    .optional(),
+  lastName: z
+    .string()
+    .trim()
+    // .min(1, { message: "Ingresa el apellido." })
+    .optional(),
   gender: z
     .nativeEnum(Gender, {
       errorMap: () => ({
@@ -11,7 +18,11 @@ export const zodPersonSchema = z.object({
       })
     })
     .optional(),
-  nationality: z.string().trim().min(1, { message: "Ingresa la nacionalidad." }).optional(),
+  nationality: z
+    .string()
+    .trim()
+    //.min(1, { message: "Ingresa la nacionalidad." })
+    .optional(),
   documentType: z
     .nativeEnum(DocumentType, {
       errorMap: () => ({
@@ -21,13 +32,16 @@ export const zodPersonSchema = z.object({
     .optional(),
   documentNumber: z.coerce
     .number()
-    .min(1, { message: "Ingresa el número de documento." })
+    //.min(1, { message: "Ingresa el número de documento." })
     .optional(),
   document: z.any().optional(),
   affidavit: z.any().optional(),
   judgment: z.any().optional(),
   attachedFile: z.any().optional(),
-  CUIT_L: z.coerce.number().min(1, { message: "Ingresa el CUIT o CUIL." }).optional(),
+  CUIT_L: z.coerce
+    .number()
+    //.min(1, { message: "Ingresa el CUIT o CUIL." })
+    .optional(),
   birthdate: z.coerce
     .date({
       errorMap: (issue, { defaultError }) => ({
@@ -35,7 +49,11 @@ export const zodPersonSchema = z.object({
       })
     })
     .optional(),
-  birthplace: z.string().trim().min(1, { message: "Ingresa el lugar de nacimiento." }).optional(),
+  birthplace: z
+    .string()
+    .trim()
+    //.min(1, { message: "Ingresa el lugar de nacimiento." })
+    .optional(),
   maritalStatus: z
     .nativeEnum(MaritalStatus, {
       errorMap: () => ({
@@ -54,12 +72,26 @@ export const zodPersonSchema = z.object({
   divorce: z.string().trim().optional(),
   widowNumber: z.number().optional(),
   numberOfChildren: z.coerce.number().optional(),
-  address: z.string().trim().min(1, { message: "Ingresa la dirección." }).optional(),
-  city: z.string().trim().min(1, { message: "Ingresa la ciudad." }).optional(),
-  profession: z.string().trim().min(1, { message: "Ingresa la profesión." }).optional(),
+  address: z
+    .string()
+    .trim()
+    //.min(1, { message: "Ingresa la dirección." })
+    .optional(),
+  city: z
+    .string()
+    .trim()
+    //.min(1, { message: "Ingresa la ciudad." })
+    .optional(),
+  profession: z
+    .string()
+    .trim()
+    //.min(1, { message: "Ingresa la profesión." })
+    .optional(),
   phoneNumber: z.coerce.number().optional(),
   mobileNumber: z.coerce.number().optional(),
-  email: z.string().email({ message: "Ingresa un correo electrónico válido." }).optional(),
+  email: z
+    .union([z.string().email({ message: "Ingresa un correo electrónico válido." }), z.literal("")])
+    .optional(),
   isPoliticallyExposed: z.boolean().optional(),
   politicalPosition: z.string().trim().optional(),
   originOfFunds: z.string().trim().optional(),

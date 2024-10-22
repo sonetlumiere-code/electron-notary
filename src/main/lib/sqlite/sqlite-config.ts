@@ -21,15 +21,15 @@ try {
   db.exec(`
     CREATE TABLE IF NOT EXISTS person_data_sheets (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      lastName TEXT NOT NULL,
+      name TEXT,
+      lastName TEXT,
       gender TEXT CHECK (gender IN ('Masculino', 'Femenino', 'Otro')),
-      nationality TEXT NOT NULL,
+      nationality TEXT,
       documentType TEXT CHECK (documentType IN ('DNI', 'LC', 'LE', 'Pasaporte', 'Otro')),
-      documentNumber INTEGER NOT NULL,
-      CUIT_L INTEGER NOT NULL,
-      birthdate TEXT NOT NULL,
-      birthplace TEXT NOT NULL,
+      documentNumber INTEGER,
+      CUIT_L INTEGER,
+      birthdate TEXT,
+      birthplace TEXT,
       maritalStatus TEXT CHECK (maritalStatus IN ('Soltero', 'Casado', 'Divorciado', 'Viudo')),
       fatherName TEXT,
       motherName TEXT,
@@ -42,12 +42,12 @@ try {
       divorce TEXT,
       widowNumber INTEGER,
       numberOfChildren INTEGER,
-      address TEXT NOT NULL,
-      city TEXT NOT NULL,
-      profession TEXT NOT NULL,
+      address TEXT,
+      city TEXT,
+      profession TEXT,
       phoneNumber INTEGER,
       mobileNumber INTEGER,
-      email TEXT NOT NULL,
+      email TEXT,
       isPoliticallyExposed INTEGER CHECK (isPoliticallyExposed IN (0, 1)),
       politicalPosition TEXT,
       originOfFunds TEXT,
@@ -61,29 +61,29 @@ try {
 
     CREATE TABLE IF NOT EXISTS legal_person_data_sheets (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      businessName TEXT NOT NULL,
-      CUIT INTEGER NOT NULL,
-      legalAddress TEXT NOT NULL,
-      mainActivity TEXT NOT NULL,
-      instrumentOfConstitution TEXT NOT NULL,
-      registrationDate TEXT NOT NULL,
+      businessName TEXT,
+      CUIT INTEGER,
+      legalAddress TEXT,
+      mainActivity TEXT,
+      instrumentOfConstitution TEXT,
+      registrationDate TEXT,
       registrationOffice TEXT CHECK (registrationOffice IN ('DPPJ', 'IGJ')),
       registeredOfficePhone INTEGER,
       registeredOfficeAddress TEXT,
-      registeredOfficeEmail TEXT NOT NULL,
+      registeredOfficeEmail TEXT,
       statuteCopy TEXT,
       proceedingsCopy TEXT,
       balanceCopy TEXT,
       attachedFile TEXT,
-      representativeData TEXT NOT NULL,
-      enrollment TEXT NOT NULL,
-      file TEXT NOT NULL
+      representativeData TEXT,
+      enrollment TEXT,
+      file TEXT
     );
 
     CREATE TABLE IF NOT EXISTS activity (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      date TEXT NOT NULL,
-      act TEXT NOT NULL,
+      date TEXT,
+      act TEXT,
       bill TEXT,
       observations TEXT,
       attachedFiles TEXT,
@@ -96,8 +96,8 @@ try {
 
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      username TEXT NOT NULL,
-      password TEXT NOT NULL
+      username TEXT,
+      password TEXT
     );
   `)
 
