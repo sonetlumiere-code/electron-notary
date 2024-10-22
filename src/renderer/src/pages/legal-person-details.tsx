@@ -100,24 +100,24 @@ const LegalPersonDetailsPage = () => {
             <div className="relative grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               <div className="grid gap-1">
                 <p className="text-sm font-medium leading-none">Razón social</p>
-                <p className="text-sm text-muted-foreground">{legalPerson.businessName}</p>
+                <p className="text-sm text-muted-foreground">{legalPerson.businessName || "-"}</p>
               </div>
               <div className="grid gap-1">
                 <p className="text-sm font-medium leading-none">CUIT</p>
-                <p className="text-sm text-muted-foreground">{legalPerson.CUIT}</p>
+                <p className="text-sm text-muted-foreground">{legalPerson.CUIT || "-"}</p>
               </div>
               <div className="grid gap-1">
                 <p className="text-sm font-medium leading-none">Domicilio legal</p>
-                <p className="text-sm text-muted-foreground">{legalPerson.legalAddress}</p>
+                <p className="text-sm text-muted-foreground">{legalPerson.legalAddress || "-"}</p>
               </div>
               <div className="grid gap-1">
                 <p className="text-sm font-medium leading-none">Actividad principal</p>
-                <p className="text-sm text-muted-foreground">{legalPerson.mainActivity}</p>
+                <p className="text-sm text-muted-foreground">{legalPerson.mainActivity || "-"}</p>
               </div>
               <div className="grid gap-1">
                 <p className="text-sm font-medium leading-none">Instrumento de Constitución</p>
                 <p className="text-sm text-muted-foreground">
-                  {legalPerson.instrumentOfConstitution}
+                  {legalPerson.instrumentOfConstitution || "-"}
                 </p>
               </div>
               <div className="grid gap-1">
@@ -125,38 +125,46 @@ const LegalPersonDetailsPage = () => {
                 <p className="text-sm text-muted-foreground">
                   {legalPerson.registrationDate
                     ? format(toZonedTime(legalPerson.registrationDate, "UTC"), "dd/MM/yyyy")
-                    : "N/A"}
+                    : "-"}
                 </p>
               </div>
               <div className="grid gap-1">
                 <p className="text-sm font-medium leading-none">Lugar de inscripción</p>
-                <p className="text-sm text-muted-foreground">{legalPerson.registrationOffice}</p>
+                <p className="text-sm text-muted-foreground">
+                  {legalPerson.registrationOffice || "-"}
+                </p>
               </div>
               <div className="grid gap-1">
                 <p className="text-sm font-medium leading-none">Matrícula</p>
-                <p className="text-sm text-muted-foreground">{legalPerson.enrollment}</p>
+                <p className="text-sm text-muted-foreground">{legalPerson.enrollment || "-"}</p>
               </div>
               <div className="grid gap-1">
                 <p className="text-sm font-medium leading-none">Legajo</p>
-                <p className="text-sm text-muted-foreground">{legalPerson.file}</p>
+                <p className="text-sm text-muted-foreground">{legalPerson.file || "-"}</p>
               </div>
               <div className="grid gap-1">
                 <p className="text-sm font-medium leading-none">Teléfono de la sede social</p>
-                <p className="text-sm text-muted-foreground">{legalPerson.registeredOfficePhone}</p>
+                <p className="text-sm text-muted-foreground">
+                  {legalPerson.registeredOfficePhone || "-"}
+                </p>
               </div>
               <div className="grid gap-1">
                 <p className="text-sm font-medium leading-none">Domicilio de la sede social</p>
                 <p className="text-sm text-muted-foreground">
-                  {legalPerson.registeredOfficeAddress}
+                  {legalPerson.registeredOfficeAddress || "-"}
                 </p>
               </div>
               <div className="grid gap-1">
                 <p className="text-sm font-medium leading-none">Email de la sede social</p>
-                <p className="text-sm text-muted-foreground">{legalPerson.registeredOfficeEmail}</p>
+                <p className="text-sm text-muted-foreground">
+                  {legalPerson.registeredOfficeEmail || "-"}
+                </p>
               </div>
               <div className="grid gap-1 self-start">
                 <p className="text-sm font-medium leading-none">Datos del representante</p>
-                <p className="text-sm text-muted-foreground">{legalPerson.representativeData}</p>
+                <p className="text-sm text-muted-foreground">
+                  {legalPerson.representativeData || "-"}
+                </p>
               </div>
               <div className="grid gap-1">
                 <p className="text-sm font-medium leading-none">Copia del estatuto</p>
@@ -236,6 +244,7 @@ const LegalPersonDetailsPage = () => {
             </div>
           )}
         </CardContent>
+
         <CardFooter></CardFooter>
       </Card>
 

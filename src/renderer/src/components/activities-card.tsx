@@ -100,7 +100,7 @@ const ActivitiesCard = ({ isPerson, id }: ActivitiesCardProp) => {
                         <div className="grid gap-1 self-start">
                           <p className="text-sm font-medium leading-none">Acto</p>
                           <p className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
-                            {activity.act}
+                            {activity.act ? activity.act : "-"}
                           </p>
                         </div>
                         <div className="grid gap-1 self-start">
@@ -127,7 +127,7 @@ const ActivitiesCard = ({ isPerson, id }: ActivitiesCardProp) => {
                         <div className="grid gap-1 self-start">
                           <p className="text-sm font-medium leading-none">Observaciones</p>
                           <p className="text-sm text-muted-foreground max-w-full overflow-hidden text-ellipsis break-words">
-                            {activity.observations}
+                            {activity.observations ? activity.observations : "-"}
                           </p>
                         </div>
                         <div className="grid gap-1 self-start">

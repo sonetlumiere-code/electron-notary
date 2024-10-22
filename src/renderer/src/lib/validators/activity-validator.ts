@@ -8,7 +8,10 @@ export const zodActivitySchema = z.object({
       })
     })
     .optional(),
-  act: z.string().min(1, { message: "Ingresa el acto." }).optional(),
+  act: z
+    .string()
+    //.min(1, { message: "Ingresa el acto." })
+    .optional(),
   bill: z.any().optional(),
   observations: z.string().optional(),
   attachedFiles: z.any().optional()
